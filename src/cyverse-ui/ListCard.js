@@ -1,0 +1,56 @@
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import injectSheet, { withTheme } from "react-jss";
+import classnames from "classnames";
+import Element from "./Element";
+import ListCardHeader from "./ListCardHeader";
+import ListCardIdentity from "./ListCardIdentity";
+import ListCardSummary from "./ListCardSummary";
+import ListCardActions from "./ListCardActions";
+import ListCardDetail from "./ListCardDetail";
+
+// Each key of the returned object will be available as a className below.
+const styles = theme => {
+    return {
+        wrapper: {
+            position: "relative",
+            transition: "all ease .1s",
+            background: "white",
+            ...theme.elevation.elevation2,
+        },
+        wrapper__isExpanded: {
+            margin: "32px -16px",
+            ...theme.elevation.elevation6,
+        },
+    };
+};
+
+/**
+ * ListCard and it's corresponding child components are used for listing entities that require more information and actions than MUI's `ListItem`.
+ *
+ * ListCard components are primatives that requires manual control and structure but offer more flexibility as a result. See `MediaCard` for a higher level "automagic" solution or an example of what can be done.
+ */
+const ListCard = ({ children, classes, className, isExpanded, ...rest }) => {
+        const ListCardClasses = classnames(
+            { [className]: className },
+            "CY-ListCard",
+            classes.wrapper,
+            { [classes.wrapper__isExpanded]: isExpanded }
+        );
+
+        return (
+            <Element {...rest} className={ListCardClasses}>
+                {children}
+            </Element>
+        );
+    }
+ListCard.displayName = "ListCard";
+
+ListCard.propTypes = {
+    /**
+     * Expects...
+     */
+    children: PropTypes.node,
+};
+
+export default withTheme(injectSheet(styles)(ListCard));
