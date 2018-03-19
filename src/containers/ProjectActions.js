@@ -1,11 +1,8 @@
 import React from "react";
 import injectSheet from "react-jss";
 import { IconButton, MenuItem } from "material-ui";
-import RefreshIcon from "material-ui/svg-icons/navigation/refresh";
-import DesktopIcon from "material-ui/svg-icons/hardware/desktop-mac";
 import EditIcon from "material-ui/svg-icons/image/edit";
-import PauseIcon from "material-ui/svg-icons/av/pause"
-import { ConsoleIcon, IntercomIcon } from "cyverse-ui/es/icons";
+import { IntercomIcon } from "cyverse-ui/es/icons";
 import { ActionGroup, VerticalMenu } from "../cyverse-ui";
 const styles = {
     wrapper: {
@@ -23,31 +20,16 @@ const ImageActions = ({hideQuickActions, classes}) => (
         <ActionGroup hide={hideQuickActions}
             className={classes.quickActions}
         >
-            <IconButton tooltip="Pause Instance">
-                <PauseIcon/>
-            </IconButton>
-            <IconButton tooltip="Open Remote Desktop">
-                <DesktopIcon/>
-            </IconButton>
-            <IconButton tooltip="Open Terminal">
-                <ConsoleIcon/>
-            </IconButton>
+        <IconButton>
+            <EditIcon/>
+        </IconButton>
         </ActionGroup>
         <VerticalMenu>
             <MenuItem
-                primaryText="Reboot"
+                primaryText="Share"
             />
             <MenuItem
                 primaryText="Delete"
-            />
-            <MenuItem
-                primaryText="Attach Volume"
-            />
-            <MenuItem
-                primaryText="Move To Project"
-            />
-            <MenuItem
-                primaryText="Request Image"
             />
             <MenuItem
                 primaryText="Report Issue"

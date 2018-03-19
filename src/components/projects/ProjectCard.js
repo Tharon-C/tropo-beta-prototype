@@ -9,7 +9,7 @@ import ShareIcon from "material-ui/svg-icons/social/share";
 import FavoritedBorderIcon from "material-ui/svg-icons/action/favorite-border";
 import { Tabs, Tab } from "material-ui";
 import FolderIcon from "material-ui/svg-icons/file/folder";
-import InstanceActions from "../../containers/InstanceActions";
+import ProjectActions from "../../containers/ProjectActions";
 import ProjectInfo from "./ProjectInfo";
 import Tag from "../Tag";
 import tags from "../../TAG_DATA.json";
@@ -43,7 +43,7 @@ const summaryStyles = theme => ({
   headerWrapper: {
     position: "sticky",
     top: "48px",
-    zIndex: 9999,
+    zIndex: 9998,
   },
   header: {
     minHeight: "48px"
@@ -120,7 +120,7 @@ class ProjectCard extends Component {
           <ListCardSummary hide={isExpanded}>
             <ProjectSummary image={image} />
           </ListCardSummary>
-          <InstanceActions
+          <ProjectActions
             hideQuickActions={isExpanded ? false : !this.state.isHovered}
             isHoveredimage={image}
           />

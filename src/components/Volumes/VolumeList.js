@@ -11,7 +11,7 @@ const VolumeList = ({ loadMoreEnteries }) => {
     <section style={{ maxWidth: "1000px", margin: "auto" }}>
       <VolumeListHeader/>
       <MediaCardGroup>
-        {images.slice(0,25).map((image, i) => {
+        {images.slice(0,8).map((image, i) => {
           return (
             <VolumeCard key={image.id} image={image}/>
           );

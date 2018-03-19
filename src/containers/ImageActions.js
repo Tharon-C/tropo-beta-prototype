@@ -14,9 +14,6 @@ const styles = {
         background: "linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 20%,rgba(255,255,255,1) 56%);",
         paddingLeft: "50px" 
     },
-    quickActions: {
-
-    }
 }
 const ImageActions = ({hideQuickActions, classes}) => (
     <ActionGroup className={classes.wrapper} stopPropagation>

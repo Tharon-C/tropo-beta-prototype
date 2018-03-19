@@ -44,7 +44,7 @@ const summaryStyles = theme => ({
   },
   headerWrapper: {
     position: "sticky",
-    zIndex: "9999",
+    zIndex: "9998",
     top: "48px",
   },
   header: {

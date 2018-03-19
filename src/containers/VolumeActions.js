@@ -5,7 +5,7 @@ import RefreshIcon from "material-ui/svg-icons/navigation/refresh";
 import DesktopIcon from "material-ui/svg-icons/hardware/desktop-mac";
 import EditIcon from "material-ui/svg-icons/image/edit";
 import PauseIcon from "material-ui/svg-icons/av/pause";
-import { AttachIcon, IntercomIcon } from "cyverse-ui/es/icons";
+import { AttachInstanceIcon, IntercomIcon } from "cyverse-ui/es/icons";
 import { ActionGroup, VerticalMenu } from "../cyverse-ui";
 const styles = {
   wrapper: {
@@ -20,8 +20,8 @@ const styles = {
 const ImageActions = ({ hideQuickActions, classes }) => (
   <ActionGroup className={classes.wrapper} stopPropagation>
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
-      <IconButton tooltip="Pause Instance">
-        <AttachIcon />
+      <IconButton tooltip="Attach to Instance">
+      <AttachInstanceIcon/>
       </IconButton>
     </ActionGroup>
     <VerticalMenu>

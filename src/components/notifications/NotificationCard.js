@@ -7,7 +7,7 @@ import MenuItem from "material-ui/MenuItem";
 import WarningIcon from "material-ui/svg-icons/alert/warning";
 import { Tabs, Tab } from "material-ui";
 import { LaunchIcon, AttachInstanceIcon, DetachInstanceIcon } from "../../cyverse-ui/icons";
-import InstanceActions from "../../containers/InstanceActions";
+//import InstanceActions from "../../containers/InstanceActions";
 import NotificationInfo from "./NotificationInfo";
 import Tag from "../Tag";
 import tags from "../../TAG_DATA.json";
@@ -169,9 +169,6 @@ class ImageCard extends Component {
           <ListCardSummary hide={isExpanded}>
             <ImageSummary summaryMessage={summaryMessage} />
           </ListCardSummary>
-          <InstanceActions
-            hideQuickActions={isExpanded ? false : !this.state.isHovered}
-          />
         </ListCardHeader>
         <ListCardDetail hide={!isExpanded} />
       </ListCard>
