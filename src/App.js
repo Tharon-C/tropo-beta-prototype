@@ -11,7 +11,7 @@ import { Route, Link } from 'react-router-dom'
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import cyverseTheme from "cyverse-ui/es/styles/cyverseTheme";
 import Sidebar from "./containers/SideBar";
-import AppBar from "./components/AppBar";
+import AppBar from "./containers/AppBar";
 import ImageCatalog from "./views/ImageCatalog";
 import Instances from './views/Instances';
 import Volumes from './views/Volumes';
