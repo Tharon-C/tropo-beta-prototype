@@ -28,20 +28,15 @@ import {
 
 const ImageIdentity = ({ image }) => (
   <Identity
-    image={
-      image.avatar ? (
-        <Avatar backgroundColor="#EFEFEF" src={image.avatar} />
-      ) : (
-        <Avatar
-          children={image.name[0]}
+        image={ <Avatar
+          children={"V1"}
           backgroundColor={randomcolor({
             seed: image.name
           })}
           color="rgba(255,255,255,.7)"
         />
-      )
     }
-    primaryText={image.name}
+    primaryText={"Version 1"}
     secondaryText="Created May 8, 2017"
   />
 );
@@ -50,19 +45,11 @@ const ImageSummary = ({ image }) => {
   return (
     <div style={{ padding: "8px 0px" }}>
       <SummaryText>{image.summary}</SummaryText>
-      <div style={{ paddingTop: "8px" }}>
-        {image.tags.slice(0, 6).map(({ id }) => {
-          return <Tag label={get.byId(id)(tags).name} />;
-        })}
-        {image.tags.length > 6 ? (
-          <ShowMoreEllipsis style={{ display: "inlineBlock" }} />
-        ) : null}
-      </div>
     </div>
   );
 };
 
-const ImageDetailTabs = ({ image, onTabClick, ...rest }) => (
+const ImageDetailTabs = ({ image, ...rest }) => (
   <Element {...rest}>
     <Tabs
       style={{
@@ -70,30 +57,20 @@ const ImageDetailTabs = ({ image, onTabClick, ...rest }) => (
         maxWidth: "400px"
       }}
     >
-      <Tab label="Info"
-        data-route="info"
-        onActive={onTabClick}
-      />
-      <Tab label="Versions" 
-          data-route="versions"
-          onActive={onTabClick}
-      />
+      <Tab label="Info" />
+      <Tab label="Versions" />
     </Tabs>
   </Element>
 );
 
 class ImageCard extends Component {
-  state = { isHovered: false, view: "info" };
+  state = { isHovered: false };
   onMouseEnter = () => {
     this.setState({ isHovered: true });
   };
   onMouseLeave = () => {
     this.setState({ isHovered: false });
   };
-
-  onTabClick = (tab) => {
-    this.setState({ view: tab.props["data-route"]})
-  }
   render() {
     const { onExpand, isExpanded, image, ...rest } = this.props;
     return (
@@ -114,9 +91,9 @@ class ImageCard extends Component {
             isHoveredimage={image}
           />
         </ListCardHeader>
-        <ImageDetailTabs hide={!isExpanded} onTabClick={this.onTabClick}/>
+        <ImageDetailTabs hide={!isExpanded} />
         <ListCardDetail hide={!isExpanded}>
-          <ImageInfo view={this.state.view} image={image} />
+          <ImageInfo view={"info"} image={image} />
         </ListCardDetail>
       </ListCard>
     );
