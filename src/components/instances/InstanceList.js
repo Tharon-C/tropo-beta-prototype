@@ -6,12 +6,12 @@ import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import InstanceCard, {InstanceListHeader} from "./InstanceCard";
 
-const ImageList = ({ loadMoreEnteries }) => {
+const ImageList = ({ loadMoreEnteries, range }) => {
   return (
     <section style={{ maxWidth: "1000px", margin: "auto" }}>
       <InstanceListHeader/>
       <MediaCardGroup>
-        {images.slice(0,25).map((image, i) => {
+      {images.slice(range ? range[0] :  3, range ? range[1] : 15).map((image, i) =>{
           return (
             <InstanceCard key={image.id} image={image}/>
           );

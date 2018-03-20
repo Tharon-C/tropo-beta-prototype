@@ -1,6 +1,7 @@
 import React from "react";
 import injectSheet from "react-jss";
 import { IconButton, MenuItem } from "material-ui";
+import {withRouter} from 'react-router-dom';
 import RefreshIcon from "material-ui/svg-icons/navigation/refresh";
 import DesktopIcon from "material-ui/svg-icons/hardware/desktop-mac";
 import EditIcon from "material-ui/svg-icons/image/edit";
@@ -56,4 +57,4 @@ const ImageActions = ({hideQuickActions, classes}) => (
     </ActionGroup>
 )
 
-export default injectSheet(styles)(ImageActions);
+export default withRouter(injectSheet(styles)(ImageActions));

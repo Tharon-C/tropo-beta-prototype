@@ -78,7 +78,7 @@ const styles = {
             fontSize: "12px",
             lineHeight: "1",
             fontWeight: "200",
-            color: "rgba(0, 0, 0, 0.3)",
+            color: "rgba(0, 0, 0, 0.7)",
             margin: "0px 0px 10px",
         },
     },

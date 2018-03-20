@@ -8,9 +8,10 @@ import IconButton from "material-ui/IconButton";
 import ShareIcon from "material-ui/svg-icons/social/share";
 import FavoritedBorderIcon from "material-ui/svg-icons/action/favorite-border";
 import { Tabs, Tab } from "material-ui";
-import InstanceIcon from "../../icons/InstanceIcon";
-import InstanceActions from "../../containers/InstanceActions";
-import InstanceInfo from "./InstanceInfo";
+import {LinkIcon} from "../../cyverse-ui/icons";
+import ProjectActions from "../../containers/ProjectActions";
+import LinkInfo from "./LinkInfo";
+import LinksTabs from "./LinkTabs";
 import Tag from "../Tag";
 import tags from "../../TAG_DATA.json";
 
@@ -27,9 +28,9 @@ import {
   ShowMoreEllipsis
 } from "../../cyverse-ui/";
 
-const ImageIdentity = ({ image }) => (
+const ProjectIdentity = ({ image }) => (
   <Identity
-    image={<Avatar color="black" backgroundColor="none" icon={<InstanceIcon />} />}
+    image={<Avatar color="black" backgroundColor="none" icon={<LinkIcon />} />}
     primaryText={image.name}
     secondaryText="Created May 8, 2017"
   />
@@ -42,11 +43,11 @@ const summaryStyles = theme => ({
   },
   headerWrapper: {
     position: "sticky",
-    zIndex: "898",
     top: "48px",
+    zIndex: 898,
   },
   header: {
-    minHeight: "48px",
+    minHeight: "48px"
   },
   checkbox: {
     marginLeft: "6px",
@@ -70,19 +71,15 @@ const summaryStyles = theme => ({
   }
 });
 
-const ImageSummary = withTheme(
+const ProjectSummary = withTheme(
   injectSheet(summaryStyles)(({ image, classes }) => (
     <Element className={classes.wraper}>
-      <Element className={`${classes.cell} ${classes.activity}`}>
-        <div className={classes.statusLight} /> Active
-      </Element>
-      <Element className={classes.cell}>Large1</Element>
-      <Element className={classes.cell}>CYMAR</Element>
+      <SummaryText>{image.summary}</SummaryText>
     </Element>
   ))
 );
 
-export const InstanceListHeader = withTheme(
+export const ProjectListHeader = withTheme(
   injectSheet(summaryStyles)(({ image, classes }) => (
     <ListCard className={classes.headerWrapper} whitespace="mb1">
     <ListCardHeader className={classes.header}>
@@ -94,27 +91,24 @@ export const InstanceListHeader = withTheme(
           Name</Element>
       </ListCardIdentity>
       <ListCardSummary>
-        <Element className={classes.wraper}>
-          <Element className={`${classes.cell} ${classes.activity}`}>
-          <Element typography="label">Status</Element>
-          </Element>
-          <Element className={classes.cell}> <Element typography="label">Size</Element></Element>
-          <Element className={classes.cell}> <Element typography="label">Provider</Element></Element>
-        </Element>
+        <Element typography="label">Summary</Element>
       </ListCardSummary>
     </ListCardHeader>
     </ListCard>
   ))
 );
 
-class ImageCard extends Component {
-  state = { isHovered: false };
+class ProjectCard extends Component {
+  state = { isHovered: false, view: "info" };
   onMouseEnter = () => {
     this.setState({ isHovered: true });
   };
   onMouseLeave = () => {
     this.setState({ isHovered: false });
   };
+  onTabClick = (tab) => {
+    this.setState({ view: tab.props["data-route"]})
+  }
   render() {
     const { onExpand, isExpanded, image, ...rest } = this.props;
     return (
@@ -125,22 +119,22 @@ class ImageCard extends Component {
           onMouseLeave={this.onMouseLeave}
         >
           <ListCardIdentity>
-            <ImageIdentity image={image} />
+            <ProjectIdentity image={image} />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
-            <ImageSummary image={image} />
+            <ProjectSummary image={image} />
           </ListCardSummary>
-          <InstanceActions
+          <ProjectActions
             hideQuickActions={isExpanded ? false : !this.state.isHovered}
             isHoveredimage={image}
           />
         </ListCardHeader>
         <ListCardDetail hide={!isExpanded}>
-          <InstanceInfo image={image} />
+          <LinkInfo image={image} view={this.state.view}/>
         </ListCardDetail>
       </ListCard>
     );
   }
 }
 
-export default ImageCard;
+export default ProjectCard;

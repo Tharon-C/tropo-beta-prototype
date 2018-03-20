@@ -42,7 +42,7 @@ const ImageIdentity = ({ image }) => (
       )
     }
     primaryText={image.name}
-    secondaryText="Created May 8, 2017"
+    secondaryText="Updated May 8, 2017"
   />
 );
 

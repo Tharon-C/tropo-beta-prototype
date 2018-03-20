@@ -11,6 +11,7 @@ import { Tabs, Tab } from "material-ui";
 import FolderIcon from "material-ui/svg-icons/file/folder";
 import ProjectActions from "../../containers/ProjectActions";
 import ProjectInfo from "./ProjectInfo";
+import ProjectTabs from "./ProjectTabs";
 import Tag from "../Tag";
 import tags from "../../TAG_DATA.json";
 
@@ -43,7 +44,7 @@ const summaryStyles = theme => ({
   headerWrapper: {
     position: "sticky",
     top: "48px",
-    zIndex: 9998,
+    zIndex: 898,
   },
   header: {
     minHeight: "48px"
@@ -98,17 +99,21 @@ export const ProjectListHeader = withTheme(
 );
 
 class ProjectCard extends Component {
-  state = { isHovered: false };
+  state = { isHovered: false, view: "info" };
   onMouseEnter = () => {
     this.setState({ isHovered: true });
   };
   onMouseLeave = () => {
     this.setState({ isHovered: false });
   };
+  onTabClick = (tab) => {
+    this.setState({ view: tab.props["data-route"]})
+  }
   render() {
     const { onExpand, isExpanded, image, ...rest } = this.props;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
+        <div style={isExpanded ? {position: "sticky", top: "48px", background: "white", zIndex: "899"}: null}>
         <ListCardHeader
           onClick={onExpand}
           onMouseEnter={this.onMouseEnter}
@@ -125,8 +130,10 @@ class ProjectCard extends Component {
             isHoveredimage={image}
           />
         </ListCardHeader>
+        <ProjectTabs hide={!isExpanded} onTabClick={this.onTabClick} />
+        </div>
         <ListCardDetail hide={!isExpanded}>
-          <ProjectInfo image={image} />
+          <ProjectInfo image={image} view={this.state.view}/>
         </ListCardDetail>
       </ListCard>
     );

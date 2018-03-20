@@ -30,7 +30,7 @@ const ListCardSummary = ({
     return (
         <Element
             {...rest}
-            whitespace="mr3"
+            whitespace="mr13"
             className={wrapperClasses}
         >
             {children}

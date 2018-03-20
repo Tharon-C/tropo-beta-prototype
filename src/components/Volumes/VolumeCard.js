@@ -3,6 +3,7 @@ import randomcolor from "randomcolor";
 import injectSheet, { withTheme } from "react-jss";
 import { Avatar, Checkbox } from "material-ui";
 import get from "../../utils/get";
+import styles from "../../styles/styles";
 import MenuItem from "material-ui/MenuItem";
 import IconButton from "material-ui/IconButton";
 import ShareIcon from "material-ui/svg-icons/social/share";
@@ -37,18 +38,17 @@ const VolumeIdentity = ({ image }) => (
   />
 );
 
+const { zIndex } = styles;
 const summaryStyles = theme => ({
   wraper: {
     display: "flex",
     padding: "8px 0px"
   },
-  headerWrapper: {
-    position: "sticky",
-    zIndex: "9998",
-    top: "48px",
-  },
   header: {
     minHeight: "48px",
+    position: "sticky",
+    zIndex: 898,
+    top: "48px",
   },
   checkbox: {
     marginLeft: "6px",

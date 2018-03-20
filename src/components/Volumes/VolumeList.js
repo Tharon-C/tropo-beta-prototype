@@ -6,12 +6,12 @@ import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import VolumeCard, {VolumeListHeader} from "./VolumeCard";
 
-const VolumeList = ({ loadMoreEnteries }) => {
+const VolumeList = ({ loadMoreEnteries, range }) => {
   return (
     <section style={{ maxWidth: "1000px", margin: "auto" }}>
       <VolumeListHeader/>
       <MediaCardGroup>
-        {images.slice(0,8).map((image, i) => {
+      {images.slice(range ? range[0] :  3, range ? range[1] : 15).map((image, i) =>{
           return (
             <VolumeCard key={image.id} image={image}/>
           );

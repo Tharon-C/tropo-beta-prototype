@@ -4,12 +4,7 @@ import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { HttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import { ThemeProvider } from "react-jss";
-
-import { Route, Link } from 'react-router-dom'
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import cyverseTheme from "cyverse-ui/es/styles/cyverseTheme";
+import { Route } from 'react-router-dom'
 import Sidebar from "./containers/SideBar";
 import AppBar from "./containers/AppBar";
 import ImageCatalog from "./views/ImageCatalog";
@@ -27,13 +22,9 @@ const client = new ApolloClient({
   link: new HttpLink({ uri: "http://localhost:7700/graphql" }),
   cache: new InMemoryCache()
 });
-const appTheme = getMuiTheme(cyverseTheme);
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider muiTheme={appTheme}>
-        <ThemeProvider theme={appTheme}>
-          <ApolloProvider client={client}>
             <div>
               <AppBar />
               <div
@@ -60,9 +51,6 @@ class App extends Component {
                 </main>
               </div>
             </div>
-          </ApolloProvider>
-        </ThemeProvider>
-      </MuiThemeProvider>
     );
   }
 }

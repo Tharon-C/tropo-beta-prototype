@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import randomcolor from "randomcolor";
+import injectSheet from "react-jss";
 import { Avatar } from "material-ui";
 import get from "../../utils/get";
 import MenuItem from "material-ui/MenuItem";
@@ -28,26 +29,54 @@ import {
 
 const ImageIdentity = ({ image }) => (
   <Identity
-        image={ <Avatar
-          children={"V1"}
-          backgroundColor={randomcolor({
-            seed: image.name
-          })}
-          color="rgba(255,255,255,.7)"
-        />
+    image={
+      <Avatar
+        children={"V1"}
+        backgroundColor={randomcolor({
+          seed: image.name
+        })}
+        color="rgba(255,255,255,.7)"
+      />
     }
     primaryText={"Version 1"}
-    secondaryText="Created May 8, 2017"
+    secondaryText="Updated May 8, 2017"
   />
 );
 
-const ImageSummary = ({ image }) => {
-  return (
-    <div style={{ padding: "8px 0px" }}>
-      <SummaryText>{image.summary}</SummaryText>
-    </div>
-  );
+const summaryStyles = {
+  providerWrapper: {
+    display: "flex"
+  },
+  provider: {
+    width: "100px"
+  }
 };
+
+const ImageSummary = injectSheet(summaryStyles)(({ image, classes }) => {
+  return (
+    <Element whitespace="pv1">
+      <SummaryText whitespace="mb1">{image.summary}</SummaryText>
+      <Element
+        className={classes.providerWrapper}
+        style={{ display: "flex" }}
+        typography="caption"
+      >
+       <Element className={classes.provider} typography="label">
+          Providers:
+        </Element>
+        <Element className={classes.provider} typography="body2">
+          CYMAR,
+        </Element>
+        <Element className={classes.provider} typography="body2">
+          CYWRK,
+        </Element>
+        <Element className={classes.provider} typography="body2">
+          IPWRK
+        </Element>
+      </Element>
+    </Element>
+  );
+});
 
 const ImageDetailTabs = ({ image, ...rest }) => (
   <Element {...rest}>

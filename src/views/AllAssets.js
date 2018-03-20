@@ -25,7 +25,7 @@ const Instances = ({ classes }) => (
         top: 0,
         boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)",
         height: "48px",
-        zIndex: "9999",
+        zIndex: "900",
         padding: "0 120px 0 16px"
       }}
     > 

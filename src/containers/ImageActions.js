@@ -1,5 +1,9 @@
 import React from "react";
 import injectSheet from "react-jss";
+import { push } from "react-router-redux";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import {withRouter} from 'react-router-dom';
 import { IconButton, MenuItem } from "material-ui";
 import ShareIcon from "material-ui/svg-icons/social/share";
 import FavoriteIcon from "material-ui/svg-icons/action/favorite-border";
@@ -15,7 +19,7 @@ const styles = {
         paddingLeft: "50px" 
     },
 }
-const ImageActions = ({hideQuickActions, classes}) => (
+const ImageActions = ({hideQuickActions, pushInstanceLaunch, location, classes}) => (
     <ActionGroup className={classes.wrapper} stopPropagation>
         <ActionGroup hide={hideQuickActions}
             className={classes.quickActions}
@@ -26,7 +30,7 @@ const ImageActions = ({hideQuickActions, classes}) => (
             <IconButton>
                 <ShareIcon/>
             </IconButton>
-            <IconButton>
+            <IconButton onClick={() => pushInstanceLaunch(location.pathname)}>
                 <LaunchIcon/>
             </IconButton>
         </ActionGroup>
@@ -43,5 +47,12 @@ const ImageActions = ({hideQuickActions, classes}) => (
         </VerticalMenu>
     </ActionGroup>
 )
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      pushInstanceLaunch: (current) => push(current + "/instance-launch"),
+    },
+    dispatch
+  );
 
-export default injectSheet(styles)(ImageActions);
+export default withRouter(connect(null, mapDispatchToProps)(injectSheet(styles)(ImageActions)));

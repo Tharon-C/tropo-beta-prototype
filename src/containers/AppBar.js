@@ -6,7 +6,7 @@ import SearchBar from '../components/SearchBar';
 
 const AppBar = ({location}) => {
   console.log(location, "what");
-  const appName = location.pathname.slice(1).replace("-", " ")
+  const appName = location.pathname.slice(1).replace(/-/g, " ")
   return (
   <header
     style={{
@@ -16,7 +16,7 @@ const AppBar = ({location}) => {
       alignItems: 'center',
       height: 56,
       background: '#006ca9',
-      zIndex: 9999,
+      zIndex: 900,
       fontSize: '20px',
       color: 'white',
       padding: '0 16px',
@@ -25,7 +25,7 @@ const AppBar = ({location}) => {
     }}
   > 
     <div style={{display: 'flex', alignItems: 'center'}}>
-      <div style={{ display: 'flex', width: '235px' }}>
+      <div style={{ display: 'flex', minWidth: '235px', paddingRight: "16px" }}>
         <MenuIcon color="white" style={{ marginRight: '32px' }} /> {appName}
       </div>
       <SearchBar style={{ opacity: 0.3, width: '600px' }} /> 
