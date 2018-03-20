@@ -11,7 +11,7 @@ import {
 import LeftArrowIcon from "material-ui/svg-icons/navigation/arrow-back";
 import RightArrowIcon from "material-ui/svg-icons/navigation/arrow-forward";
 import SettingsIcon from "material-ui/svg-icons/action/settings";
-import { Element, Hr, MeterGauge } from "../../cyverse-ui";
+import { Element, Hr, MeterGauge, P } from "../../cyverse-ui";
 import ProjectList from "../projects/ProjectList";
 import ImageList from "../images/ImageList";
 
@@ -99,12 +99,12 @@ class LaunchWizard extends Component {
                 Select a Project
               </StepButton>
               <StepContent>
-                <p>
+                <P>
                   This is an optional step. Projects help organize Resources
                   into logical groupings and allow for sharing. If you want your
                   instance to be launched in a project, select a project from
                   the list or create a new one.
-                </p>
+                </P>
               </StepContent>
             </Step>
             <Step>
@@ -112,12 +112,12 @@ class LaunchWizard extends Component {
                 Select an Image
               </StepButton>
               <StepContent>
-                <p>
+                <P>
                   You have currently selected "Ubuntu no GUI". The Instance you
                   launch will be based on this Image. Images are snapshots of an
                   Instance at a point in time. Lanching an Image will create an
                   Instance of that snapshot for you to use.
-                </p>
+                </P>
               </StepContent>
             </Step>
             <Step>
@@ -125,12 +125,12 @@ class LaunchWizard extends Component {
                 Review Instance Info
               </StepButton>
               <StepContent>
-                <p>
+                <P>
                   We have prefilled defaults for you. Edit any field by clicking
                   on it. If you move on to Advanced options your changes will
                   persist. You will have a chance to review again before
                   launching.
-                </p>
+                </P>
               </StepContent>
             </Step>
           </Stepper>
