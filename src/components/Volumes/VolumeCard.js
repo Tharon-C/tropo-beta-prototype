@@ -59,6 +59,11 @@ const summaryStyles = theme => ({
     zIndex: 898,
     top: "48px",
   },
+  headerWrapper: {
+    position: "sticky",
+    top: "48px",
+    zIndex: 898
+  }, 
   checkbox: {
     marginLeft: "6px",
     marginRight: "6px",

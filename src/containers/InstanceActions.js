@@ -44,13 +44,13 @@ const ImageActions = ({ hideQuickActions, classes }) => (
 );
 export const InstanceBatchActions = props => (
   <ActionGroup {...props} stopPropagation>
-    <IconButton tooltip="Pause Instance">
+    <IconButton tooltip="Move Instance">
       <MoveIcon />
     </IconButton>
     <IconButton tooltip="Pause Instance">
       <PauseIcon />
     </IconButton>
-    <IconButton>
+    <IconButton tooltip="Delete Instance">
       <DeleteIcon />
     </IconButton>
   </ActionGroup>
