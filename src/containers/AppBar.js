@@ -5,7 +5,6 @@ import UserIcon from 'material-ui/svg-icons/action/account-circle';
 import SearchBar from '../components/SearchBar';
 
 const AppBar = ({location}) => {
-  console.log(location, "what");
   const appName = location.pathname.slice(1).replace(/-/g, " ")
   return (
   <header
