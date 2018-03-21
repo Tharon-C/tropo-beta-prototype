@@ -8,4 +8,5 @@ export { default as IPIcon } from './IPIcon';
 export { default as DetachInstanceIcon } from './DetachInstanceIcon';
 export { default as AttachInstanceIcon } from './AttachInstanceIcon';
 export { default as IntercomIcon } from './IntercomIcon';
+export{default as MoveIcon} from './MoveIcon'
 

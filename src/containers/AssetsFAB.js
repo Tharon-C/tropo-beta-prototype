@@ -1,4 +1,7 @@
-import React, {Component} from "react";
+import React, {Component} from "react";import { push } from "react-router-redux";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import {withRouter} from 'react-router-dom';
 import injectSheet from "react-jss";
 import FolderIcon from "material-ui/svg-icons/file/folder";
 import {
@@ -14,13 +17,13 @@ const styles = {
         position: "absolute",
         right: "24px",
         top: "24px"
-      }
+      },
 }
 
 class AssetsFAB extends Component {
     state = {isOpen: false}
     render() {
-        const {classes} = this.props;
+        const {classes, location, pushInstanceLaunch} = this.props;
         return (
             <div className={classes.wrapper}>
             <FloatingActionButton
@@ -37,6 +40,7 @@ class AssetsFAB extends Component {
               <FloatingActionButtonAction
                 tooltip="Create Instance"
                 children={<InstanceIcon />}
+                onClick={() => {pushInstanceLaunch(location.pathname)}}
               />
               <FloatingActionButtonAction
                 tooltip="Create Volume"
@@ -56,5 +60,11 @@ class AssetsFAB extends Component {
         )
     }
 }
-
-export default injectSheet(styles)(AssetsFAB)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      pushInstanceLaunch: (current) => push(current + "/instance-launch"),
+    },
+    dispatch
+  );
+export default withRouter(connect(null, mapDispatchToProps)(injectSheet(styles)(AssetsFAB)));

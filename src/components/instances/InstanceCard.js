@@ -9,7 +9,9 @@ import ShareIcon from "material-ui/svg-icons/social/share";
 import FavoritedBorderIcon from "material-ui/svg-icons/action/favorite-border";
 import { Tabs, Tab } from "material-ui";
 import InstanceIcon from "../../icons/InstanceIcon";
-import InstanceActions from "../../containers/InstanceActions";
+import InstanceActions, {
+  InstanceBatchActions
+} from "../../containers/InstanceActions";
 import InstanceInfo from "./InstanceInfo";
 import Tag from "../Tag";
 import tags from "../../TAG_DATA.json";
@@ -24,12 +26,23 @@ import {
   SummaryText,
   P,
   Element,
-  ShowMoreEllipsis
+  ShowMoreEllipsis,
+  Checkable
 } from "../../cyverse-ui/";
 
-const ImageIdentity = ({ image }) => (
+const ImageIdentity = ({ image, isCheckable, checked, onCheck }) => (
   <Identity
-    image={<Avatar color="black" backgroundColor="none" icon={<InstanceIcon />} />}
+    image={
+      <Checkable
+        isCheckable={isCheckable}
+        checkboxProps={{
+          checked,
+          onCheck
+        }}
+      >
+        <Avatar color="black" backgroundColor="none" icon={<InstanceIcon />} />
+      </Checkable>
+    }
     primaryText={image.name}
     secondaryText="Created May 8, 2017"
   />
@@ -43,14 +56,14 @@ const summaryStyles = theme => ({
   headerWrapper: {
     position: "sticky",
     zIndex: "898",
-    top: "48px",
+    top: "48px"
   },
   header: {
-    minHeight: "48px",
+    minHeight: "48px"
   },
   checkbox: {
     marginLeft: "6px",
-    marginRight: "6px",
+    marginRight: "6px"
   },
   cell: {
     width: "120px",
@@ -83,26 +96,32 @@ const ImageSummary = withTheme(
 );
 
 export const InstanceListHeader = withTheme(
-  injectSheet(summaryStyles)(({ image, classes }) => (
+  injectSheet(summaryStyles)(({ classes, onBatchClick, batchMode }) => (
     <ListCard className={classes.headerWrapper} whitespace="mb1">
-    <ListCardHeader className={classes.header}>
-      <ListCardIdentity>
-        <Element className={classes.checkbox}>
-          <Checkbox/>
-        </Element>
-        <Element typography="label">
-          Name</Element>
-      </ListCardIdentity>
-      <ListCardSummary>
-        <Element className={classes.wraper}>
-          <Element className={`${classes.cell} ${classes.activity}`}>
-          <Element typography="label">Status</Element>
+      <ListCardHeader className={classes.header}>
+        <ListCardIdentity>
+          <Element className={classes.checkbox}>
+            <Checkbox onCheck={onBatchClick} />
           </Element>
-          <Element className={classes.cell}> <Element typography="label">Size</Element></Element>
-          <Element className={classes.cell}> <Element typography="label">Provider</Element></Element>
-        </Element>
-      </ListCardSummary>
-    </ListCardHeader>
+          <Element hide={batchMode} typography="label">Name</Element>
+        </ListCardIdentity>
+        <ListCardSummary hide={batchMode}>
+          <Element className={classes.wraper}>
+            <Element className={`${classes.cell} ${classes.activity}`}>
+              <Element typography="label">Status</Element>
+            </Element>
+            <Element className={classes.cell}>
+              {" "}
+              <Element typography="label">Size</Element>
+            </Element>
+            <Element className={classes.cell}>
+              {" "}
+              <Element typography="label">Provider</Element>
+            </Element>
+          </Element>
+        </ListCardSummary>
+        <InstanceBatchActions whitespace="mr3" hide={!batchMode} />
+      </ListCardHeader>
     </ListCard>
   ))
 );
@@ -115,8 +134,19 @@ class ImageCard extends Component {
   onMouseLeave = () => {
     this.setState({ isHovered: false });
   };
+  onCheck = (e, state) => {
+    this.props.onCheck(e, state, this);
+  };
   render() {
-    const { onExpand, isExpanded, image, ...rest } = this.props;
+    const {
+      isCheckable,
+      onExpand,
+      checked,
+      isExpanded,
+      image,
+      ...rest
+    } = this.props;
+    const { isHovered } = this.state;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
@@ -125,7 +155,12 @@ class ImageCard extends Component {
           onMouseLeave={this.onMouseLeave}
         >
           <ListCardIdentity>
-            <ImageIdentity image={image} />
+            <ImageIdentity 
+            isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
+            image={image}
+            onCheck={this.onCheck}
+            checked={checked}
+            />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
             <ImageSummary image={image} />

@@ -3,9 +3,9 @@ import injectSheet from "react-jss";
 import { IconButton, MenuItem } from "material-ui";
 import RefreshIcon from "material-ui/svg-icons/navigation/refresh";
 import DesktopIcon from "material-ui/svg-icons/hardware/desktop-mac";
-import EditIcon from "material-ui/svg-icons/image/edit";
+import DeleteIcon from "material-ui/svg-icons/action/delete";
 import PauseIcon from "material-ui/svg-icons/av/pause";
-import { AttachInstanceIcon, IntercomIcon } from "cyverse-ui/es/icons";
+import { MoveIcon, DetachInstanceIcon, AttachInstanceIcon, IntercomIcon } from "../cyverse-ui/icons";
 import { ActionGroup, VerticalMenu } from "../cyverse-ui";
 const styles = {
   wrapper: {
@@ -20,8 +20,8 @@ const styles = {
 const ImageActions = ({ hideQuickActions, classes }) => (
   <ActionGroup className={classes.wrapper} stopPropagation>
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
-      <IconButton tooltip="Attach to Instance">
-      <AttachInstanceIcon/>
+      <IconButton tooltip="Detach from Instance">
+      <DetachInstanceIcon/>
       </IconButton>
     </ActionGroup>
     <VerticalMenu>
@@ -32,5 +32,17 @@ const ImageActions = ({ hideQuickActions, classes }) => (
     </VerticalMenu>
   </ActionGroup>
 );
-
+export const VolumeBatchActions = props => (
+  <ActionGroup {...props} stopPropagation>
+        <IconButton tooltip="Detach from Instance">
+        <DetachInstanceIcon/>
+    </IconButton>
+      <IconButton>
+        <MoveIcon tooltip="Move Volume"/>
+    </IconButton>
+    <IconButton tooltip="Delete Volume">
+      <DeleteIcon />
+    </IconButton>
+  </ActionGroup>
+);
 export default injectSheet(styles)(ImageActions);

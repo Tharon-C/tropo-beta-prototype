@@ -1,4 +1,9 @@
 import React, { Component } from "react";
+import { push } from "react-router-redux";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import {withRouter} from 'react-router-dom';
+import CircleCloseIcon from "material-ui/svg-icons/navigation/close"
 import { IconButton, RaisedButton, FlatButton, TextField } from "material-ui";
 import {
   stepper,
@@ -60,8 +65,9 @@ class LaunchWizard extends Component {
     );
   }
   render() {
+    const {leaveWizard, location} = this.props;
     const { stepIndex } = this.state;
-
+console.log(location)
     return (
       <Element
         root="section"
@@ -78,6 +84,18 @@ class LaunchWizard extends Component {
           zIndex: 9999
         }}
       >
+      <a style={{
+        position: "absolute",
+        right: "16px",
+        top: "6px",
+        fontSize: "18px",
+        textAlign: "center",
+        cursor: "pointer",
+        ontWeight: 500,
+     }} onClick={() => { leaveWizard(location.pathname) }} >
+     <CircleCloseIcon style={{width: 35, height: 35, display: "block" , borderRadius: "50%", border: "solid 2px rgba(0, 0, 0, 0.75)", marginBottom: "4px"}}/>
+     ESC
+     </a>
         <Element
           elevation={3}
           style={{
@@ -148,7 +166,7 @@ class LaunchWizard extends Component {
             />
           </Element>
         </Element>
-        <Element root="main" whitespace={["pt10"]} style={{ width: "100%" }}>
+        <Element root="main" whitespace={["pt10", "ps8"]} style={{ width: "100%", overflowX: "scroll" }}>
         { stepIndex === 2 ? (
           <Element
             whitespace="p3"
@@ -160,6 +178,7 @@ class LaunchWizard extends Component {
             }}
             elevation={2}
           >
+          
             <Element whitespace="mb3" style={{ display: "flex" }}>
               <Element whitespace="pr4" style={{ width: "100%" }}>
                 <Element typography="body2">Basic Information</Element>
@@ -190,7 +209,7 @@ class LaunchWizard extends Component {
                 afterValue={2}
                 alertMessage="Hey, let's not get greedy"
               />
-                            <MeterGauge
+              <MeterGauge
                 whitespace="mb3"
                 label="Memory"
                 data={`Will use 4GB of 16GB alloted Memory`}
@@ -200,7 +219,7 @@ class LaunchWizard extends Component {
               />
           </Element>) : null }
         { stepIndex === 0 ? (
-          <ProjectList range={[3 , 10]}/>
+          <ProjectList showHeader={false} range={[3 , 10]}/>
         ) : null }
         { stepIndex === 1 ? (
           <ImageList/>
@@ -210,5 +229,18 @@ class LaunchWizard extends Component {
     );
   }
 }
+function backOutURL(the_url)
+{
+    var the_arr = the_url.split('/');
+    the_arr.pop();
+    return( the_arr.join('/') );
+}
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      leaveWizard: (current) => push(backOutURL(current)),
+    },
+    dispatch
+  );
 
-export default LaunchWizard;
+export default withRouter(connect(null, mapDispatchToProps)(LaunchWizard));

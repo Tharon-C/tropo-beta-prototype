@@ -10,7 +10,7 @@ import ShareIcon from "material-ui/svg-icons/social/share";
 import FavoritedBorderIcon from "material-ui/svg-icons/action/favorite-border";
 import { Tabs, Tab } from "material-ui";
 import VolumeIcon from "../../icons/VolumeIcon";
-import VolumeActions from "../../containers/VolumeActions";
+import VolumeActions, {VolumeBatchActions} from "../../containers/VolumeActions";
 import VolumeInfo from "./VolumeInfo";
 import Tag from "../Tag";
 import tags from "../../TAG_DATA.json";
@@ -25,13 +25,22 @@ import {
   SummaryText,
   P,
   Element,
-  ShowMoreEllipsis
+  ShowMoreEllipsis,
+  Checkable
 } from "../../cyverse-ui/";
 
-const VolumeIdentity = ({ image }) => (
+const VolumeIdentity = ({ image, isCheckable, checked, onCheck }) => (
   <Identity
     image={
-      <Avatar color="black" backgroundColor="none" icon={<VolumeIcon/>} />
+      <Checkable
+        isCheckable={isCheckable}
+        checkboxProps={{
+          checked,
+          onCheck
+        }}
+      >
+        <Avatar color="black" backgroundColor="none" icon={<VolumeIcon />} />
+      </Checkable>
     }
     primaryText={image.name}
     secondaryText="Created May 8, 2017"
@@ -85,17 +94,17 @@ const VolumeSummary = withTheme(
 );
 
 export const VolumeListHeader = withTheme(
-  injectSheet(summaryStyles)(({ image, classes }) => (
+  injectSheet(summaryStyles)(({ image, classes,onBatchClick, batchMode }) => (
     <ListCard className={classes.headerWrapper} whitespace="mb1">
     <ListCardHeader className={classes.header}>
       <ListCardIdentity>
         <Element className={classes.checkbox}>
-          <Checkbox/>
+          <Checkbox onCheck={onBatchClick}/>
         </Element>
-        <Element typography="label">
+        <Element hide={batchMode} typography="label">
           Name</Element>
       </ListCardIdentity>
-      <ListCardSummary>
+      <ListCardSummary hide={batchMode}>
         <Element className={classes.wraper}>
           <Element className={`${classes.cell} ${classes.activity}`}>
           <Element typography="label">Status</Element>
@@ -104,6 +113,7 @@ export const VolumeListHeader = withTheme(
           <Element className={classes.cell}> <Element typography="label">Provider</Element></Element>
         </Element>
       </ListCardSummary>
+      <VolumeBatchActions whitespace="mr3" hide={!batchMode} />
     </ListCardHeader>
     </ListCard>
   ))
@@ -117,8 +127,19 @@ class VolumeCard extends Component {
   onMouseLeave = () => {
     this.setState({ isHovered: false });
   };
+  onCheck = (e, state) => {
+    this.props.onCheck(e, state, this);
+  };
   render() {
-    const { onExpand, isExpanded, image, ...rest } = this.props;
+    const {
+      isCheckable,
+      onExpand,
+      checked,
+      isExpanded,
+      image,
+      ...rest
+    } = this.props;
+    const { isHovered } = this.state;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
@@ -127,7 +148,12 @@ class VolumeCard extends Component {
           onMouseLeave={this.onMouseLeave}
         >
           <ListCardIdentity>
-            <VolumeIdentity image={image} />
+          <VolumeIdentity 
+            isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
+            image={image}
+            onCheck={this.onCheck}
+            checked={checked}
+            />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
             <VolumeSummary image={image} />

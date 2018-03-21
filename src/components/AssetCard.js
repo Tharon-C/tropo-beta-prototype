@@ -9,9 +9,7 @@ import ShareIcon from "material-ui/svg-icons/social/share";
 import FavoritedBorderIcon from "material-ui/svg-icons/action/favorite-border";
 import { Tabs, Tab } from "material-ui";
 import FolderIcon from "material-ui/svg-icons/file/folder";
-import ProjectActions, {
-  ProjectBatchActions
-} from "../../containers/ProjectActions";
+import ProjectActions, {ProjectBatchActions} from "../../containers/ProjectActions";
 import ProjectInfo from "./ProjectInfo";
 import ProjectTabs from "./ProjectTabs";
 import Tag from "../Tag";
@@ -34,13 +32,13 @@ import {
 const ProjectIdentity = ({ image, isCheckable, checked, onCheck }) => (
   <Identity
     image={
-      <Checkable
-        isCheckable={isCheckable}
-        checkboxProps={{
+      <Checkable isCheckable={isCheckable}
+        checkboxProps ={{
           checked,
           onCheck
         }}
       >
+      
         <Avatar color="black" backgroundColor="none" icon={<FolderIcon />} />
       </Checkable>
     }
@@ -107,7 +105,7 @@ export const ProjectListHeader = withTheme(
         <ListCardSummary hide={batchMode}>
           <Element typography="label">Summary</Element>
         </ListCardSummary>
-        <ProjectBatchActions whitespace="mr3" hide={!batchMode} />
+        <ProjectBatchActions whitespace="mr3" hide={!batchMode}/>
       </ListCardHeader>
     </ListCard>
   ))
@@ -125,18 +123,11 @@ class ProjectCard extends Component {
     this.setState({ view: tab.props["data-route"] });
   };
 
-  onCheck = (e, state) => {
-    this.props.onCheck(e, state, this);
-  };
+    onCheck = (e, state) => {
+      this.props.onCheck(e, state, this);
+    };
   render() {
-    const {
-      isCheckable,
-      onExpand,
-      checked,
-      isExpanded,
-      image,
-      ...rest
-    } = this.props;
+    const { isCheckable, onExpand, checked, isExpanded, image, ...rest } = this.props;
     const { isHovered } = this.state;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>

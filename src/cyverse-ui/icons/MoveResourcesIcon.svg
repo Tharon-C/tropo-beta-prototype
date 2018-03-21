@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>MoveResourcesIcon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M10,4 L12,6 L20,6 C21.1,6 22,6.9 22,8 L22,18 C22,19.1 21.1,20 20,20 L4,20 C2.9,20 2,19.1 2,18 L2.01,6 C2.01,4.9 2.9,4 4,4 L10,4 Z M11.1226016,15 L11.1226016,17.3964844 L17,12.8964844 L11.1226016,8.39648438 L11.1226016,11 L6.51123047,11 L6.51123047,15 L11.1226016,15 Z" id="path-1"></path>
+    </defs>
+    <g id="MoveResourcesIcon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Combined-Shape" fill="#D8D8D8" xlink:href="#path-1"></use>
+        <g id="Icon-Color" mask="url(#mask-2)" fill="#575757">
+            <g transform="translate(-4.000000, -4.000000)" id="Rectangle">
+                <rect x="0" y="0" width="38" height="38"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
