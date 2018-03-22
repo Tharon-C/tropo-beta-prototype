@@ -25,7 +25,7 @@ const AppBar = ({location}) => {
   > 
     <div style={{display: 'flex', alignItems: 'center'}}>
       <div style={{ display: 'flex', minWidth: '235px', paddingRight: "16px" }}>
-        <MenuIcon color="white" style={{ marginRight: '32px' }} /> {appName}
+        <MenuIcon color="white" style={{ marginRight: '32px' }} /> {appName ? appName : "Dashboard"}
       </div>
       <SearchBar style={{ opacity: 0.3, width: '600px' }} /> 
     </div>

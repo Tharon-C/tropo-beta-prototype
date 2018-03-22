@@ -28,7 +28,7 @@ class Instances extends Component {
             <AssetsFAB/>
         </div>
         <Element whitespace={["pv4", "ps13"]}>
-          <ProjectList />
+          <ProjectList isSticky/>
         </Element>
         <CommentLink href="https://projects.invisionapp.com/share/BXGE8OWQZ62#/screens/285754824/comments" />
       </React.Fragment>

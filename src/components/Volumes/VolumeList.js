@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import images from "../../IMAGE_DATA.json";
@@ -21,13 +21,14 @@ class VolumeList extends Component {
     this.setState({ selectedItems });
   };
   render() {
-    const { showHeader = true, loadMoreEnteries, range } = this.props;
+    const { showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
     return (
       <section style={{ maxWidth: "1000px", margin: "auto" }}>
         {showHeader ? (
           <VolumeListHeader
+            isSticky={isSticky}
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {
               this.setState({

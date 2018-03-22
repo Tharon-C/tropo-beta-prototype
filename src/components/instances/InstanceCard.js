@@ -13,8 +13,8 @@ import InstanceActions, {
   InstanceBatchActions
 } from "../../containers/InstanceActions";
 import InstanceInfo from "./InstanceInfo";
-import Tag from "../Tag";
-import tags from "../../TAG_DATA.json";
+import AssetListHeader from "../AssetListHeader";
+import AssetIdentity from "../AssetIdentity";
 
 import {
   ListCard,
@@ -22,27 +22,15 @@ import {
   ListCardHeader,
   ListCardSummary,
   ListCardIdentity,
-  Identity,
   SummaryText,
   P,
   Element,
-  ShowMoreEllipsis,
-  Checkable
 } from "../../cyverse-ui/";
 
-const ImageIdentity = ({ image, isCheckable, checked, onCheck }) => (
-  <Identity
-    image={
-      <Checkable
-        isCheckable={isCheckable}
-        checkboxProps={{
-          checked,
-          onCheck
-        }}
-      >
-        <Avatar color="black" backgroundColor="none" icon={<InstanceIcon />} />
-      </Checkable>
-    }
+const ImageIdentity = ({ image, ...rest }) => (
+  <AssetIdentity
+    {...rest}
+    icon={<InstanceIcon />}
     primaryText={image.name}
     secondaryText="Created May 8, 2017"
   />
@@ -52,18 +40,6 @@ const summaryStyles = theme => ({
   wraper: {
     display: "flex",
     padding: "8px 0px"
-  },
-  headerWrapper: {
-    position: "sticky",
-    zIndex: "898",
-    top: "48px"
-  },
-  header: {
-    minHeight: "48px"
-  },
-  checkbox: {
-    marginLeft: "6px",
-    marginRight: "6px"
   },
   cell: {
     width: "120px",
@@ -96,33 +72,26 @@ const ImageSummary = withTheme(
 );
 
 export const InstanceListHeader = withTheme(
-  injectSheet(summaryStyles)(({ classes, onBatchClick, batchMode }) => (
-    <ListCard className={classes.headerWrapper} whitespace="mb1">
-      <ListCardHeader className={classes.header}>
-        <ListCardIdentity>
-          <Element className={classes.checkbox}>
-            <Checkbox onCheck={onBatchClick} />
+  injectSheet(summaryStyles)(({ classes, ...rest }) => (
+    <AssetListHeader
+      {...rest}
+      summary={
+        <Element className={classes.wraper}>
+          <Element className={`${classes.cell} ${classes.activity}`}>
+            <Element typography="label">Status</Element>
           </Element>
-          <Element hide={batchMode} typography="label">Name</Element>
-        </ListCardIdentity>
-        <ListCardSummary hide={batchMode}>
-          <Element className={classes.wraper}>
-            <Element className={`${classes.cell} ${classes.activity}`}>
-              <Element typography="label">Status</Element>
-            </Element>
-            <Element className={classes.cell}>
-              {" "}
-              <Element typography="label">Size</Element>
-            </Element>
-            <Element className={classes.cell}>
-              {" "}
-              <Element typography="label">Provider</Element>
-            </Element>
+          <Element className={classes.cell}>
+            {" "}
+            <Element typography="label">Size</Element>
           </Element>
-        </ListCardSummary>
-        <InstanceBatchActions whitespace="mr3" hide={!batchMode} />
-      </ListCardHeader>
-    </ListCard>
+          <Element className={classes.cell}>
+            {" "}
+            <Element typography="label">Provider</Element>
+          </Element>
+        </Element>
+      }
+      actions={<InstanceBatchActions />}
+    />
   ))
 );
 
@@ -155,11 +124,11 @@ class ImageCard extends Component {
           onMouseLeave={this.onMouseLeave}
         >
           <ListCardIdentity>
-            <ImageIdentity 
-            isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
-            image={image}
-            onCheck={this.onCheck}
-            checked={checked}
+            <ImageIdentity
+              isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
+              image={image}
+              onCheck={this.onCheck}
+              checked={checked}
             />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>

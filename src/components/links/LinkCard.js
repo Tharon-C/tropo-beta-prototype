@@ -8,12 +8,16 @@ import IconButton from "material-ui/IconButton";
 import ShareIcon from "material-ui/svg-icons/social/share";
 import FavoritedBorderIcon from "material-ui/svg-icons/action/favorite-border";
 import { Tabs, Tab } from "material-ui";
-import {LinkIcon} from "../../cyverse-ui/icons";
-import ProjectActions from "../../containers/ProjectActions";
+import { LinkIcon } from "../../cyverse-ui/icons";
+import ProjectActions, {
+  ProjectBatchActions
+} from "../../containers/ProjectActions";
 import LinkInfo from "./LinkInfo";
 import LinksTabs from "./LinkTabs";
 import Tag from "../Tag";
 import tags from "../../TAG_DATA.json";
+import AssetListHeader from "../AssetListHeader";
+import AssetIdentity from "../AssetIdentity";
 
 import {
   ListCard,
@@ -28,9 +32,10 @@ import {
   ShowMoreEllipsis
 } from "../../cyverse-ui/";
 
-const ProjectIdentity = ({ image }) => (
-  <Identity
-    image={<Avatar color="black" backgroundColor="none" icon={<LinkIcon />} />}
+const ProjectIdentity = ({ image, ...rest }) => (
+  <AssetIdentity
+    {...rest}
+    icon={<LinkIcon />}
     primaryText={image.name}
     secondaryText="Created May 8, 2017"
   />
@@ -44,14 +49,14 @@ const summaryStyles = theme => ({
   headerWrapper: {
     position: "sticky",
     top: "48px",
-    zIndex: 898,
+    zIndex: 898
   },
   header: {
     minHeight: "48px"
   },
   checkbox: {
     marginLeft: "6px",
-    marginRight: "6px",
+    marginRight: "6px"
   },
   cell: {
     width: "120px",
@@ -80,21 +85,12 @@ const ProjectSummary = withTheme(
 );
 
 export const ProjectListHeader = withTheme(
-  injectSheet(summaryStyles)(({ image, classes }) => (
-    <ListCard className={classes.headerWrapper} whitespace="mb1">
-    <ListCardHeader className={classes.header}>
-      <ListCardIdentity>
-        <Element className={classes.checkbox}>
-          <Checkbox/>
-        </Element>
-        <Element typography="label">
-          Name</Element>
-      </ListCardIdentity>
-      <ListCardSummary>
-        <Element typography="label">Summary</Element>
-      </ListCardSummary>
-    </ListCardHeader>
-    </ListCard>
+  injectSheet(summaryStyles)(({ classes, ...rest }) => (
+    <AssetListHeader
+      {...rest}
+      summary={<Element typography="label">Summary</Element>}
+      actions={<ProjectBatchActions />}
+    />
   ))
 );
 
@@ -106,11 +102,22 @@ class ProjectCard extends Component {
   onMouseLeave = () => {
     this.setState({ isHovered: false });
   };
-  onTabClick = (tab) => {
-    this.setState({ view: tab.props["data-route"]})
-  }
+  onTabClick = tab => {
+    this.setState({ view: tab.props["data-route"] });
+  };
+  onCheck = (e, state) => {
+    this.props.onCheck(e, state, this);
+  };
   render() {
-    const { onExpand, isExpanded, image, ...rest } = this.props;
+    const {
+      isCheckable,
+      onExpand,
+      checked,
+      isExpanded,
+      image,
+      ...rest
+    } = this.props;
+    const { isHovered } = this.state;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
@@ -118,8 +125,14 @@ class ProjectCard extends Component {
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
         >
-          <ListCardIdentity>
-            <ProjectIdentity image={image} />
+          <ListCardIdentity
+
+          >
+            <ProjectIdentity 
+              isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
+              image={image}
+              onCheck={this.onCheck}
+              checked={checked} />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
             <ProjectSummary image={image} />
@@ -130,7 +143,7 @@ class ProjectCard extends Component {
           />
         </ListCardHeader>
         <ListCardDetail hide={!isExpanded}>
-          <LinkInfo image={image} view={this.state.view}/>
+          <LinkInfo image={image} view={this.state.view} />
         </ListCardDetail>
       </ListCard>
     );

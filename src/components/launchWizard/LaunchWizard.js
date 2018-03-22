@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { push } from "react-router-redux";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import {withRouter} from 'react-router-dom';
-import CircleCloseIcon from "material-ui/svg-icons/navigation/close"
+import { withRouter } from "react-router-dom";
+import CircleCloseIcon from "material-ui/svg-icons/navigation/close";
 import { IconButton, RaisedButton, FlatButton, TextField } from "material-ui";
 import {
   stepper,
@@ -17,7 +17,7 @@ import LeftArrowIcon from "material-ui/svg-icons/navigation/arrow-back";
 import RightArrowIcon from "material-ui/svg-icons/navigation/arrow-forward";
 import SettingsIcon from "material-ui/svg-icons/action/settings";
 import { Element, Hr, MeterGauge, P } from "../../cyverse-ui";
-import ProjectList from "../projects/ProjectList";
+import ProjectSelectableList from "../projects/ProjectSelectableList";
 import ImageList from "../images/ImageList";
 
 class LaunchWizard extends Component {
@@ -65,9 +65,9 @@ class LaunchWizard extends Component {
     );
   }
   render() {
-    const {leaveWizard, location} = this.props;
+    const { leaveWizard, location } = this.props;
     const { stepIndex } = this.state;
-console.log(location)
+    console.log(location);
     return (
       <Element
         root="section"
@@ -84,18 +84,32 @@ console.log(location)
           zIndex: 9999
         }}
       >
-      <a style={{
-        position: "absolute",
-        right: "16px",
-        top: "6px",
-        fontSize: "18px",
-        textAlign: "center",
-        cursor: "pointer",
-        ontWeight: 500,
-     }} onClick={() => { leaveWizard(location.pathname) }} >
-     <CircleCloseIcon style={{width: 35, height: 35, display: "block" , borderRadius: "50%", border: "solid 2px rgba(0, 0, 0, 0.75)", marginBottom: "4px"}}/>
-     ESC
-     </a>
+        <a
+          style={{
+            position: "absolute",
+            right: "16px",
+            top: "6px",
+            fontSize: "18px",
+            textAlign: "center",
+            cursor: "pointer",
+            ontWeight: 500
+          }}
+          onClick={() => {
+            leaveWizard(location.pathname);
+          }}
+        >
+          <CircleCloseIcon
+            style={{
+              width: 35,
+              height: 35,
+              display: "block",
+              borderRadius: "50%",
+              border: "solid 2px rgba(0, 0, 0, 0.75)",
+              marginBottom: "4px"
+            }}
+          />
+          ESC
+        </a>
         <Element
           elevation={3}
           style={{
@@ -166,34 +180,58 @@ console.log(location)
             />
           </Element>
         </Element>
-        <Element root="main" whitespace={["pt10", "ps8"]} style={{ width: "100%", overflowX: "scroll" }}>
-        { stepIndex === 2 ? (
-          <Element
-            whitespace="p3"
-            style={{
-              background: "white",
-              width: "100%",
-              maxWidth: "900px",
-              margin: "auto"
-            }}
-            elevation={2}
-          >
-          
-            <Element whitespace="mb3" style={{ display: "flex" }}>
-              <Element whitespace="pr4" style={{ width: "100%" }}>
-                <Element typography="body2">Basic Information</Element>
-                <TextField value={"Ubuntu 16, no-gui Base"} style={{width: "100%"}} floatingLabelText="Name" />
-                <TextField value="1" floatingLabelText="Number of Instances" />
+        <Element
+          root="main"
+          whitespace={["pt10", "ps10"]}
+          style={{ width: "100%", overflowX: "scroll" }}
+        >
+          {stepIndex === 2 ? (
+            <Element
+              whitespace="p3"
+              style={{
+                background: "white",
+                width: "100%",
+                maxWidth: "900px",
+                margin: "auto"
+              }}
+              elevation={2}
+            >
+              <Element whitespace="mb3" style={{ display: "flex" }}>
+                <Element whitespace="pr4" style={{ width: "100%" }}>
+                  <Element typography="body2">Basic Information</Element>
+                  <TextField
+                    value={"Ubuntu 16, no-gui Base"}
+                    style={{ width: "100%" }}
+                    floatingLabelText="Name"
+                  />
+                  <TextField
+                    value="1"
+                    floatingLabelText="Number of Instances"
+                  />
+                </Element>
+                <Element style={{ width: "100%" }}>
+                  <Element typography="body2">Instance Resources</Element>
+                  <TextField
+                    value="Tharon"
+                    style={{ width: "100%" }}
+                    floatingLabelText="Allocation Source"
+                  />
+                  <TextField
+                    value="CyVerse Marana Cloud"
+                    style={{ width: "100%" }}
+                    floatingLabelText="Provider"
+                  />
+                  <TextField
+                    value="sm1 (1 CPU, 4GB Memory)"
+                    style={{ width: "100%" }}
+                    floatingLabelText="Instance Size"
+                  />
+                </Element>
               </Element>
-              <Element style={{ width: "100%" }}>
-                <Element typography="body2">Instance Resources</Element>
-                <TextField value="Tharon" style={{ width: "100%" }} floatingLabelText="Allocation Source" />
-                <TextField value="CyVerse Marana Cloud" style={{ width: "100%" }} floatingLabelText="Provider" />
-                <TextField value="sm1 (1 CPU, 4GB Memory)" style={{ width: "100%" }} floatingLabelText="Instance Size" />
+              <Element whitespace="mb3" typography="body2">
+                Resource Consumption
               </Element>
-            </Element>
-            <Element whitespace="mb3" typography="body2">Resource Consumption</Element>
-            <MeterGauge
+              <MeterGauge
                 whitespace="mb3"
                 label="Allocation"
                 data={`Have used 35 of 120 AU’s from this Allocation Source`}
@@ -217,28 +255,26 @@ console.log(location)
                 afterValue={2}
                 alertMessage="Hey, let's not get greedy"
               />
-          </Element>) : null }
-        { stepIndex === 0 ? (
-          <ProjectList showHeader={false} range={[3 , 10]}/>
-        ) : null }
-        { stepIndex === 1 ? (
-          <ImageList/>
-        ) : null }
+            </Element>
+          ) : null}
+          {stepIndex === 0 ? (
+            <ProjectSelectableList  showHeader={false} range={[3, 10]} />
+          ) : null}
+          {stepIndex === 1 ? <ImageList /> : null}
         </Element>
       </Element>
     );
   }
 }
-function backOutURL(the_url)
-{
-    var the_arr = the_url.split('/');
-    the_arr.pop();
-    return( the_arr.join('/') );
+function backOutURL(the_url) {
+  const the_arr = the_url.split("/");
+  the_arr.pop();
+  return the_arr.join("/");
 }
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      leaveWizard: (current) => push(backOutURL(current)),
+      leaveWizard: current => push(backOutURL(current))
     },
     dispatch
   );

@@ -12,6 +12,7 @@ import VolumeIcon from "../icons/VolumeIcon";
 import InstanceIcon from "../icons/InstanceIcon";
 
 const SideBar = ({
+  dashboard,
   imageCatalog,
   instances,
   allAssets,
@@ -31,7 +32,11 @@ const SideBar = ({
       boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)"
     }}
   >
-    <ListItem primaryText="Dashboard" leftIcon={<DashboardIcon />} />
+    <ListItem
+      onClick={dashboard}
+      primaryText="Dashboard"
+      leftIcon={<DashboardIcon />}
+    />
     <ListItem
       onClick={imageCatalog}
       primaryText="Image Catalog"
@@ -44,19 +49,19 @@ const SideBar = ({
       initiallyOpen
     />
     <ListItem
-      style={{paddingLeft: "30px"}}
+      style={{ paddingLeft: "30px" }}
       onClick={instances}
       primaryText="Instances"
       leftIcon={<InstanceIcon />}
     />
     <ListItem
-      style={{paddingLeft: "30px"}}
+      style={{ paddingLeft: "30px" }}
       onClick={volumes}
       primaryText="Volumes"
       leftIcon={<VolumeIcon />}
     />
     <ListItem
-      style={{paddingLeft: "30px"}}
+      style={{ paddingLeft: "30px" }}
       onClick={projects}
       primaryText="Projects"
       leftIcon={<ProjectsIcon />}
@@ -72,6 +77,7 @@ const SideBar = ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      dashboard: () => push("/"),
       imageCatalog: () => push("/image-catalog"),
       instances: () => push("/instances"),
       volumes: () => push("/volumes"),

@@ -23,13 +23,14 @@ class ImageList extends Component {
     this.setState({ selectedItems });
   };
   render() {
-    const { showHeader = true, loadMoreEnteries, range } = this.props;
+    const { showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
   return (
     <section style={{ maxWidth: "1000px", margin: "auto" }}>
       {showHeader ? (
           <ProjectListHeader
+            isSticky
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {
               this.setState({
@@ -52,6 +53,7 @@ class ImageList extends Component {
       </MediaCardGroup>
       {showHeader ? (
           <VolumeListHeader
+            isSticky
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {
               this.setState({

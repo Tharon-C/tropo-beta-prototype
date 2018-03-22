@@ -15,8 +15,8 @@ const styles = {
   },
   quickActions: {}
 };
-const ImageActions = ({ hideQuickActions, classes }) => (
-  <ActionGroup className={classes.wrapper} stopPropagation>
+const ImageActions = ({ hideQuickActions, classes, hide, ...rest }) => (
+  <ActionGroup hide={hide} { ...rest} className={classes.wrapper} stopPropagation>
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
       <IconButton>
         <EditIcon />

@@ -22,7 +22,7 @@ const Instances = ({ classes }) => (
       <AssetsFAB />
     </div>
     <Element whitespace={["pv4", "ps13"]}>
-      <InstanceList />
+      <InstanceList isSticky={true}/>
     </Element>
     <CommentsLink href="https://projects.invisionapp.com/share/BXGE8OWQZ62#/screens/285754822/comments" />
   </React.Fragment>

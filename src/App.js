@@ -7,12 +7,14 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { Route } from 'react-router-dom'
 import Sidebar from "./containers/SideBar";
 import AppBar from "./containers/AppBar";
+import Dashboard from "./views/Dashboard";
 import ImageCatalog from "./views/ImageCatalog";
 import Instances from './views/Instances';
 import Volumes from './views/Volumes';
 import Projects from './views/Projects';
 import Notifications from './views/Notifications';
 import AllAssets from './views/AllAssets';
+import dashboard from "material-ui/svg-icons/action/dashboard";
 
 const client = new ApolloClient({
   // By default, this client will send queries to the
@@ -42,6 +44,7 @@ class App extends Component {
                     overflowX: "scroll"
                   }}
                 >
+                  <Route exact path="/" component={Dashboard} />
                   <Route exact path="/image-catalog" component={ImageCatalog} />
                   <Route exact path="/all-assets" component={AllAssets} />
                   <Route exact path="/instances" component={Instances} />
