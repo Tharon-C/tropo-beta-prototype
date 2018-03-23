@@ -15,7 +15,7 @@
         <g id="Group" transform="translate(51.000000, 55.000000)"></g>
         <g id="Group" transform="translate(167.000000, 19.000000)">
             <text id="3AUs-pm" font-family="Roboto-Regular, Roboto" font-size="14" font-weight="normal" line-spacing="20" fill="#000000">
-                <tspan x="0" y="80">3AUs pm</tspan>
+                <tspan x="0" y="80">3AUs per hour</tspan>
             </text>
             <text id="67AUs" font-family="Roboto-Regular, Roboto" font-size="14" font-weight="normal" line-spacing="20" fill="#000000">
                 <tspan x="0" y="28">67AUs</tspan>
@@ -30,7 +30,7 @@
                 <tspan x="0" y="11">Allocation Consumed</tspan>
             </text>
             <text id="TIme-remaining" font-family="Roboto-Light, Roboto" font-size="12" font-weight="300" letter-spacing="0.4285714" fill="#797979">
-                <tspan x="0" y="115">TIme remaining</tspan>
+                <tspan x="0" y="115">Time Remaining</tspan>
             </text>
         </g>
         <g id="Group-2" transform="translate(14.000000, 24.000000)">
