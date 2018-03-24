@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
-import images from "../../IMAGE_DATA.json";
+import {connect} from "react-redux";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import ProjectCard, { ProjectListHeader } from "./ProjectCard";
 
-class ImageList extends Component {
+class ProjectList extends Component {
   state = {
     batchMode: false,
     selectedItems: [],
@@ -23,7 +21,7 @@ class ImageList extends Component {
     this.setState({ selectedItems });
   };
   render() {
-    const { showHeader = true, loadMoreEnteries, range, selectable, isSticky } = this.props;
+    const { projects, showHeader = true, loadMoreEnteries, range, selectable, isSticky } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
     return (
@@ -33,25 +31,23 @@ class ImageList extends Component {
             isSticky={isSticky}
             batchMode={batchMode}
             onBatchClick={(e, isChecked ) => {
-              this.setState({ selectedItems: isChecked ? images.map(image => image.id) : [] });
+              this.setState({ selectedItems: isChecked ? projects.map(project => project.id) : [] });
             }}
           />
         ) : null}
         
         <MediaCardGroup>
-          {images
-            .slice(range ? range[0] : 3, range ? range[1] : 15)
-            .map((image, i) => {
+          {projects.map((project, i) => {
               return (
                 <ProjectCard
-                  uid={image.id}
+                  uid={project.id}
                   isSticky={isSticky}
                   selectable={selectable}
                   isCheckable={selectedItems.length > 0}
-                  checked={selectedItems.includes(image.id)}
+                  checked={selectedItems.includes(project.id)}
                   onCheck={this.onCheck}
-                  key={image.id}
-                  image={image}
+                  key={project.id}
+                  project={project}
                 />
               );
             })}
@@ -61,4 +57,7 @@ class ImageList extends Component {
   }
 }
 
-export default ImageList;
+const mapStateToProps = state => ({
+    projects: state.projectList.data
+})
+export default connect(mapStateToProps, null )(ProjectList);

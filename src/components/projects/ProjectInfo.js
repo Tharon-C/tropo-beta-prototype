@@ -1,5 +1,6 @@
 import React from "react";
 import injectSheet, { withTheme } from "react-jss";
+import {connect} from "react-redux";
 import tags from "../../TAG_DATA.json";
 import get from "../../utils/get";
 import { Element, P } from "../../cyverse-ui";
@@ -11,7 +12,7 @@ import LinkList from "../links/LinkList";
 
 import SummaryText from "cyverse-ui/lib/SummaryText";
 
-const ProjectInfo = ({ image, view }) => {
+const ProjectInfo = ({ project, view }) => {
   switch (view) {
     case "info":
       return (
@@ -19,11 +20,11 @@ const ProjectInfo = ({ image, view }) => {
           <Element typography="label" whitespace="mb1">
             Description
           </Element>
-          <P whitespace="mb4">{image.description}</P>
+          <P whitespace="mb4">{project.description}</P>
           <Element typography="label" whitespace="mb1">
             Tags
           </Element>
-          {image.tags.map(({ id }) => {
+          {project.tags.map(({ id }) => {
             return <Tag label={get.byId(id)(tags).name} />;
           })}
         </Element>
@@ -31,29 +32,31 @@ const ProjectInfo = ({ image, view }) => {
     case "instances":
       return (
         <React.Fragment>
-          <InstanceList range={[6, 10]}/>
+          <InstanceList filter={(item) => project.instances.includes(item.id)}/>
         </React.Fragment>
       );
     case "volumes":
     return (
     <React.Fragment>
-    <VolumeList range={[5, 7]}/>
+    <VolumeList filter={(item) => project.volumes.includes(item.id)}/>
   </React.Fragment>
     );
     case "links":
     return (
     <React.Fragment>
-    <LinkList range={[2, 3]}/>
+    <LinkList filter={(item) => project.links.includes(item.id)}/>
   </React.Fragment>
     );
     case "images":
     return (
     <React.Fragment>
-    <ImageList range={[2, 3]}/>
+    <ImageList filter={(item) => project.images.includes(item.id)}/>
   </React.Fragment>
     );
 
   }
 };
-
-export default ProjectInfo;
+const mapStateToProps = ({tagList, instanceList, volumeList, imageList}) => ({
+  tags: tagList.data,
+})
+export default connect(mapStateToProps, null)(ProjectInfo);

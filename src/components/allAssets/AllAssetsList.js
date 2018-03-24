@@ -1,14 +1,12 @@
 import React, {Component} from "react";
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
-import images from "../../IMAGE_DATA.json"
+import {connect} from "react-redux";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import ProjectCard, {ProjectListHeader} from "../projects/ProjectCard";
 import InstanceCard from "../instances/InstanceCard";
 import VolumeCard, {VolumeListHeader} from "../Volumes/VolumeCard";
 
-class ImageList extends Component {
+class AllAssetsList extends Component {
   state = {
     batchMode: false,
     selectedItems: []
@@ -23,7 +21,7 @@ class ImageList extends Component {
     this.setState({ selectedItems });
   };
   render() {
-    const { showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
+    const { projects, instances, volumes, showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
   return (
@@ -34,79 +32,31 @@ class ImageList extends Component {
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {
               this.setState({
-                selectedItems: isChecked ? images.map(image => image.id) : []
+                selectedItems: isChecked ? projects.map(project => project.id) : []
               });
             }}
           />
         ) : null}
       <MediaCardGroup whitespace="mb3">
-        {images.slice(0,9).map((image, i) => {
+        {projects.map((project, i) => {
           return (
-            <ProjectCard key={image.id}
-            uid={image.id}
+            <ProjectCard key={project.id}
+            uid={project.id}
             isCheckable={selectedItems.length > 0}
-            checked={selectedItems.includes(image.id)}
+            checked={selectedItems.includes(project.id)}
             onCheck={this.onCheck}
-            image={image}/>
+            image={project}/>
           );
         })}
-      </MediaCardGroup>
-      {showHeader ? (
-          <VolumeListHeader
-            isSticky
-            batchMode={batchMode}
-            onBatchClick={(e, isChecked) => {
-              this.setState({
-                selectedItems: isChecked ? images.map(image => image.id) : []
-              });
-            }}
-          />
-        ) : null}
-      <MediaCardGroup>
-        {images.slice(10,15).map((image, i) => {
-          return (
-            <InstanceCard key={image.id}
-            uid={image.id}
-            isCheckable={selectedItems.length > 0}
-            checked={selectedItems.includes(image.id)}
-            onCheck={this.onCheck}
-            image={image}/>
-          );
-        })}
-        {images.slice(20,22).map((image, i) => {
-          return (
-            <VolumeCard key={image.id}
-            uid={image.id}
-            isCheckable={selectedItems.length > 0}
-            checked={selectedItems.includes(image.id)}
-            onCheck={this.onCheck}
-            image={image}/>
-          );
-        })}
-        {images.slice(15,18).map((image, i) => {
-          return (
-            <InstanceCard key={image.id}
-            uid={image.id}
-            isCheckable={selectedItems.length > 0}
-            checked={selectedItems.includes(image.id)}
-            onCheck={this.onCheck}
-            image={image}/>
-          );
-        })}
-        {images.slice(23,25).map((image, i) => {
-          return (
-            <VolumeCard key={image.id}
-            uid={image.id}
-            isCheckable={selectedItems.length > 0}
-            checked={selectedItems.includes(image.id)}
-            onCheck={this.onCheck}
-            image={image}/>
-          );
-        })}
-      </MediaCardGroup>
+        </MediaCardGroup>
     </section>
   );
 };
 }
 
-export default ImageList;
+const mapStateToProps = state => ({
+  projects: state.projectList.data,
+  instances: state.instanceList.data,
+  volumes: state.volumeList.data,
+})
+export default connect(mapStateToProps, null)(AllAssetsList);

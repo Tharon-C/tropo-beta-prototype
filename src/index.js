@@ -21,7 +21,7 @@ ReactDOM.render(
         <ThemeProvider theme={appTheme}>
             <div>
             <App />
-            <Route path="*/instance-launch" component={LaunchWizard}/>
+            <LaunchWizard/>
             </div>
         </ThemeProvider>
         </MuiThemeProvider>

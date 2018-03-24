@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import { ApolloProvider } from "react-apollo";
-import { ApolloClient } from "apollo-client";
-import { HttpLink } from "apollo-link-http";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { Route } from 'react-router-dom'
+import { connect } from "react-redux";
+import { Route, withRouter } from 'react-router-dom'
 import Sidebar from "./containers/SideBar";
 import AppBar from "./containers/AppBar";
 import Dashboard from "./views/Dashboard";
@@ -16,17 +13,11 @@ import Notifications from './views/Notifications';
 import AllAssets from './views/AllAssets';
 import dashboard from "material-ui/svg-icons/action/dashboard";
 
-const client = new ApolloClient({
-  // By default, this client will send queries to the
-  //  `/graphql` endpoint on the same host
-  // Pass the configuration option { uri: YOUR_GRAPHQL_API_URL } to the `HttpLink` to connect
-  // to a different host
-  link: new HttpLink({ uri: "http://localhost:7700/graphql" }),
-  cache: new InMemoryCache()
-});
 class App extends Component {
   render() {
-    return (
+    const {showWizard} = this.props
+    console.log(showWizard)
+    return ( !showWizard ? 
             <div>
               <AppBar />
               <div
@@ -54,8 +45,12 @@ class App extends Component {
                 </main>
               </div>
             </div>
-    );
+    : null);
   }
 }
 
-export default App;
+function mapStateToProps(store) {
+  return {showWizard: store.createInstance.showForm}
+}
+
+export default withRouter(connect(mapStateToProps, null)(App));

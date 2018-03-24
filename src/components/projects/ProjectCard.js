@@ -21,11 +21,11 @@ import {
   Element
 } from "../../cyverse-ui/";
 
-const ProjectIdentity = ({ image, ...rest }) => (
+const ProjectIdentity = ({ project, ...rest }) => (
   <AssetIdentity
     {...rest}
     icon={<FolderIcon />}
-    primaryText={image.name}
+    primaryText={project.name}
     secondaryText="Created May 8, 2017"
   />
 );
@@ -38,9 +38,9 @@ const summaryStyles = theme => ({
 });
 
 const ProjectSummary = withTheme(
-  injectSheet(summaryStyles)(({ image, classes }) => (
+  injectSheet(summaryStyles)(({ project, classes }) => (
     <Element className={classes.wraper}>
-      <SummaryText>{image.summary}</SummaryText>
+      <SummaryText>{project.summary}</SummaryText>
     </Element>
   ))
 );
@@ -74,7 +74,7 @@ class ProjectCard extends Component {
       onExpand,
       checked,
       isExpanded,
-      image,
+      project,
       isSticky,
       selectable,
       top = "0",
@@ -107,24 +107,24 @@ class ProjectCard extends Component {
                   ? true : isCheckable
                   ? true : isHovered
                 }
-                image={image}
+                project={project}
                 onCheck={this.onCheck}
                 checked={checked}
               />
             </ListCardIdentity>
             <ListCardSummary hide={isExpanded}>
-              <ProjectSummary image={image} />
+              <ProjectSummary project={project} />
             </ListCardSummary>
             <ProjectActions
               hide={selectable}
               hideQuickActions={isExpanded ? false : !isHovered}
-              isHoveredimage={image}
+              isHoveredimage={project}
             />
           </ListCardHeader>
           <ProjectTabs hide={!isExpanded} onTabClick={this.onTabClick} />
         </div>
         <ListCardDetail hide={!isExpanded}>
-          <ProjectInfo image={image} view={this.state.view} />
+          <ProjectInfo project={project} view={this.state.view} />
         </ListCardDetail>
       </ListCard>
     );

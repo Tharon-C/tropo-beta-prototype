@@ -19,6 +19,7 @@ import SettingsIcon from "material-ui/svg-icons/action/settings";
 import { Element, Hr, MeterGauge, P } from "../../cyverse-ui";
 import ProjectSelectableList from "../projects/ProjectSelectableList";
 import ImageList from "../images/ImageList";
+import { toggleInstanceForm } from "../../actions/instanceActions";
 
 class LaunchWizard extends Component {
   state = {
@@ -65,10 +66,10 @@ class LaunchWizard extends Component {
     );
   }
   render() {
-    const { leaveWizard, location } = this.props;
+    const { showForm, leaveWizard, location } = this.props;
     const { stepIndex } = this.state;
-    console.log(location);
-    return (
+    console.log(showForm);
+    return showForm ? 
       <Element
         root="section"
         style={{
@@ -263,8 +264,8 @@ class LaunchWizard extends Component {
           {stepIndex === 1 ? <ImageList /> : null}
         </Element>
       </Element>
-    );
-  }
+    : null;
+}
 }
 function backOutURL(the_url) {
   const the_arr = the_url.split("/");
@@ -274,9 +275,14 @@ function backOutURL(the_url) {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      leaveWizard: current => push(backOutURL(current))
+      leaveWizard: toggleInstanceForm//current => push(backOutURL(current))
     },
     dispatch
   );
 
-export default withRouter(connect(null, mapDispatchToProps)(LaunchWizard));
+  const mapStateToProps = state => ({
+    showForm: state.createInstance.showForm
+  })
+  
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LaunchWizard));

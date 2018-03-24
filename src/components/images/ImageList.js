@@ -1,17 +1,15 @@
 import React from "react";
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
-import images from "../../IMAGE_DATA.json"
+import { connect } from "react-redux";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import ImageCard from "./ImageCard";
 
 
-const ImageList = ({ loadMoreEnteries, range }) => {
+const ImageList = ({ filter = () => false, images, loadMoreEnteries, range }) => {
   return (
     <section style={{ maxWidth: "1000px", margin: "auto" }}>
       <MediaCardGroup>
-      {images.slice(range ? range[0] :  3, range ? range[1] : 15).map((image, i) =>{
+      {images.filter(filter).map((image, i) =>{
           return (
             <ImageCard key={image.id} image={image}/>
           );
@@ -31,4 +29,7 @@ const ImageList = ({ loadMoreEnteries, range }) => {
   );
 };
 
-export default ImageList;
+const mapStateToProps = state => ({
+  images: state.imageList.data
+})
+export default connect(mapStateToProps, null)(ImageList);

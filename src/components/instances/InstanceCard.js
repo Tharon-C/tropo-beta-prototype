@@ -135,6 +135,7 @@ class ImageCard extends Component {
             <ImageSummary image={image} />
           </ListCardSummary>
           <InstanceActions
+            instance={image}
             hideQuickActions={isExpanded ? false : !this.state.isHovered}
             isHoveredimage={image}
           />

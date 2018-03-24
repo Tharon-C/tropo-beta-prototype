@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "avatar": null,
+    "name": "First Project",
+    "created": "Septemeber 16th",
+    "summary": "Suspendisse potenti. In eleifend quam a odio.",
+    "description":
+      "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
+    "tags": [{ "id": 24 }],
+    "instances": ["24c4844c"],
+    "volumes": ["2d8ffh39"],
+    "links": ["j84fhfs03"],
+    "images": ["24c4844c-af52-4a27-ba2d-8d72aa93293a"]
+  }
+]

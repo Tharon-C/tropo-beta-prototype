@@ -1,5 +1,8 @@
 import React from "react";
 import injectSheet from "react-jss";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as instanceActions from "../actions/instanceActions";
 import { IconButton, MenuItem } from "material-ui";
 import { withRouter } from "react-router-dom";
 import RefreshIcon from "material-ui/svg-icons/navigation/refresh";
@@ -9,6 +12,7 @@ import PauseIcon from "material-ui/svg-icons/av/pause";
 import DeleteIcon from "material-ui/svg-icons/action/delete";
 import { ConsoleIcon, IntercomIcon, MoveIcon } from "../cyverse-ui/icons";
 import { ActionGroup, VerticalMenu } from "../cyverse-ui";
+import { map } from "async";
 const styles = {
   wrapper: {
     position: "absolute",
@@ -19,7 +23,7 @@ const styles = {
   },
   quickActions: {}
 };
-const ImageActions = ({ hideQuickActions, classes }) => (
+const ImageActions = ({ instance, deleteInstance, hideQuickActions, classes }) => (
   <ActionGroup className={classes.wrapper} stopPropagation>
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
       <IconButton tooltip="Pause Instance">
@@ -34,7 +38,7 @@ const ImageActions = ({ hideQuickActions, classes }) => (
     </ActionGroup>
     <VerticalMenu>
       <MenuItem primaryText="Reboot" />
-      <MenuItem primaryText="Delete" />
+      <MenuItem onClick={ () => deleteInstance(instance.id)} primaryText="Delete" />
       <MenuItem primaryText="Attach Volume" />
       <MenuItem primaryText="Move To Project" />
       <MenuItem primaryText="Request Image" />
@@ -55,4 +59,10 @@ export const InstanceBatchActions = props => (
     </IconButton>
   </ActionGroup>
 );
-export default withRouter(injectSheet(styles)(ImageActions));
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    deleteInstance: instanceActions.deleteInstance
+  }, dispatch)
+}
+export default connect(null, mapDispatchToProps )(withRouter(injectSheet(styles)(ImageActions)));

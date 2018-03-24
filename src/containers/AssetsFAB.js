@@ -3,6 +3,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {withRouter} from 'react-router-dom';
 import injectSheet from "react-jss";
+import { ToggleInstanceForm, toggleInstanceForm } from "../actions/instanceActions";
 import FolderIcon from "material-ui/svg-icons/file/folder";
 import {
   FloatingActionButton,
@@ -23,7 +24,7 @@ const styles = {
 class AssetsFAB extends Component {
     state = {isOpen: false}
     render() {
-        const {classes, location, pushInstanceLaunch} = this.props;
+        const {classes, location, showInstanceForm} = this.props;
         return (
             <div className={classes.wrapper}>
             <FloatingActionButton
@@ -40,7 +41,7 @@ class AssetsFAB extends Component {
               <FloatingActionButtonAction
                 tooltip="Create Instance"
                 children={<InstanceIcon />}
-                onClick={() => {pushInstanceLaunch(location.pathname)}}
+                onClick={showInstanceForm}
               />
               <FloatingActionButtonAction
                 tooltip="Create Volume"
@@ -63,7 +64,7 @@ class AssetsFAB extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      pushInstanceLaunch: (current) => push(current + "/instance-launch"),
+      showInstanceForm: toggleInstanceForm//(current) => push(current + "/instance-launch"),
     },
     dispatch
   );

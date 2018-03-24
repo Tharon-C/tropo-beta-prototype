@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
-import images from "../../IMAGE_DATA.json";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import InstanceCard, { InstanceListHeader } from "./InstanceCard";
 
-class ImageList extends Component {
+class InstanceList extends Component {
   state = {
     batchMode: false,
     selectedItems: []
@@ -21,7 +20,7 @@ class ImageList extends Component {
     this.setState({ selectedItems });
   };
   render() {
-    const { showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
+    const { filter, deleteInstance, instances, showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
     return (
@@ -32,15 +31,13 @@ class ImageList extends Component {
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {
               this.setState({
-                selectedItems: isChecked ? images.map(image => image.id) : []
+                selectedItems: isChecked ? instances.map(image => image.id) : []
               });
             }}
           />
         ) : null}
         <MediaCardGroup>
-          {images
-            .slice(range ? range[0] : 3, range ? range[1] : 15)
-            .map((image, i) => {
+          {instances.filter(filter).map((image, i) => {
               return (
                 <InstanceCard
                   key={image.id}
@@ -49,6 +46,7 @@ class ImageList extends Component {
                   checked={selectedItems.includes(image.id)}
                   onCheck={this.onCheck}
                   image={image}
+                  onDelete={deleteInstance}
                 />
               );
             })}
@@ -58,4 +56,8 @@ class ImageList extends Component {
   }
 }
 
-export default ImageList;
+function mapStateToProps(store) {
+  return {instances: store.instanceList.data}
+}
+
+export default connect(mapStateToProps, null)(InstanceList);

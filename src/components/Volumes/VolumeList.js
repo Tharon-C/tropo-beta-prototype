@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
-import images from "../../IMAGE_DATA.json";
+import { connect } from "react-redux";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import VolumeCard, { VolumeListHeader } from "./VolumeCard";
@@ -21,7 +19,7 @@ class VolumeList extends Component {
     this.setState({ selectedItems });
   };
   render() {
-    const { showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
+    const { filter = () => false, volumes, showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
     return (
@@ -32,23 +30,21 @@ class VolumeList extends Component {
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {
               this.setState({
-                selectedItems: isChecked ? images.map(image => image.id) : []
+                selectedItems: isChecked ? volumes.filter(filter).map(volume => volume.id) : []
               });
             }}
           />
         ) : null}
         <MediaCardGroup>
-          {images
-            .slice(range ? range[0] : 3, range ? range[1] : 15)
-            .map((image, i) => {
+          {volumes.map((volume, i) => {
               return (
                 <VolumeCard
-                  key={image.id}
-                  uid={image.id}
+                  key={volume.id}
+                  uid={volume.id}
                   isCheckable={selectedItems.length > 0}
-                  checked={selectedItems.includes(image.id)}
+                  checked={selectedItems.includes(volume.id)}
                   onCheck={this.onCheck}
-                  image={image}
+                  image={volume}
                 />
               );
             })}
@@ -57,5 +53,7 @@ class VolumeList extends Component {
     );
   }
 }
-
-export default VolumeList;
+const mapStateToProps = state => ({
+  volumes: state.volumeList.data
+})
+export default connect(mapStateToProps, null)(VolumeList);

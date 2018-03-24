@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
-import images from "../../IMAGE_DATA.json";
+import { connect } from "react-redux";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import LinkCard, { ProjectListHeader } from "./LinkCard";
 
-class ImageList extends Component {
+class LinkList extends Component {
   state = {
     batchMode: false,
     selectedItems: []
@@ -21,7 +19,7 @@ class ImageList extends Component {
     this.setState({ selectedItems });
   };
   render() {
-    const { showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
+    const { filter = () => false, links, showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
     return (
@@ -31,12 +29,12 @@ class ImageList extends Component {
           batchMode={batchMode}
           onBatchClick={(e, isChecked) => {
             this.setState({
-              selectedItems: isChecked ? images.map(image => image.id) : []
+              selectedItems: isChecked ? links.map(image => image.id) : []
             });
           }}
         />
         <MediaCardGroup>
-          {images.slice(range[0], range[1]).map((image, i) => {
+          {links.filter(filter).map((image, i) => {
             return (
               <LinkCard
                 key={image.id}
@@ -53,5 +51,7 @@ class ImageList extends Component {
     );
   }
 }
-
-export default ImageList;
+const mapStateToProps = state => ({
+  links: state.linkList.data
+})
+export default connect(mapStateToProps, null)(LinkList);

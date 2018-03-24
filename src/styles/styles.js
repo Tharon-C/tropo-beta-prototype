@@ -1,6 +1,6 @@
 export default {
     zIndex: [
-        {CardHeader: 898},
-
+        "CardListHeader",
+        "CardHeader",
     ]
 }
