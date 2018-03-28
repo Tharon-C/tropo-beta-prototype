@@ -1,8 +1,7 @@
 import React from "react";
-import {Identity, Checkable } from "../cyverse-ui";
-import { Avatar } from "material-ui"; 
+import {Identity, Checkable, ProgressAvatar } from "../cyverse-ui";
 
-const AssetIdentity = ({ primaryText, isCheckable, checked, onCheck, icon }) => (
+const AssetIdentity = ({ primaryText, isCheckable, checked, onCheck, icon, percent }) => (
   <Identity
     image={
       <Checkable
@@ -12,7 +11,7 @@ const AssetIdentity = ({ primaryText, isCheckable, checked, onCheck, icon }) => 
           onCheck
         }}
       >
-        <Avatar color="black" backgroundColor="none" icon={ icon } />
+        <ProgressAvatar thickness={5} percent={percent} color="black" backgroundColor="white" icon={ icon } />
       </Checkable>
     }
     primaryText={primaryText}

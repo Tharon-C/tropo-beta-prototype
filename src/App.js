@@ -16,7 +16,6 @@ import dashboard from "material-ui/svg-icons/action/dashboard";
 class App extends Component {
   render() {
     const {showWizard} = this.props
-    console.log(showWizard)
     return ( !showWizard ? 
             <div>
               <AppBar />

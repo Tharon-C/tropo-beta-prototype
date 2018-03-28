@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import * as R from "ramda";
 import {connect} from "react-redux";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
@@ -45,9 +46,40 @@ class AllAssetsList extends Component {
             isCheckable={selectedItems.length > 0}
             checked={selectedItems.includes(project.id)}
             onCheck={this.onCheck}
-            image={project}/>
+            project={project}/>
           );
         })}
+        </MediaCardGroup>
+          <VolumeListHeader
+            isSticky
+            batchMode={batchMode}
+            onBatchClick={(e, isChecked) => {
+              this.setState({
+                selectedItems: isChecked ? projects.map(project => project.id) : []
+              });
+            }}
+          />
+      <MediaCardGroup whitespace="mb3">
+        {R.union(instances.filter((item) => !item.project).map((instance, i) => {
+          return (
+            <InstanceCard key={instance.id}
+            uid={instance.id}
+            isCheckable={selectedItems.length > 0}
+            checked={selectedItems.includes(instance.id)}
+            onCheck={this.onCheck}
+            image={instance}/>
+          );
+        }),
+        volumes.filter((item) => !item.project).map((volume, i) => {
+          return (
+            <VolumeCard key={volume.id}
+             uid={volume.id}
+            isCheckable={selectedItems.length > 0}
+            checked={selectedItems.includes(volume.id)}
+            onCheck={this.onCheck}
+            image={volume}/>
+          );
+        }))}
         </MediaCardGroup>
     </section>
   );

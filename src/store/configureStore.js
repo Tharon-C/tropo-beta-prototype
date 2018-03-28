@@ -2,13 +2,16 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 import rootReducer from '../reducers'
+import fakeAPI from '../middleware/fakeAPI'
 
 export const history = createHistory()
 
 const initialState = {}
 const enhancers = []
 const middleware = [
-  routerMiddleware(history)
+  fakeAPI,
+  routerMiddleware(history),
+
 ]
 
 if (process.env.NODE_ENV === 'development') {

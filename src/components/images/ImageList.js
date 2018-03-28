@@ -5,11 +5,11 @@ import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import ImageCard from "./ImageCard";
 
 
-const ImageList = ({ filter = () => false, images, loadMoreEnteries, range }) => {
+const ImageList = ({ filter = () => true, images, loadMoreEnteries, range }) => {
   return (
     <section style={{ maxWidth: "1000px", margin: "auto" }}>
       <MediaCardGroup>
-      {images.filter(filter).map((image, i) =>{
+      {images.filter(filter).slice(0,10).map((image, i) =>{
           return (
             <ImageCard key={image.id} image={image}/>
           );

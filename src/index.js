@@ -11,8 +11,11 @@ import cyverseTheme from "./cyverse-ui/styles/cyverseTheme";
 
 import './index.css';
 import App from './App';
-import LaunchWizard from "./components/launchWizard/LaunchWizard";
+import CreateInstanceWizard from "./components/wizards/CreateInstanceWizard";
 import registerServiceWorker from './registerServiceWorker';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 const appTheme = getMuiTheme(cyverseTheme);
 ReactDOM.render(
     <Provider store={store}>
@@ -20,8 +23,8 @@ ReactDOM.render(
         <MuiThemeProvider muiTheme={appTheme}>
         <ThemeProvider theme={appTheme}>
             <div>
-            <App />
-            <LaunchWizard/>
+                <App />
+                <CreateInstanceWizard/>
             </div>
         </ThemeProvider>
         </MuiThemeProvider>

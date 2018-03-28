@@ -20,13 +20,23 @@ class InstanceList extends Component {
     this.setState({ selectedItems });
   };
   render() {
-    const { filter, deleteInstance, instances, showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
+    const {
+      filter = () => true,
+      deleteInstance,
+      instances,
+      showHeader = true,
+      loadMoreEnteries,
+      range,
+      isSticky,
+      FAB,
+    } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
     return (
       <section style={{ maxWidth: "1000px", margin: "auto" }}>
         {showHeader ? (
           <InstanceListHeader
+            FAB={FAB}
             isSticky={isSticky}
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {
@@ -38,18 +48,18 @@ class InstanceList extends Component {
         ) : null}
         <MediaCardGroup>
           {instances.filter(filter).map((image, i) => {
-              return (
-                <InstanceCard
-                  key={image.id}
-                  uid={image.id}
-                  isCheckable={selectedItems.length > 0}
-                  checked={selectedItems.includes(image.id)}
-                  onCheck={this.onCheck}
-                  image={image}
-                  onDelete={deleteInstance}
-                />
-              );
-            })}
+            return (
+              <InstanceCard
+                key={image.id}
+                uid={image.id}
+                isCheckable={selectedItems.length > 0}
+                checked={selectedItems.includes(image.id)}
+                onCheck={this.onCheck}
+                image={image}
+                onDelete={deleteInstance}
+              />
+            );
+          })}
         </MediaCardGroup>
       </section>
     );
@@ -57,7 +67,7 @@ class InstanceList extends Component {
 }
 
 function mapStateToProps(store) {
-  return {instances: store.instanceList.data}
+  return { instances: store.instanceList.data };
 }
 
 export default connect(mapStateToProps, null)(InstanceList);

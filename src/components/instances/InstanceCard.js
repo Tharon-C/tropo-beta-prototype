@@ -3,10 +3,12 @@ import randomcolor from "randomcolor";
 import injectSheet, { withTheme } from "react-jss";
 import { Avatar, Checkbox } from "material-ui";
 import get from "../../utils/get";
+import classnames from "classnames";
 import MenuItem from "material-ui/MenuItem";
 import IconButton from "material-ui/IconButton";
 import ShareIcon from "material-ui/svg-icons/social/share";
 import FavoritedBorderIcon from "material-ui/svg-icons/action/favorite-border";
+import AddIcon from "material-ui/svg-icons/content/add";
 import { Tabs, Tab } from "material-ui";
 import InstanceIcon from "../../icons/InstanceIcon";
 import InstanceActions, {
@@ -24,12 +26,13 @@ import {
   ListCardIdentity,
   SummaryText,
   P,
-  Element,
+  Element
 } from "../../cyverse-ui/";
 
 const ImageIdentity = ({ image, ...rest }) => (
   <AssetIdentity
     {...rest}
+    percent={image.progress}
     icon={<InstanceIcon />}
     primaryText={image.name}
     secondaryText="Created May 8, 2017"
@@ -50,29 +53,51 @@ const summaryStyles = theme => ({
     alignItems: "center"
   },
   statusLight: {
-    background: theme.palette.success,
     height: "12px",
     width: "12px",
     borderRadius: "900px",
     display: "inline-block",
     marginRight: "8px"
+  },
+  statusInactive: {
+    background: "lightGrey"
+  },
+  statusActive: {
+    background: theme.palette.success
+  },
+  statusError: {
+    background: theme.palette.danger
   }
 });
 
 const ImageSummary = withTheme(
-  injectSheet(summaryStyles)(({ image, classes }) => (
-    <Element className={classes.wraper}>
-      <Element className={`${classes.cell} ${classes.activity}`}>
-        <div className={classes.statusLight} /> Active
+  injectSheet(summaryStyles)(({ image, classes }) => {
+    let statusColor;
+    switch (image.activity) {
+      case "Active":
+        statusColor = classes.statusActive;
+        break;
+      case "Error":
+        statusColor = classes.statusError;
+        break;
+      default:
+        statusColor = classes.statusInactive;
+    }
+    const cellClasses = classnames(classes.statusLight, statusColor);
+    return (
+      <Element className={classes.wraper}>
+        <Element className={`${classes.cell} ${classes.activity}`}>
+          <div className={cellClasses} /> {image.activity}
+        </Element>
+        <Element className={classes.cell}>Large1</Element>
+        <Element className={classes.cell}>CYMAR</Element>
       </Element>
-      <Element className={classes.cell}>Large1</Element>
-      <Element className={classes.cell}>CYMAR</Element>
-    </Element>
-  ))
+    );
+  })
 );
 
 export const InstanceListHeader = withTheme(
-  injectSheet(summaryStyles)(({ classes, ...rest }) => (
+  injectSheet(summaryStyles)(({ project, classes, createInstance, ...rest }) => (
     <AssetListHeader
       {...rest}
       summary={

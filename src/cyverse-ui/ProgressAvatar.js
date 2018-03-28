@@ -34,6 +34,7 @@ const ProgressAvatar = ({
     src,
     icon,
     size,
+    color,
     thickness,
     percent,
     name,
@@ -47,7 +48,7 @@ const ProgressAvatar = ({
         classes.wrapper
     );
     const avatarClasses = classnames("CY-ProgressAvatar-avatar", {
-        [classes.avatar__inProgressWithImg]: src && isInProgress,
+        [classes.avatar__inProgressWithImg]: src || icon && isInProgress,
     });
     const progressClasses = classnames(
         "CY-ProgressAvatar-progress",
@@ -92,6 +93,7 @@ const ProgressAvatar = ({
             <Avatar
                 className={avatarClasses}
                 name={name}
+                color={color}
                 src={src}
                 icon={icon}
                 backgroundColor={avatarColor}

@@ -112,6 +112,7 @@ class ImageCard extends Component {
           <ImageActions
             hideQuickActions={isExpanded ? false : !this.state.isHovered}
             isHoveredimage={image}
+            image={image}
           />
         </ListCardHeader>
         <ImageDetailTabs hide={!isExpanded} onTabClick={this.onTabClick}/>

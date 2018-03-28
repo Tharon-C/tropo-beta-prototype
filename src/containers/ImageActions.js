@@ -4,6 +4,8 @@ import { push } from "react-router-redux";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { toggleInstanceForm } from "../actions/instanceActions";
+
 import { IconButton, MenuItem } from "material-ui";
 import ShareIcon from "material-ui/svg-icons/social/share";
 import FavoriteIcon from "material-ui/svg-icons/action/favorite-border";
@@ -21,8 +23,9 @@ const styles = {
   }
 };
 const ImageActions = ({
+  image,
   hideQuickActions,
-  pushInstanceLaunch,
+  openInstanceLaunch,
   location,
   classes
 }) => (
@@ -35,7 +38,7 @@ const ImageActions = ({
         <ShareIcon />
       </IconButton>
       <IconButton
-        onClick={() => pushInstanceLaunch(location.pathname)}
+        onClick={() => openInstanceLaunch(image) }
         tooltip="Launch Instance of this Image"
       >
         <LaunchIcon />
@@ -51,7 +54,7 @@ const ImageActions = ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      pushInstanceLaunch: current => push(current + "/instance-launch")
+      openInstanceLaunch: toggleInstanceForm
     },
     dispatch
   );

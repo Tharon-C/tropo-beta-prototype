@@ -1,8 +1,11 @@
 import React from "react";
 import injectSheet, { withTheme } from "react-jss";
 import {connect} from "react-redux";
-import tags from "../../TAG_DATA.json";
+import { bindActionCreators } from "redux";
 import get from "../../utils/get";
+import {toggleInstanceForm} from "../../actions/instanceActions";
+import {FloatingActionButton } from "material-ui";
+import AddIcon from "material-ui/svg-icons/content/add";
 import { Element, P } from "../../cyverse-ui";
 import Tag from "../Tag";
 import InstanceList from "../instances/InstanceList";
@@ -12,7 +15,7 @@ import LinkList from "../links/LinkList";
 
 import SummaryText from "cyverse-ui/lib/SummaryText";
 
-const ProjectInfo = ({ project, view }) => {
+const ProjectInfo = ({ tags, project, view, showInstanceForm }) => {
   switch (view) {
     case "info":
       return (
@@ -31,9 +34,23 @@ const ProjectInfo = ({ project, view }) => {
       );
     case "instances":
       return (
-        <React.Fragment>
+        <div style={{position: "relative"}}>
+        <FloatingActionButton
+            mini
+            secondary
+            onClick={() => showInstanceForm(null, project)}
+            style={{
+              position: "absolute",
+              right: 10,
+              top: "-20px",
+              zIndex: 1
+            }}
+          >
+            <AddIcon />
+          </FloatingActionButton>
           <InstanceList filter={(item) => project.instances.includes(item.id)}/>
-        </React.Fragment>
+          
+        </div>
       );
     case "volumes":
     return (
@@ -56,7 +73,16 @@ const ProjectInfo = ({ project, view }) => {
 
   }
 };
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      showInstanceForm: toggleInstanceForm //(current) => push(current + "/instance-launch"),
+    },
+    dispatch
+  );
+
 const mapStateToProps = ({tagList, instanceList, volumeList, imageList}) => ({
   tags: tagList.data,
 })
-export default connect(mapStateToProps, null)(ProjectInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectInfo);
