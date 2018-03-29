@@ -12,6 +12,9 @@ import cyverseTheme from "./cyverse-ui/styles/cyverseTheme";
 import './index.css';
 import App from './App';
 import CreateInstanceWizard from "./components/wizards/CreateInstanceWizard";
+import CreateVolumeDialog from './containers/CreateVolumeDialog';
+import CreateProjectDialog from './containers/CreateProjectDialog';
+import CreateLinkDialog from './containers/CreateLinkDialog';
 import registerServiceWorker from './registerServiceWorker';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
@@ -25,6 +28,9 @@ ReactDOM.render(
             <div>
                 <App />
                 <CreateInstanceWizard/>
+                <CreateVolumeDialog/>
+                <CreateProjectDialog/>
+                <CreateLinkDialog/>
             </div>
         </ThemeProvider>
         </MuiThemeProvider>

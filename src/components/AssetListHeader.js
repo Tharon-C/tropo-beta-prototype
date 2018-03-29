@@ -1,5 +1,6 @@
 import React from "react";
 import injectSheet, { withTheme } from "react-jss";
+import {zIndex} from "../styles/styles";
 import { Avatar, Checkbox } from "material-ui";
 import {
   ListCard,
@@ -20,7 +21,7 @@ const styles = {
   wrapper: {
     position: "sticky",
     top: "48px",
-    zIndex: 898
+    zIndex: zIndex.AssetListHeader 
   },
   header: {
     minHeight: "48px"

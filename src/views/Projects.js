@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import injectSheet from "react-jss";
+import {zIndex } from "../styles/styles";
 import { Tabs, Tab } from "material-ui";
 import ProjectList from "../components/projects/ProjectList";
 import {
@@ -14,7 +15,7 @@ const styles = {
     top: 0,
     boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)",
     height: "48px",
-    zIndex: "9999"
+    zIndex: zIndex.viewHeader
   }
 };
 

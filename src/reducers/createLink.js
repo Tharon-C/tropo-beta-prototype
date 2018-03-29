@@ -6,15 +6,12 @@ const initState = () => {
   return {
     showForm: false,
     status: "editing",
-    stepIndex: 0,
     data: {
       id,
-      progress: 0,
-      activity: "Initializing",
-      name: "New Instance",
-      provider: "MaranaCloud",
-      allocationSource: "YourUserName",
-      size: "SM1",
+      name: "New Link",
+      description: "",
+      summary: "",
+      url: "",
       tags: []
     }
   };
@@ -22,35 +19,21 @@ const initState = () => {
 
 export default function list(state = initState(), action) {
   switch (action.type) {
-    case "SET_CREATE_INSTANCE_STEP": {
-      return R.merge(state, {
-        stepIndex: action.step
-      });
-    }
-    case "TOGGLE_INSTANCE_FORM": {
+    case "TOGGLE_LINK_FORM": {
       return R.merge(state, {
         showForm: !state.showForm,
-        image: action.image,
-
-        stepIndex: action.image ? 1 : 0,
-        data: R.merge(state.data, {
-          project: action.project,
-          name: action.image ? action.image.name : "New Instance",
-          tags: action.image ? action.image.tags : []
-        })
       });
     }
-    case "CHANGE_INSTANCE_PROPERY":
+    case "CHANGE_LINK_PROPERY":
       return R.merge(state, {
         status: "editing",
         data: R.merge(state.data, action.change)
       });
-
-    case "CREATE_INSTANCE":
+    case "CREATE_LINK":
       return R.merge(state, {
         status: "Submitting"
       });
-    case "RESET_INSTANCE":
+    case "RESET_LINK":
       return initState();
 
     default:

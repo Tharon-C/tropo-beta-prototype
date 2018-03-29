@@ -5,6 +5,9 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import injectSheet from "react-jss";
 import { toggleInstanceForm } from "../actions/instanceActions";
+import { toggleVolumeForm } from "../actions/volumeActions";
+import { toggleLinkForm } from "../actions/linkActions";
+import { toggleProjectForm } from "../actions/projectActions";
 import FolderIcon from "material-ui/svg-icons/file/folder";
 import {
   FloatingActionButton,
@@ -25,7 +28,14 @@ const styles = {
 class AssetsFAB extends Component {
   state = { isOpen: false };
   render() {
-    const { classes, location, showInstanceForm } = this.props;
+    const {
+      classes,
+      location,
+      showInstanceForm,
+      showLinkForm,
+      showProjectForm,
+      showVolumeForm
+    } = this.props;
     return (
       <div className={classes.wrapper}>
         <FloatingActionButton
@@ -47,14 +57,17 @@ class AssetsFAB extends Component {
             <FloatingActionButtonAction
               tooltip="Create Volume"
               children={<VolumeIcon />}
+              onClick={() => showVolumeForm()}
             />
             <FloatingActionButtonAction
               tooltip="Create Project"
               children={<FolderIcon />}
+              onClick={() => showProjectForm()}
             />
             <FloatingActionButtonAction
               tooltip="Create Link"
               children={<LinkIcon />}
+              onClick={() => showLinkForm()}
             />
           </FloatingActionButtonActions>
         </FloatingActionButton>
@@ -65,7 +78,10 @@ class AssetsFAB extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      showInstanceForm: toggleInstanceForm //(current) => push(current + "/instance-launch"),
+      showInstanceForm: toggleInstanceForm,
+      showVolumeForm: toggleVolumeForm,
+      showLinkForm: toggleLinkForm,
+      showProjectForm: toggleProjectForm
     },
     dispatch
   );

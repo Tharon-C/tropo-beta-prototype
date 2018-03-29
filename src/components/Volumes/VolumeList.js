@@ -19,7 +19,7 @@ class VolumeList extends Component {
     this.setState({ selectedItems });
   };
   render() {
-    const { filter = () => false, volumes, showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
+    const { filter = () => true, volumes, showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
     return (
@@ -36,7 +36,7 @@ class VolumeList extends Component {
           />
         ) : null}
         <MediaCardGroup>
-          {volumes.map((volume, i) => {
+          {volumes.filter(filter).map((volume, i) => {
               return (
                 <VolumeCard
                   key={volume.id}

@@ -1,10 +1,12 @@
 import React from "react";
 import injectSheet from "react-jss";
+import { zIndex } from "../styles/styles";
 import { Tabs, Tab } from "material-ui";
 import AssetsFAB from "../containers/AssetsFAB";
 import VolumeList from "../components/Volumes/VolumeList";
 import { FloatingActionButton, Element } from "../cyverse-ui";
 import CommentLink from "../components/CommentsLink";
+
 const styles = {
   viewHeader: {
     background: "white",
@@ -12,7 +14,7 @@ const styles = {
     top: 0,
     boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)",
     height: "48px",
-    zIndex: "9999"
+    zIndex: zIndex.viewHeader
   }
 };
 

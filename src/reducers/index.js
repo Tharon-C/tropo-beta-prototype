@@ -7,6 +7,9 @@ import linkList from "./linkList";
 import tagList from "./tagList";
 import imageList from "./imageList";
 import createInstance from "./createInstance";
+import createVolume from "./createVolume";
+import createLink from "./createLink";
+import createProject from "./createProject";
 
 export default combineReducers({
   routing: routerReducer,
@@ -16,5 +19,8 @@ export default combineReducers({
   volumeList,
   linkList,
   tagList,
-  createInstance
+  createInstance,
+  createVolume,
+  createLink,
+  createProject,
 });

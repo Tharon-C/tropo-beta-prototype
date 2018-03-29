@@ -10,8 +10,8 @@ export default function list( state = initState, action ) {
         return R.merge( state,
             {
                 data: R.append(
-                    action.instance, state.data.filter(
-                        item => item.id !== action.image.id
+                    action.volume, state.data.filter(
+                        item => item.id !== action.volume.id
                     )
                 )
             }
@@ -20,7 +20,7 @@ export default function list( state = initState, action ) {
         return R.merge( action.list,
             {   
                 data: R.reject(
-                    R.propEq( 'id', action.instance ), 
+                    R.propEq( 'id', action.volume ), 
                     state.data
                 ),    
             },

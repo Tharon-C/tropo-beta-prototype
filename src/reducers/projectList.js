@@ -32,6 +32,17 @@ export default function list(state = initState, action) {
           state.data
         )
       });
+      case "CREATE_PROJECT":
+      return R.merge(state, {
+        data: R.append(
+          action.project,
+          state.data.filter(item => item.id !== action.project.id)
+        )
+      });
+    case "DELETE_PROJECT":
+      return R.merge(action.list, {
+        data: R.reject(R.propEq("id", action.link), state.data)
+      });
     default:
       return state;
   }

@@ -7,6 +7,7 @@
     "description":
       "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
     "url": "genome.me",
+    "project": 1,
     "tags": [{ "id": 24 }]
   }
 ]

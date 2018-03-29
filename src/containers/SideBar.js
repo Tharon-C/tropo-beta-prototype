@@ -2,6 +2,7 @@ import React from "react";
 import { push } from "react-router-redux";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import {zIndex} from "../styles/styles";
 import DashboardIcon from "material-ui/svg-icons/action/dashboard";
 import ListIcon from "material-ui/svg-icons/action/list";
 import NotificationsIcon from "material-ui/svg-icons/social/notifications";
@@ -28,7 +29,7 @@ const SideBar = ({
       overflowX: "scroll",
       position: "sticky",
       top: 0,
-      zIndex: "9999",
+      zIndex: zIndex.SideBar,
       boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)"
     }}
   >

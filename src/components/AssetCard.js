@@ -9,11 +9,10 @@ import ShareIcon from "material-ui/svg-icons/social/share";
 import FavoritedBorderIcon from "material-ui/svg-icons/action/favorite-border";
 import { Tabs, Tab } from "material-ui";
 import FolderIcon from "material-ui/svg-icons/file/folder";
-import ProjectActions, {ProjectBatchActions} from "../../containers/ProjectActions";
-import ProjectInfo from "./ProjectInfo";
-import ProjectTabs from "./ProjectTabs";
-import Tag from "../Tag";
-import tags from "../../TAG_DATA.json";
+import ProjectActions, {
+  ProjectBatchActions
+} from "../containers/ProjectActions";
+import AssetIdentity from "./AssetIdentity"
 
 import {
   ListCard,
@@ -27,8 +26,7 @@ import {
   Element,
   ShowMoreEllipsis,
   Checkable
-} from "../../cyverse-ui/";
-
+} from "../cyverse-ui/";
 
 class ProjectCard extends Component {
   state = { isHovered: false, view: "info" };
@@ -42,11 +40,18 @@ class ProjectCard extends Component {
     this.setState({ view: tab.props["data-route"] });
   };
 
-    onCheck = (e, state) => {
-      this.props.onCheck(e, state, this);
-    };
+  onCheck = (e, state) => {
+    this.props.onCheck(e, state, this);
+  };
   render() {
-    const { isCheckable, onExpand, checked, isExpanded, image, ...rest } = this.props;
+    const {
+      isCheckable,
+      onExpand,
+      checked,
+      isExpanded,
+      image,
+      ...rest
+    } = this.props;
     const { isHovered } = this.state;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
@@ -68,25 +73,25 @@ class ProjectCard extends Component {
             onMouseLeave={this.onMouseLeave}
           >
             <ListCardIdentity>
-              <ProjectIdentity
-                isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
-                image={image}
-                onCheck={this.onCheck}
-                checked={checked}
+              <AssetIdentity
+                {...rest}
+                percent={image.progress}
+                icon={<FolderIcon />}
+                primaryText={image.name}
+                secondaryText="Created May 8, 2017"
               />
             </ListCardIdentity>
             <ListCardSummary hide={isExpanded}>
-              <ProjectSummary image={image} />
+              {image.summary}
             </ListCardSummary>
             <ProjectActions
               hideQuickActions={isExpanded ? false : !isHovered}
               isHoveredimage={image}
             />
           </ListCardHeader>
-          <ProjectTabs hide={!isExpanded} onTabClick={this.onTabClick} />
+          
         </div>
         <ListCardDetail hide={!isExpanded}>
-          <ProjectInfo image={image} view={this.state.view} />
         </ListCardDetail>
       </ListCard>
     );

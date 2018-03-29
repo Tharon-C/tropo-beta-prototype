@@ -1,5 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators} from "redux";
 import injectSheet from "react-jss";
+import { deleteVolume } from "../actions/volumeActions";
 import { IconButton, MenuItem } from "material-ui";
 import RefreshIcon from "material-ui/svg-icons/navigation/refresh";
 import DesktopIcon from "material-ui/svg-icons/hardware/desktop-mac";
@@ -17,7 +20,7 @@ const styles = {
   },
   quickActions: {}
 };
-const ImageActions = ({ hideQuickActions, classes }) => (
+const ImageActions = ({ volume, deleteVolume, hideQuickActions, classes }) => (
   <ActionGroup className={classes.wrapper} stopPropagation>
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
       <IconButton tooltip="Detach from Instance">
@@ -26,7 +29,7 @@ const ImageActions = ({ hideQuickActions, classes }) => (
     </ActionGroup>
     <VerticalMenu>
       <MenuItem primaryText="Edit" />
-      <MenuItem primaryText="Delete" />
+      <MenuItem primaryText="Delete" onClick={()=> deleteVolume(volume.id)}/>
       <MenuItem primaryText="Move Volume" />
       <MenuItem primaryText="Report Issue" />
     </VerticalMenu>
@@ -45,4 +48,8 @@ export const VolumeBatchActions = props => (
     </IconButton>
   </ActionGroup>
 );
-export default injectSheet(styles)(ImageActions);
+
+const mapDispatchActionsToProps = dispatch => bindActionCreators({
+  deleteVolume 
+}, mapDispatchActionsToProps)
+export default connect(null, mapDispatchActionsToProps)(injectSheet(styles)(ImageActions));
