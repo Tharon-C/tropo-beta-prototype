@@ -24,6 +24,10 @@ class AllAssetsList extends Component {
   };
   render() {
     const {
+      showProjects,
+      showInstances,
+      showLinks,
+      showVolumes,
       links,
       projects,
       instances,
@@ -52,7 +56,7 @@ class AllAssetsList extends Component {
         ) : null}
         <MediaCardGroup whitespace="mb3">
           {[
-            ...instances.map(item => (
+            ...showInstances ? instances.map(item => (
               <InstanceCard
                 simple={true}
                 key={item.id}
@@ -62,8 +66,8 @@ class AllAssetsList extends Component {
                 onCheck={this.onCheck}
                 image={item}
               />
-            )),
-            ...links.map(item => (
+            )) : [],
+            ...showLinks ? links.map(item => (
               <LinkCard
                 key={item.id}
                 uid={item.id}
@@ -72,8 +76,8 @@ class AllAssetsList extends Component {
                 onCheck={this.onCheck}
                 image={item}
               />
-            )),
-            ...projects.map(item => (
+            )) : [],
+            ...showProjects ? projects.map(item => (
               <ProjectCard
                 key={item.id}
                 uid={item.id}
@@ -82,8 +86,8 @@ class AllAssetsList extends Component {
                 onCheck={this.onCheck}
                 project={item}
               />
-            )),
-            ...volumes.map(item => (
+            )) : [],
+            ...showVolumes ? volumes.map(item => (
               <VolumeCard
                 simple={true}
                 key={item.id}
@@ -93,7 +97,7 @@ class AllAssetsList extends Component {
                 onCheck={this.onCheck}
                 image={item}
               />
-            )),
+            )) : [],
           ].map(item => item)}
         </MediaCardGroup>
       </section>

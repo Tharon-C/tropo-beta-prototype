@@ -34,34 +34,63 @@ const styles = {
 
 class Instances extends Component {
   state = {
-    expandedView: false
+    expandedView: false,
+    showInstances: true,
+    showVolumes: true,
+    showLinks: true,
+    showProjects: true
   };
   render() {
     const { classes } = this.props;
-    const {expandedView } = this.state;
+    const { expandedView } = this.state;
     return (
       <React.Fragment>
         <div className={classes.viewHeader}>
-        
           <div className={classes.filters}>
-          { expandedView ? (
-            <React.Fragment>
-            <Element className={classes.filtersLabel} typography="label">
-              Show:
-            </Element>
-            <Checkbox style={styles.filter} label="Instances" checked />
-            <Checkbox style={styles.filter} label="Volumes" checked />
-            <Checkbox style={styles.filter} label="Projects" checked />
-            </React.Fragment>
-          ) : null}
-
+            {expandedView ? (
+              <React.Fragment>
+                <Element className={classes.filtersLabel} typography="label">
+                  Show:
+                </Element>
+                <Checkbox
+                  checked={this.state.showInstances}
+                  onCheck={() =>
+                    this.setState({ showInstances: !this.state.showInstances })
+                  }
+                  style={styles.filter}
+                  label="Instances"
+                />
+                <Checkbox
+                  checked={this.state.showVolumes}
+                  onCheck={() =>
+                    this.setState({ showVolumes: !this.state.showVolumes })
+                  }
+                  style={styles.filter}
+                  label="Volumes"
+                />
+                <Checkbox
+                  checked={this.state.showProjects}
+                  onCheck={() =>
+                    this.setState({ showProjects: !this.state.showProjects })
+                  }
+                  style={styles.filter}
+                  label="Projects"
+                />
+                <Checkbox
+                  checked={this.state.showLinks}
+                  onCheck={() =>
+                    this.setState({ showLinks: !this.state.showLinks })
+                  }
+                  style={styles.filter}
+                  label="Links"
+                />
+              </React.Fragment>
+            ) : null}
           </div>
           <Toggle
             style={{ width: "160px" }}
             toggled={this.state.expandedView}
-            onToggle={() =>
-              this.setState({ expandedView: !expandedView })
-            }
+            onToggle={() => this.setState({ expandedView: !expandedView })}
             label="Expanded View"
           />
           <AssetsFAB />
@@ -70,7 +99,7 @@ class Instances extends Component {
           {!expandedView ? (
             <AllAssetList isSticky />
           ) : (
-            <AllAssetsFlatList isSticky />
+            <AllAssetsFlatList {...this.state} isSticky />
           )}
         </Element>
         <CommentLink href="https://projects.invisionapp.com/share/BXGE8OWQZ62#/screens/285754476/comments" />

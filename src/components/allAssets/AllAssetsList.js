@@ -33,11 +33,16 @@ class AllAssetsList extends Component {
       range,
       isSticky
     } = this.props;
+
+    const detInstances = instances.filter(item => !item.project);
+    const detVolumes = volumes.filter(item => !item.project);
+    const detLinks = links.filter(item => !item.project);
+
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
     return (
       <section style={{ maxWidth: "1000px", margin: "auto" }}>
-        {showHeader ? (
+        {projects && showHeader ? (
           <ProjectListHeader
             isSticky
             batchMode={batchMode}
@@ -50,71 +55,79 @@ class AllAssetsList extends Component {
             }}
           />
         ) : null}
-        <MediaCardGroup whitespace="mb3">
-          {projects.map((project, i) => {
-            return (
-              <ProjectCard
-                key={project.id}
-                uid={project.id}
-                isCheckable={selectedItems.length > 0}
-                checked={selectedItems.includes(project.id)}
-                onCheck={this.onCheck}
-                project={project}
-              />
-            );
-          })}
-        </MediaCardGroup>
-        <VolumeListHeader
-          isSticky
-          batchMode={batchMode}
-          onBatchClick={(e, isChecked) => {
-            this.setState({
-              selectedItems: isChecked
-                ? projects.map(project => project.id)
-                : []
-            });
-          }}
-        />
-        <MediaCardGroup whitespace="mb3">
-          {R.union(R.union(
-            instances.filter(item => !item.project).map((instance, i) => {
+        {projects ? (
+          <MediaCardGroup whitespace="mb3">
+            {projects.map((project, i) => {
               return (
-                <InstanceCard
-                  key={instance.id}
-                  uid={instance.id}
+                <ProjectCard
+                  key={project.id}
+                  uid={project.id}
                   isCheckable={selectedItems.length > 0}
-                  checked={selectedItems.includes(instance.id)}
+                  checked={selectedItems.includes(project.id)}
                   onCheck={this.onCheck}
-                  image={instance}
+                  project={project}
                 />
               );
-            }),
-            volumes.filter(item => !item.project).map((volume, i) => {
-              return (
-                <VolumeCard
-                  key={volume.id}
-                  uid={volume.id}
-                  isCheckable={selectedItems.length > 0}
-                  checked={selectedItems.includes(volume.id)}
-                  onCheck={this.onCheck}
-                  image={volume}
-                />
-              );
-            })),
-            links.filter(item => !item.project).map((volume, i) => {
-              return (
-                <LinkCard
-                  key={volume.id}
-                  uid={volume.id}
-                  isCheckable={selectedItems.length > 0}
-                  checked={selectedItems.includes(volume.id)}
-                  onCheck={this.onCheck}
-                  image={volume}
-                />
-              );
-            })
-          )}
-        </MediaCardGroup>
+            })}
+          </MediaCardGroup>
+        ) : null}
+        {detInstances.length > 0 || detVolumes.length > 0 || detLinks.length > 0 ? (
+          <React.Fragment>
+            <VolumeListHeader
+              isSticky
+              batchMode={batchMode}
+              onBatchClick={(e, isChecked) => {
+                this.setState({
+                  selectedItems: isChecked
+                    ? projects.map(project => project.id)
+                    : []
+                });
+              }}
+            />
+            <MediaCardGroup whitespace="mb3">
+              {R.union(
+                R.union(
+                  detInstances.map((instance, i) => {
+                    return (
+                      <InstanceCard
+                        key={instance.id}
+                        uid={instance.id}
+                        isCheckable={selectedItems.length > 0}
+                        checked={selectedItems.includes(instance.id)}
+                        onCheck={this.onCheck}
+                        image={instance}
+                      />
+                    );
+                  }),
+                  detVolumes.map((volume, i) => {
+                    return (
+                      <VolumeCard
+                        key={volume.id}
+                        uid={volume.id}
+                        isCheckable={selectedItems.length > 0}
+                        checked={selectedItems.includes(volume.id)}
+                        onCheck={this.onCheck}
+                        image={volume}
+                      />
+                    );
+                  })
+                ),
+                detLinks.map((volume, i) => {
+                  return (
+                    <LinkCard
+                      key={volume.id}
+                      uid={volume.id}
+                      isCheckable={selectedItems.length > 0}
+                      checked={selectedItems.includes(volume.id)}
+                      onCheck={this.onCheck}
+                      image={volume}
+                    />
+                  );
+                })
+              )}
+            </MediaCardGroup>
+          </React.Fragment>
+        ) : null}
       </section>
     );
   }
