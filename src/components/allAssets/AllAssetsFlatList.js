@@ -54,6 +54,7 @@ class AllAssetsList extends Component {
           {[
             ...instances.map(item => (
               <InstanceCard
+                simple={true}
                 key={item.id}
                 uid={item.id}
                 isCheckable={selectedItems.length > 0}
@@ -81,7 +82,18 @@ class AllAssetsList extends Component {
                 onCheck={this.onCheck}
                 project={item}
               />
-            ))
+            )),
+            ...volumes.map(item => (
+              <VolumeCard
+                simple={true}
+                key={item.id}
+                uid={item.id}
+                isCheckable={selectedItems.length > 0}
+                checked={selectedItems.includes(item.id)}
+                onCheck={this.onCheck}
+                image={item}
+              />
+            )),
           ].map(item => item)}
         </MediaCardGroup>
       </section>

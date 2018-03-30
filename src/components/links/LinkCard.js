@@ -79,7 +79,7 @@ const summaryStyles = theme => ({
 const ProjectSummary = withTheme(
   injectSheet(summaryStyles)(({ image, classes }) => (
     <Element className={classes.wraper}>
-      <SummaryText>{image.summary}</SummaryText>
+      <SummaryText>{image.description}</SummaryText>
     </Element>
   ))
 );
@@ -125,14 +125,13 @@ class ProjectCard extends Component {
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
         >
-          <ListCardIdentity
-
-          >
-            <ProjectIdentity 
+          <ListCardIdentity>
+            <ProjectIdentity
               isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
               image={image}
               onCheck={this.onCheck}
-              checked={checked} />
+              checked={checked}
+            />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
             <ProjectSummary image={image} />

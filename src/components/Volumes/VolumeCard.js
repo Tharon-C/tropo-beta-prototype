@@ -19,7 +19,7 @@ import {
   Identity,
   SummaryText,
   P,
-  Element,
+  Element
 } from "../../cyverse-ui/";
 
 const VolumeIdentity = ({ image, ...rest }) => (
@@ -85,7 +85,7 @@ export const VolumeListHeader = withTheme(
           </Element>
         </Element>
       }
-      actions={<VolumeBatchActions/>}
+      actions={<VolumeBatchActions />}
     />
   ))
 );
@@ -103,6 +103,7 @@ class VolumeCard extends Component {
   };
   render() {
     const {
+      simple,
       isCheckable,
       onExpand,
       checked,
@@ -127,7 +128,11 @@ class VolumeCard extends Component {
             />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
-            <VolumeSummary image={image} />
+            {simple ? (
+              <SummaryText>{image.description}</SummaryText>
+            ) : (
+              <VolumeSummary image={image} />
+            )}
           </ListCardSummary>
           <VolumeActions
             volume={image}

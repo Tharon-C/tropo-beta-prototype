@@ -70,7 +70,7 @@ const summaryStyles = theme => ({
   }
 });
 
-const ImageSummary = withTheme(
+const InstanceSummary = withTheme(
   injectSheet(summaryStyles)(({ image, classes }) => {
     let statusColor;
     switch (image.activity) {
@@ -97,27 +97,29 @@ const ImageSummary = withTheme(
 );
 
 export const InstanceListHeader = withTheme(
-  injectSheet(summaryStyles)(({ project, classes, createInstance, ...rest }) => (
-    <AssetListHeader
-      {...rest}
-      summary={
-        <Element className={classes.wraper}>
-          <Element className={`${classes.cell} ${classes.activity}`}>
-            <Element typography="label">Status</Element>
+  injectSheet(summaryStyles)(
+    ({ project, classes, createInstance, ...rest }) => (
+      <AssetListHeader
+        {...rest}
+        summary={
+          <Element className={classes.wraper}>
+            <Element className={`${classes.cell} ${classes.activity}`}>
+              <Element typography="label">Status</Element>
+            </Element>
+            <Element className={classes.cell}>
+              {" "}
+              <Element typography="label">Size</Element>
+            </Element>
+            <Element className={classes.cell}>
+              {" "}
+              <Element typography="label">Provider</Element>
+            </Element>
           </Element>
-          <Element className={classes.cell}>
-            {" "}
-            <Element typography="label">Size</Element>
-          </Element>
-          <Element className={classes.cell}>
-            {" "}
-            <Element typography="label">Provider</Element>
-          </Element>
-        </Element>
-      }
-      actions={<InstanceBatchActions />}
-    />
-  ))
+        }
+        actions={<InstanceBatchActions />}
+      />
+    )
+  )
 );
 
 class ImageCard extends Component {
@@ -133,6 +135,7 @@ class ImageCard extends Component {
   };
   render() {
     const {
+      simple,
       isCheckable,
       onExpand,
       checked,
@@ -157,7 +160,11 @@ class ImageCard extends Component {
             />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
-            <ImageSummary image={image} />
+            {simple ? (
+              <SummaryText>{image.description}</SummaryText>
+            ) : (
+              <InstanceSummary image={image} />
+            )}
           </ListCardSummary>
           <InstanceActions
             instance={image}
