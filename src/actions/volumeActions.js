@@ -8,8 +8,9 @@ export const createVolume = (volume) => ({
   volume,
 });
 
-export const toggleVolumeForm = () => ({
+export const toggleVolumeForm = (project) => ({
   type: "TOGGLE_VOLUME_FORM",
+  project,
 });
 
 export const changeVolumeProperty = field => value => ({

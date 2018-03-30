@@ -23,6 +23,28 @@ export default function list(state = initState, action) {
             })(state.data)
           })
         : state;
+        case "CREATE_VOLUME":
+      return action.volume.project
+        ? R.merge(state, {
+            data: editListItem("id", action.volume.project, {
+              volumes: [
+                ...get.byId(action.volume.project)(state.data).volumes,
+                action.volume.id
+              ]
+            })(state.data)
+          })
+        : state;
+        case "CREATE_LINK":
+      return action.link.project
+        ? R.merge(state, {
+            data: editListItem("id", action.link.project, {
+              links: [
+                ...get.byId(action.link.project)(state.data).links,
+                action.link.id
+              ]
+            })(state.data)
+          })
+        : state;
     case "EDIT_PROJECT":
       return R.merge(state, {
         isSubmitting: true,

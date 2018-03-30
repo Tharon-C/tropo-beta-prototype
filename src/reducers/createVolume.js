@@ -12,7 +12,7 @@ const initState = () => {
       description: "",
       summary: "",
       size: "10",
-      tags: [],
+      tags: []
     }
   };
 };
@@ -22,13 +22,16 @@ export default function list(state = initState(), action) {
     case "TOGGLE_VOLUME_FORM": {
       return R.merge(state, {
         showForm: !state.showForm,
+        data: R.merge(state.data, {
+          project: action.project ? action.project.id : ""
+        })
       });
     }
     case "CHANGE_VOLUME_PROPERY":
       return R.merge(state, {
         status: "editing",
         data: R.merge(state.data, action.change)
-      });
+      })
     case "CREATE_VOLUME":
       return R.merge(state, {
         status: "Submitting"

@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
 import get from "../../utils/get";
 import {toggleInstanceForm} from "../../actions/instanceActions";
+import {toggleLinkForm} from "../../actions/linkActions";
+import {toggleVolumeForm} from "../../actions/volumeActions";
 import {FloatingActionButton } from "material-ui";
 import AddIcon from "material-ui/svg-icons/content/add";
 import { Element, P } from "../../cyverse-ui";
@@ -15,7 +17,7 @@ import LinkList from "../links/LinkList";
 
 import SummaryText from "cyverse-ui/lib/SummaryText";
 
-const ProjectInfo = ({ tags, project, view, showInstanceForm }) => {
+const ProjectInfo = ({ tags, project, view, showInstanceForm, showLinkForm, showVolumeForm }) => {
   switch (view) {
     case "info":
       return (
@@ -54,15 +56,41 @@ const ProjectInfo = ({ tags, project, view, showInstanceForm }) => {
       );
     case "volumes":
     return (
-    <React.Fragment>
+          <div style={{position: "relative"}}>
+        <FloatingActionButton
+            mini
+            secondary
+            onClick={() => showVolumeForm(project)}
+            style={{
+              position: "absolute",
+              right: 10,
+              top: "-20px",
+              zIndex: 1
+            }}
+          >
+            <AddIcon />
+          </FloatingActionButton>
     <VolumeList filter={(item) => project.volumes.includes(item.id)}/>
-  </React.Fragment>
+    </div>
     );
     case "links":
     return (
-    <React.Fragment>
+      <div style={{position: "relative"}}>
+      <FloatingActionButton
+          mini
+          secondary
+          onClick={() => showLinkForm(project)}
+          style={{
+            position: "absolute",
+            right: 10,
+            top: "-20px",
+            zIndex: 1
+          }}
+        >
+          <AddIcon />
+        </FloatingActionButton> 
     <LinkList filter={(item) => project.links.includes(item.id)}/>
-  </React.Fragment>
+    </div>
     );
     case "images":
     return (
@@ -77,7 +105,9 @@ const ProjectInfo = ({ tags, project, view, showInstanceForm }) => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      showInstanceForm: toggleInstanceForm //(current) => push(current + "/instance-launch"),
+      showInstanceForm: toggleInstanceForm,
+      showVolumeForm: toggleVolumeForm,
+      showLinkForm: toggleLinkForm,
     },
     dispatch
   );

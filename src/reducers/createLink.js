@@ -22,6 +22,9 @@ export default function list(state = initState(), action) {
     case "TOGGLE_LINK_FORM": {
       return R.merge(state, {
         showForm: !state.showForm,
+        data: R.merge(state.data, {
+          project: action.project ? action.project.id : ""
+        })
       });
     }
     case "CHANGE_LINK_PROPERY":
@@ -33,7 +36,7 @@ export default function list(state = initState(), action) {
       return R.merge(state, {
         status: "Submitting"
       });
-    case "RESET_LINK":
+    case "RESET_CREATE_LINK":
       return initState();
 
     default:

@@ -48,7 +48,6 @@ const CreateLinkDialog = ({
         () => {
           createLink(link)
           resetLink()
-          hideForm()
           goToLinks()
         }
       }/>
