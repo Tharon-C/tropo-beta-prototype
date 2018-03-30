@@ -43,7 +43,7 @@ const ProjectInfo = ({ tags, project, view, showInstanceForm, showLinkForm, show
             onClick={() => showInstanceForm(null, project)}
             style={{
               position: "absolute",
-              right: 10,
+              right: 0,
               top: "-20px",
               zIndex: 1
             }}
@@ -63,7 +63,7 @@ const ProjectInfo = ({ tags, project, view, showInstanceForm, showLinkForm, show
             onClick={() => showVolumeForm(project)}
             style={{
               position: "absolute",
-              right: 10,
+              right: 0,
               top: "-20px",
               zIndex: 1
             }}
@@ -82,7 +82,7 @@ const ProjectInfo = ({ tags, project, view, showInstanceForm, showLinkForm, show
           onClick={() => showLinkForm(project)}
           style={{
             position: "absolute",
-            right: 10,
+            right: 0,
             top: "-20px",
             zIndex: 1
           }}
