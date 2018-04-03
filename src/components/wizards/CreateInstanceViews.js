@@ -53,7 +53,7 @@ const CreateInstanceViews = ({
               <SelectField
                 style={{ width: "100%" }}
                 floatingLabelText="Project"
-                value={project ? project : "Select Project"}
+                value={project ? project.id : "Select Project"}
                 onChange={(e, index, value) => changeProject(value)}
               >
               <MenuItem primaryText="Select Project" value="Select Project"/>
