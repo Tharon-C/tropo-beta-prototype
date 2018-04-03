@@ -32,6 +32,7 @@ const CreateVolumeDialog = ({
   createVolume,
   resetVolume,
   goToVolumes,
+  goToProject,
   volume
 }) => (
   <Dialog
@@ -48,7 +49,7 @@ const CreateVolumeDialog = ({
         () => {
           createVolume(volume)
           resetVolume()
-          goToVolumes()
+          !volume.project ? goToVolumes() : goToProject(volume.project)
         }
       }/>
     ]}
@@ -91,7 +92,8 @@ const mapDispatchToProps = dispatch =>
       onChangeSize: changeVolumeProperty("size"),
       createVolume,
       resetVolume,
-      goToVolumes: () => push("/volumes")
+      goToVolumes: () => push("/volumes"),
+      goToProject: project => push(`/projects/${project}/volumes`) 
     },
     dispatch
   );

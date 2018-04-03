@@ -32,6 +32,7 @@ const CreateLinkDialog = ({
   createLink,
   resetLink,
   goToLinks,
+  gotToProject,
   link
 }) => (
   <Dialog
@@ -48,7 +49,7 @@ const CreateLinkDialog = ({
         () => {
           createLink(link)
           resetLink()
-          goToLinks()
+          !link.project ? goToLinks() : gotToProject(link.project)
         }
       }/>
     ]}
@@ -90,7 +91,8 @@ const mapDispatchToProps = dispatch =>
       onChangeURL: changeLinkProperty("url"),
       createLink,
       resetLink,
-      goToLinks: () => push("/all-assets")
+      goToLinks: () => push("/all-assets"),
+      gotToProject: project => push(`/projects/${project}/links`)
     },
     dispatch
   );

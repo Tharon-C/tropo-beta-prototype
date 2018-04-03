@@ -109,7 +109,6 @@ const CreateInstanceSidebar = ({
           onClick={() => {
             createInstance(newInstance);
             resetInstance();
-            console.log(newInstance.project);
             !newInstance.project
               ? goToInstances()
               : goToProject(newInstance.project.id);
