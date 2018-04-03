@@ -21,6 +21,7 @@ const CreateInstanceViews = ({
   allocationSource,
   size,
   project,
+  projects,
   changeProvider,
   changeName,
   changeProject,
@@ -49,12 +50,15 @@ const CreateInstanceViews = ({
                 floatingLabelText="Name"
                 onChange={e => changeName(e.target.value)}
               />
-              <TextField
+              <SelectField
                 style={{ width: "100%" }}
                 floatingLabelText="Project"
-                value={project ? project.name : "Select Project"}
-                onChange={e => changeProject(e.target.value)}
-              />
+                value={project ? project : "Select Project"}
+                onChange={(e, index, value) => changeProject(value)}
+              >
+              <MenuItem primaryText="Select Project" value="Select Project"/>
+              {projects.map( project => <MenuItem primaryText={project.name} value={project.id}/>)}
+              </SelectField>
             </Element>
             <Element style={{ width: "100%" }}>
               <Element typography="body2">Instance Resources</Element>
@@ -122,10 +126,11 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch
   );
-const mapStateToProps = ({ createInstance: { stepIndex, data } }) => ({
+const mapStateToProps = ({ projectList, createInstance: { stepIndex, data } }) => ({
   stepIndex: stepIndex,
   name: data.name,
-  project: data.project, 
+  project: data.project,
+  projects: projectList.data,
   provider: data.provider,
   allocationSource: data.allocationSource,
   size: data.size

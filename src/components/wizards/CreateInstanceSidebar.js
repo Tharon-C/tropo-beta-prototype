@@ -111,7 +111,7 @@ const CreateInstanceSidebar = ({
             resetInstance();
             !newInstance.project
               ? goToInstances()
-              : goToProject(newInstance.project.id);
+              : goToProject(newInstance.project);
           }}
         />
         <FlatButton

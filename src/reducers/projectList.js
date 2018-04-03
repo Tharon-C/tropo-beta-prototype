@@ -24,9 +24,9 @@ export default function list(state = initState, action) {
     case "CREATE_INSTANCE":
       return action.instance.project
         ? R.merge(state, {
-            data: editListItem("id", action.instance.project.id, {
+            data: editListItem("id", action.instance.project, {
               instances: [
-                ...get.byId(action.instance.project.id)(state.data).instances,
+                ...get.byId(action.instance.project)(state.data).instances,
                 action.instance.id
               ]
             })(state.data)

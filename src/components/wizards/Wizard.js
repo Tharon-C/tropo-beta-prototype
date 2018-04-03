@@ -3,6 +3,7 @@ import { push } from "react-router-redux";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import {zIndex} from "../../styles/styles";
 import CircleCloseIcon from "material-ui/svg-icons/navigation/close";
 import { IconButton, RaisedButton, FlatButton, TextField } from "material-ui";
 import {
@@ -35,7 +36,7 @@ const Wizard = ({ show, close, location, sidebarContent, view, title }) => (
         background: "#EFEFEF",
         width: "100%",
         height: "100%",
-        zIndex: 9999
+        zIndex: zIndex.Wizard
       }}
     >
       <a
