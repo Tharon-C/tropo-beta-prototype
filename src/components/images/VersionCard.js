@@ -120,9 +120,8 @@ class ImageCard extends Component {
             isHoveredimage={image}
           />
         </ListCardHeader>
-        <ImageDetailTabs hide={!isExpanded} />
         <ListCardDetail hide={!isExpanded}>
-          <ImageInfo view={"info"} image={image} />
+        Comming soon :)
         </ListCardDetail>
       </ListCard>
     );

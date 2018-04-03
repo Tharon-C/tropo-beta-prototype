@@ -17,3 +17,8 @@ export const toggleAddImageToProject = ( image ) => ({
 export const resetAddToProject = ( image ) => ({
     type: "RESET_ADD_TO_PROJECT",
 })
+
+export const toggleFavorite = (image) => ({
+    type: "TOGGLE_FAVORITE_IMAGE",
+    image
+})

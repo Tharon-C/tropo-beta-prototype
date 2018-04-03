@@ -111,6 +111,7 @@ class ImageCard extends Component {
           </ListCardSummary>
           <ImageActions
             hideQuickActions={isExpanded ? false : !this.state.isHovered}
+            isFavorited={image.favorited}
             isHoveredimage={image}
             image={image}
           />
