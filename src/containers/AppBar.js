@@ -1,11 +1,12 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
+import {zIndex} from "../styles/styles";
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import UserIcon from 'material-ui/svg-icons/action/account-circle';
 import SearchBar from '../components/SearchBar';
 
 const AppBar = ({location}) => {
-  const appName = location.pathname.slice(1).replace(/-/g, " ")
+  const appName = location.pathname.split("/")[1].replace(/-/g, " ")
   return (
   <header
     style={{
@@ -15,7 +16,7 @@ const AppBar = ({location}) => {
       alignItems: 'center',
       height: 56,
       background: '#006ca9',
-      zIndex: 900,
+      zIndex: zIndex.AppBar,
       fontSize: '20px',
       color: 'white',
       padding: '0 16px',

@@ -2,7 +2,12 @@ import React from "react";
 import { push } from "react-router-redux";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { setStep, createInstance, resetInstance, toggleInstanceForm } from "../../actions/instanceActions";
+import {
+  setStep,
+  createInstance,
+  resetInstance,
+  toggleInstanceForm
+} from "../../actions/instanceActions";
 
 import { IconButton, RaisedButton, FlatButton, TextField } from "material-ui";
 import {
@@ -54,6 +59,7 @@ const CreateInstanceSidebar = ({
   resetInstance,
   toggleInstanceForm,
   goToInstances,
+  goToProject
 }) => {
   return (
     <React.Fragment>
@@ -100,10 +106,13 @@ const CreateInstanceSidebar = ({
           primary
           style={{ width: "100%", marginBottom: "16px" }}
           label="Launch Instance"
-          onClick={()=> {
-            createInstance(newInstance, project)
-            resetInstance()
-            goToInstances()
+          onClick={() => {
+            createInstance(newInstance);
+            resetInstance();
+            console.log(newInstance.project);
+            !newInstance.project
+              ? goToInstances()
+              : goToProject(newInstance.project.id);
           }}
         />
         <FlatButton
@@ -123,22 +132,25 @@ const mapDispatchToProps = dispatch =>
       createInstance,
       resetInstance,
       toggleInstanceForm,
-      goToInstances: () => push('/instances')
+      goToInstances: () => push("/instances"),
+      goToProject: project => push(`/projects/${project}/instances`)
     },
     dispatch
   );
-const mapStateToProps = ({createInstance: {
+const mapStateToProps = ({
+  createInstance: {
+    showForm,
+    stepIndex,
+    selectedImage,
+    project,
+    data: newInstance
+  }
+}) => ({
   showForm,
   stepIndex,
   selectedImage,
   project,
-  data: newInstance,
-}}) => ({
-  showForm,
-  stepIndex,
-  selectedImage,
-  project,
-  newInstance,
+  newInstance
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(

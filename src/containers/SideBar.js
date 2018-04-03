@@ -11,6 +11,7 @@ import ImageIcon from "material-ui/svg-icons/content/save";
 import { ListItem } from "material-ui";
 import VolumeIcon from "../icons/VolumeIcon";
 import InstanceIcon from "../icons/InstanceIcon";
+import SelectableList from "../components/SelectableList";
 
 const SideBar = ({
   dashboard,
@@ -19,7 +20,8 @@ const SideBar = ({
   allAssets,
   volumes,
   projects,
-  notifications
+  notifications,
+  current,
 }) => (
   <nav
     style={{
@@ -33,45 +35,54 @@ const SideBar = ({
       boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)"
     }}
   >
+  <SelectableList defaultValue={current || "dashboard"}>
     <ListItem
+      value={"dashboard"}
       onClick={dashboard}
       primaryText="Dashboard"
       leftIcon={<DashboardIcon />}
     />
     <ListItem
+    value={"image-catalog"}
       onClick={imageCatalog}
       primaryText="Image Catalog"
       leftIcon={<ImageIcon />}
     />
     <ListItem
+    value={"all-assets"}
       primaryText="All Assets"
       onClick={allAssets}
       leftIcon={<ListIcon />}
       initiallyOpen
     />
     <ListItem
+    value={"instances"}
       style={{ paddingLeft: "30px" }}
       onClick={instances}
       primaryText="Instances"
       leftIcon={<InstanceIcon />}
     />
     <ListItem
+    value={"volumes"}
       style={{ paddingLeft: "30px" }}
       onClick={volumes}
       primaryText="Volumes"
       leftIcon={<VolumeIcon />}
     />
     <ListItem
+    value={"projects"}
       style={{ paddingLeft: "30px" }}
       onClick={projects}
       primaryText="Projects"
       leftIcon={<ProjectsIcon />}
     />
     <ListItem
+    value={"notifications"}
       onClick={notifications}
       primaryText="Notifications"
       leftIcon={<NotificationsIcon />}
     />
+    </SelectableList>
   </nav>
 );
 
@@ -89,4 +100,8 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-export default connect(null, mapDispatchToProps)(SideBar);
+  const mapStateToProps = state => ({
+    current: state.routing.location.pathname.split("/")[1]
+  })
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

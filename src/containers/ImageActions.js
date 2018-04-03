@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { toggleInstanceForm } from "../actions/instanceActions";
+import { toggleAddImageToProject } from "../actions/imageActions";
 
 import { IconButton, MenuItem } from "material-ui";
 import ShareIcon from "material-ui/svg-icons/social/share";
@@ -26,6 +27,7 @@ const ImageActions = ({
   image,
   hideQuickActions,
   openInstanceLaunch,
+  openAddImageToProject,
   location,
   classes
 }) => (
@@ -46,7 +48,7 @@ const ImageActions = ({
     </ActionGroup>
     <VerticalMenu>
       <MenuItem primaryText="Edit Image" />
-      <MenuItem primaryText="Add to Project" />
+      <MenuItem primaryText="Add to Project"  onClick={() => openAddImageToProject(image.id)}/>
       <MenuItem primaryText="Report" />
     </VerticalMenu>
   </ActionGroup>
@@ -54,7 +56,8 @@ const ImageActions = ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      openInstanceLaunch: toggleInstanceForm
+      openInstanceLaunch: toggleInstanceForm,
+      openAddImageToProject: toggleAddImageToProject,
     },
     dispatch
   );

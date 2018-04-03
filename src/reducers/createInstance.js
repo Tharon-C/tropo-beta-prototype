@@ -36,6 +36,7 @@ export default function list(state = initState(), action) {
         data: R.merge(state.data, {
           project: action.project,
           name: action.image ? action.image.name : "New Instance",
+          description: action.image ? action.image.description : "",
           tags: action.image ? action.image.tags : []
         })
       });

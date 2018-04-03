@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { connect } from "react-redux";
-import { Route, withRouter } from 'react-router-dom'
+import { Route, IndexRoute, withRouter } from 'react-router-dom'
 import Sidebar from "./containers/SideBar";
 import AppBar from "./containers/AppBar";
 import Dashboard from "./views/Dashboard";
@@ -11,7 +11,9 @@ import Volumes from './views/Volumes';
 import Projects from './views/Projects';
 import Notifications from './views/Notifications';
 import AllAssets from './views/AllAssets';
+import ProjectDetail from "./views/ProjectDetail";
 import dashboard from "material-ui/svg-icons/action/dashboard";
+import viewAgenda from "material-ui/svg-icons/action/view-agenda";
 
 class App extends Component {
   render() {
@@ -41,6 +43,7 @@ class App extends Component {
                   <Route exact path="/volumes" component={Volumes} />
                   <Route exact path="/projects" component={Projects} />
                   <Route exact path="/notifications" component={Notifications} />
+                  <Route path="/projects/:id" component={ProjectDetail} />
                 </main>
               </div>
             </div>

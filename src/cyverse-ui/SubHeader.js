@@ -36,8 +36,10 @@ const SubHeader = ({
     className,
     name,
     quickActions,
+    actions,
     menuItems,
     onBack,
+    ...rest,
 }) => {
     const wrapperClasses = classnames(
         { [className]: className },
@@ -70,7 +72,7 @@ const SubHeader = ({
     };
 
     return (
-        <div className={wrapperClasses}>
+        <div {...rest} className={wrapperClasses}>
             <div className={titleGroupClasses}>
                 <IconButton
                     className="CY-SubHeader-backBtn"
@@ -86,7 +88,10 @@ const SubHeader = ({
                     {name}
                 </Element>
             </div>
+            <div>
             {renderOptionGroup()}
+            { actions }
+            </div>
         </div>
     );
 };

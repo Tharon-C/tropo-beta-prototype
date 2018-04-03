@@ -10,6 +10,7 @@ import createInstance from "./createInstance";
 import createVolume from "./createVolume";
 import createLink from "./createLink";
 import createProject from "./createProject";
+import addToProject from "./addToProject";
 
 export default combineReducers({
   routing: routerReducer,
@@ -23,4 +24,5 @@ export default combineReducers({
   createVolume,
   createLink,
   createProject,
+  addToProject,
 });

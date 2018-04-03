@@ -12,6 +12,15 @@ const initState = {
 
 export default function list(state = initState, action) {
   switch (action.type) {
+    case "ADD_IMAGE_TO_PROJECT": 
+    return R.merge(state, {
+      data: editListItem("id", action.project, {
+        images: [
+          ...get.byId(action.project)(state.data).images,
+          action.image
+        ]
+      })(state.data)
+    });
     case "CREATE_INSTANCE":
       return action.instance.project
         ? R.merge(state, {

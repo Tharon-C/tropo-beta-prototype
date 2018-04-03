@@ -15,18 +15,27 @@ const styles = {
   },
   quickActions: {}
 };
+
+export const ProjectMenu = ({...rest}) => (
+  <VerticalMenu>
+    <MenuItem primaryText="Share" />
+    <MenuItem primaryText="Delete" />
+    <MenuItem primaryText="Report Issue" />
+  </VerticalMenu>
+);
+
+export const ProjectQuickActions = ({...rest}) => (
+  <IconButton>
+    <EditIcon />
+  </IconButton>
+)
+
 const ImageActions = ({ hideQuickActions, classes, hide, ...rest }) => (
   <ActionGroup hide={hide} { ...rest} className={classes.wrapper} stopPropagation>
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
-      <IconButton>
-        <EditIcon />
-      </IconButton>
+      <ProjectQuickActions/>
     </ActionGroup>
-    <VerticalMenu>
-      <MenuItem primaryText="Share" />
-      <MenuItem primaryText="Delete" />
-      <MenuItem primaryText="Report Issue" />
-    </VerticalMenu>
+    <ProjectMenu/>
   </ActionGroup>
 );
 
