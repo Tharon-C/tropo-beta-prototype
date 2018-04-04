@@ -4,6 +4,7 @@ import { push } from "react-router-redux";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {get} from "../utils";
+import {zIndex} from "../styles/styles"
  
 import  { Element, Hr, P, ListCard, ListCardHeader, ListCardIdentity, SubHeader, ActionGroup } from "../cyverse-ui";
 import {ProjectIdentity} from "../components/projects/ProjectCard";
@@ -31,7 +32,7 @@ class ProjectDetail extends Component {
             top: 0,
             height: 48,
             boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)",
-            zIndex: "9999"
+            zIndex: zIndex.viewHeader
           }}
         >
           <SubHeader style={{width:"100%"}}name="Project Detail" onBack={back} actions={

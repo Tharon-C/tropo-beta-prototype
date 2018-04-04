@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import {push} from "react-router-redux";
+import { push } from "react-router-redux";
 import { bindActionCreators } from "redux";
 import { Dialog, FlatButton } from "material-ui";
 import {
   toggleLinkForm,
   changeLinkProperty,
   createLink,
-  resetLink,
+  resetLink
 } from "../actions/linkActions";
 import { TextField } from "material-ui";
 import { Element, InfoBlock, P } from "../cyverse-ui";
@@ -38,20 +38,27 @@ const CreateLinkDialog = ({
   <Dialog
     open={showForm}
     onRequestClose={() => {
-      hideForm()
-      resetLink()
+      hideForm();
+      resetLink();
     }}
     title="Create Link"
     actions={[
-      <FlatButton label="Cancel" onClick={ () => {hideForm()
-      resetLink()}}/>,
-      <FlatButton primary label="Create Link" onClick={
-        () => {
-          createLink(link)
-          resetLink()
-          !link.project ? goToLinks() : gotToProject(link.project)
-        }
-      }/>
+      <FlatButton
+        label="Cancel"
+        onClick={() => {
+          hideForm();
+          resetLink();
+        }}
+      />,
+      <FlatButton
+        primary
+        label="Create Link"
+        onClick={() => {
+          createLink(link);
+          resetLink();
+          !link.project ? goToLinks() : gotToProject(link.project);
+        }}
+      />
     ]}
   >
     <InfoBlock text={<P>Text explaining links here</P>} />
@@ -72,8 +79,10 @@ const CreateLinkDialog = ({
       value={description}
       style={styles.TextField}
       floatingLabelText="Description"
+      multiLine={true}
+      rowsMax={4}
     />
-        <TextField
+    <TextField
       onChange={e => onChangeURL(e.target.value)}
       value={url}
       style={styles.TextField}
@@ -96,14 +105,12 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch
   );
-const mapStateToProps = ({
-  createLink: { showForm, data } 
-}) => ({
+const mapStateToProps = ({ createLink: { showForm, data } }) => ({
   showForm,
   name: data.name,
   url: data.url,
   description: data.description,
   summary: data.summary,
-  link: data,
+  link: data
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CreateLinkDialog);

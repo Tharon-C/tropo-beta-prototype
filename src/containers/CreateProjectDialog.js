@@ -69,6 +69,8 @@ const CreateProjectDialog = ({
       onChange={e => onChangeDescription(e.target.value)}
       value={description}
       style={styles.TextField}
+      multiLine={true}
+      rowsMax={4}
       floatingLabelText="Description"
     />
   </Dialog>
