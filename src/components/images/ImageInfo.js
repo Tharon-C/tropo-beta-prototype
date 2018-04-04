@@ -5,7 +5,7 @@ import { Element, P } from "../../cyverse-ui";
 import VersionCard from "./VersionCard";
 import Tag from "../Tag";
 
-export default ({image, view}) => {
+export default ({image, view, selectMode}) => {
     if(view === "info"){
         return (
             <React.Fragment>
@@ -30,9 +30,9 @@ export default ({image, view}) => {
     } if (view === "versions") {
         return (
             <React.Fragment>
-            <VersionCard image={image}/>
-            <VersionCard image={image}/>
-            <VersionCard image={image}/>
+            <VersionCard selectMode={selectMode} image={image}/>
+            <VersionCard selectMode={selectMode} image={image}/>
+            <VersionCard selectMode={selectMode} image={image}/>
             </React.Fragment>
         )
     }

@@ -61,7 +61,7 @@ const ImageSummary = injectSheet(summaryStyles)(({ image, classes }) => {
         style={{ display: "flex" }}
         typography="caption"
       >
-       <Element className={classes.provider} typography="label">
+        <Element className={classes.provider} typography="label">
           Providers:
         </Element>
         <Element className={classes.provider} typography="body2">
@@ -101,7 +101,7 @@ class ImageCard extends Component {
     this.setState({ isHovered: false });
   };
   render() {
-    const { onExpand, isExpanded, image, ...rest } = this.props;
+    const { onExpand, isExpanded, image, selectMode, ...rest } = this.props;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
@@ -115,14 +115,14 @@ class ImageCard extends Component {
           <ListCardSummary hide={isExpanded}>
             <ImageSummary image={image} />
           </ListCardSummary>
-          <ImageActions
-            hideQuickActions={isExpanded ? false : !this.state.isHovered}
-            isHoveredimage={image}
-          />
+          {!selectMode ? (
+            <ImageActions
+              hideQuickActions={isExpanded ? false : !this.state.isHovered}
+              isHoveredimage={image}
+            />
+          ) : null}
         </ListCardHeader>
-        <ListCardDetail hide={!isExpanded}>
-        Comming soon :)
-        </ListCardDetail>
+        <ListCardDetail hide={!isExpanded}>Comming soon :)</ListCardDetail>
       </ListCard>
     );
   }

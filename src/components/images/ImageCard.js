@@ -5,6 +5,7 @@ import get from "../../utils/get";
 import MenuItem from "material-ui/MenuItem";
 import IconButton from "material-ui/IconButton";
 import ShareIcon from "material-ui/svg-icons/social/share";
+import CheckIcon from "material-ui/svg-icons/navigation/check";
 import FavoritedBorderIcon from "material-ui/svg-icons/action/favorite-border";
 import { Tabs, Tab } from "material-ui";
 import { LaunchIcon } from "cyverse-ui/es/icons";
@@ -26,10 +27,10 @@ import {
   ShowMoreEllipsis
 } from "../../cyverse-ui/";
 
-const ImageIdentity = ({ image }) => (
+const ImageIdentity = ({ image, isSelected }) => (
   <Identity
     image={
-      image.avatar ? (
+      isSelected ? <CheckIcon style={{width: 40, height: 40,color: "green"}}/> : image.avatar ? (
         <Avatar backgroundColor="#EFEFEF" src={image.avatar} />
       ) : (
         <Avatar
@@ -70,14 +71,8 @@ const ImageDetailTabs = ({ image, onTabClick, ...rest }) => (
         maxWidth: "400px"
       }}
     >
-      <Tab label="Info"
-        data-route="info"
-        onActive={onTabClick}
-      />
-      <Tab label="Versions" 
-          data-route="versions"
-          onActive={onTabClick}
-      />
+      <Tab label="Info" data-route="info" onActive={onTabClick} />
+      <Tab label="Versions" data-route="versions" onActive={onTabClick} />
     </Tabs>
   </Element>
 );
@@ -91,34 +86,41 @@ class ImageCard extends Component {
     this.setState({ isHovered: false });
   };
 
-  onTabClick = (tab) => {
-    this.setState({ view: tab.props["data-route"]})
+  onTabClick = tab => {
+    this.setState({ view: tab.props["data-route"] });
+  };
+  onCardClick = e => {
+    const {onExpand, onCardClick = () => {}, image} = this.props;
+    onExpand(e);
+    onCardClick(image);
   }
   render() {
-    const { onExpand, isExpanded, image, ...rest } = this.props;
+    const { onExpand, isExpanded, isSelected, image, selectMode, ...rest } = this.props;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
-          onClick={onExpand}
+          onClick={this.onCardClick}
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
         >
           <ListCardIdentity>
-            <ImageIdentity image={image} />
+            <ImageIdentity image={image} isSelected={isSelected} />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
             <ImageSummary image={image} />
           </ListCardSummary>
-          <ImageActions
-            hideQuickActions={isExpanded ? false : !this.state.isHovered}
-            isFavorited={image.favorited}
-            isHoveredimage={image}
-            image={image}
-          />
+          {!selectMode ? (
+            <ImageActions
+              hideQuickActions={isExpanded ? false : !this.state.isHovered}
+              isFavorited={image.favorited}
+              isHoveredimage={image}
+              image={image}
+            />
+          ) : null}
         </ListCardHeader>
-        <ImageDetailTabs hide={!isExpanded} onTabClick={this.onTabClick}/>
+        <ImageDetailTabs hide={!isExpanded} onTabClick={this.onTabClick} />
         <ListCardDetail hide={!isExpanded}>
-          <ImageInfo view={this.state.view} image={image} />
+          <ImageInfo selectMode={selectMode} view={this.state.view} image={image} />
         </ListCardDetail>
       </ListCard>
     );

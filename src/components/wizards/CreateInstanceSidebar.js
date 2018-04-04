@@ -2,6 +2,7 @@ import React from "react";
 import { push } from "react-router-redux";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { get } from "../../utils";
 import {
   setStep,
   createInstance,
@@ -23,7 +24,7 @@ import LeftArrowIcon from "material-ui/svg-icons/navigation/arrow-back";
 import RightArrowIcon from "material-ui/svg-icons/navigation/arrow-forward";
 import SettingsIcon from "material-ui/svg-icons/action/settings";
 
-const StepActions = ({ stepIndex, onNext, onPrev }) => {
+const StepActions = ({ stepIndex, onNext, onPrev, selectedImage }) => {
   return (
     <div
       style={{
@@ -41,7 +42,7 @@ const StepActions = ({ stepIndex, onNext, onPrev }) => {
       <FlatButton
         label="Next"
         labelPosition="before"
-        disabled={stepIndex === 1}
+        disabled={stepIndex === 1 || !selectedImage }
         icon={<RightArrowIcon />}
         onClick={onNext}
       />
@@ -53,8 +54,8 @@ const CreateInstanceSidebar = ({
   setStepIndex,
   stepIndex,
   project,
-  selectedImage,
   newInstance,
+  selectedImage,
   createInstance,
   resetInstance,
   toggleInstanceForm,
@@ -66,16 +67,18 @@ const CreateInstanceSidebar = ({
       <Stepper activeStep={stepIndex} orientation="vertical">
         <Step>
           <StepButton onClick={() => setStepIndex(0)}>
-            Select an Image
+            {selectedImage && stepIndex > 0 ? "Image Selected" : "Select an Image"}
           </StepButton>
           <StepContent>
             {selectedImage ? (
+              <React.Fragment>
               <P>
-                You have currently selected "{selectedImage.name}". The Instance
-                you launch will be based on this Image. Images are snapshots of
-                an Instance at a point in time. Lanching an Image will create an
-                Instance of that snapshot for you to use.
+                You have currently selected <b>"{selectedImage.name}"</b>.
               </P>
+              <P>
+                The Instance you launch will be based on this Image.
+              </P>
+              </React.Fragment>
             ) : (
               <P>Select an Image to base your Instance on</P>
             )}
@@ -97,6 +100,7 @@ const CreateInstanceSidebar = ({
       {
         <StepActions
           stepIndex={stepIndex}
+          selectedImage={selectedImage}
           onNext={() => (stepIndex === 0 ? setStepIndex(1) : null)}
           onPrev={() => (stepIndex === 1 ? setStepIndex(0) : null)}
         />
@@ -137,19 +141,19 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 const mapStateToProps = ({
+  imageList,
   createInstance: {
     showForm,
     stepIndex,
-    selectedImage,
     project,
     data: newInstance
   }
 }) => ({
   showForm,
   stepIndex,
-  selectedImage,
   project,
-  newInstance
+  newInstance,
+  selectedImage: get.byId(newInstance.image)(imageList.data)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(

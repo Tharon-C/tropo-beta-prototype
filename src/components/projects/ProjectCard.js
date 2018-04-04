@@ -126,7 +126,7 @@ class ProjectCard extends Component {
               isHoveredimage={project}
             />
             <Element hide={isExpanded ? false : !isHovered} onClick={ () => goToDetail(project.id) } style={{ position: "absolute", right: 0, top: 0}}>
-                <ExpandIcon style={{width: "15px", height: "15px"}}/>
+                <ExpandIcon color="lightgrey" style={{width: "15px", height: "15px"}}/>
             </Element>
           </ListCardHeader>
           <ProjectTabs hide={!isExpanded} onTabClick={this.onTabClick} />
