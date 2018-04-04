@@ -15,13 +15,31 @@ class ImageList extends Component {
   };
 
   render() {
-    const { filter = () => true, images, loadMoreEnteries, range, selectMode = false, onImageClick, selected} = this.props;
+    const {
+      filter = () => true,
+      images,
+      loadMoreEnteries,
+      range,
+      selectMode = false,
+      onImageClick,
+      selected,
+      project
+    } = this.props;
     const currentList = images.filter(filter).slice(0, 20 * this.state.page);
     return (
       <section style={{ maxWidth: "1000px", margin: "auto" }}>
         <MediaCardGroup>
           {currentList.map((image, i) => {
-            return <ImageCard isSelected={image.id === selected} onCardClick={onImageClick} selectMode={selectMode} key={image.id} image={image} />;
+            return (
+              <ImageCard
+                isSelected={image.id === selected}
+                onCardClick={onImageClick}
+                selectMode={selectMode}
+                key={image.id}
+                image={image}
+                project={project}
+              />
+            );
           })}
         </MediaCardGroup>
         {currentList.length >= 20 ? (

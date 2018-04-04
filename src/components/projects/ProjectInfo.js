@@ -108,7 +108,7 @@ const ProjectInfo = ({
     case "images":
       return (
         <React.Fragment>
-          <ImageList filter={item => project.images.includes(item.id)} />
+          <ImageList project={project.id} filter={item => project.images.includes(item.id)} />
         </React.Fragment>
       );
   }

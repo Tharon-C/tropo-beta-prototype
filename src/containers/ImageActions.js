@@ -35,6 +35,7 @@ const ImageActions = ({
   location,
   isFavorited,
   toggleFavorite,
+  project,
   classes
 }) => (
   <ActionGroup className={classes.wrapper} stopPropagation>
@@ -57,7 +58,7 @@ const ImageActions = ({
         <ShareIcon />
       </IconButton>
       <IconButton
-        onClick={() => openInstanceLaunch(image)}
+        onClick={() => openInstanceLaunch(image, project)}
         tooltip="Launch Instance of this Image"
       >
         <LaunchIcon />

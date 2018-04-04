@@ -34,6 +34,7 @@ export default function list(state = initState(), action) {
 
         stepIndex: action.image ? 1 : 0,
         data: R.merge(state.data, {
+          image: action.image.id,
           project: action.project,
           name: action.image ? action.image.name : "New Instance",
           description: action.image ? action.image.description : "",

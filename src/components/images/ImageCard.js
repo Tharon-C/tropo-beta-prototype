@@ -95,7 +95,7 @@ class ImageCard extends Component {
     onCardClick(image);
   }
   render() {
-    const { onExpand, isExpanded, isSelected, image, selectMode, ...rest } = this.props;
+    const { onExpand, isExpanded, isSelected, image, selectMode, project, ...rest } = this.props;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
@@ -115,6 +115,7 @@ class ImageCard extends Component {
               isFavorited={image.favorited}
               isHoveredimage={image}
               image={image}
+              project={project}
             />
           ) : null}
         </ListCardHeader>

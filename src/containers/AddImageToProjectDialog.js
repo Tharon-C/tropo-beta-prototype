@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { push } from "react-router-redux";
 import { bindActionCreators } from "redux";
 import { Dialog, FlatButton } from "material-ui";
-import { TextField } from "material-ui";
+import { SelectField, MenuItem } from "material-ui";
 import { Element, InfoBlock, P } from "../cyverse-ui";
 import {
   changeImageProject,
@@ -13,7 +13,6 @@ import {
 } from "../actions/imageActions";
 const styles = {
   TextField: {
-    display: "block",
     width: "100%",
     maxWidth: "500px"
   }
@@ -24,8 +23,9 @@ const AddImageToProjectDialog = ({
   onChangeProject,
   addToProject,
   resetAddToProject,
-  goToProjects,
+  goToProject,
   project,
+  projects,
   image
 }) => (
   <Dialog
@@ -47,20 +47,24 @@ const AddImageToProjectDialog = ({
         primary
         label="Create Project"
         onClick={() => {
-          addToProject(image, project);
+          addToProject(image, project );
           resetAddToProject();
-          goToProjects();
+          goToProject(project);
         }}
       />
     ]}
   >
     <InfoBlock text={<P>Text explaining Projects here.</P>} />
-    <TextField
-      onChange={e => onChangeProject(e.target.value)}
+    <SelectField
+      onChange={(e, i, value) => onChangeProject(value)}
       value={project}
       style={styles.TextField}
       floatingLabelText="Select Project"
-    />
+    >
+    { projects.map( project =>
+      <MenuItem value={project.id} primaryText={project.name}/>
+    )}
+    </SelectField>
   </Dialog>
 );
 const mapDispatchToProps = dispatch =>
@@ -70,15 +74,16 @@ const mapDispatchToProps = dispatch =>
       onChangeProject: changeImageProject,
       addToProject,
       resetAddToProject,
-      goToProjects: () => push("/projects")
+      goToProject: project => push(`/projects/${project}/images`)
     },
     dispatch
   );
-const mapStateToProps = ({ addToProject: { showForm, data } }) => ({
+const mapStateToProps = ({ projectList, addToProject: { showForm, data } }) => ({
   showForm,
   image: data.image,
   project: data.project,
-  image: data.image
+  image: data.image,
+  projects: projectList.data
 });
 export default connect(mapStateToProps, mapDispatchToProps)(
   AddImageToProjectDialog

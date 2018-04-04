@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { zIndex } from "../styles/styles";
 import { Tabs, Tab } from "material-ui";
 import { Element } from "../cyverse-ui";
 import ImageList from "../components/images/ImageList";
@@ -33,7 +34,7 @@ class ImageCatalog extends Component {
             position: "sticky",
             top: 0,
             boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)",
-            zIndex: "9999"
+            zIndex: zIndex.ViewHeader
           }}
         >
           <Tabs value={this.state.view} style={{ maxWidth: "800px" }}>
