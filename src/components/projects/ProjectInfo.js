@@ -54,7 +54,7 @@ const ProjectInfo = ({
           <FloatingActionButton
             mini
             secondary
-            onClick={() => showInstanceForm(null, project)}
+            onClick={() => showInstanceForm(null, project.id)}
             style={{
               position: "absolute",
               right: 0,

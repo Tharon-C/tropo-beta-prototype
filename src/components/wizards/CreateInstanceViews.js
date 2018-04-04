@@ -2,6 +2,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { changeProperty } from "../../actions/instanceActions";
+import { get } from "../../utils";
 import {
   IconButton,
   RaisedButton,
@@ -26,7 +27,7 @@ const CreateInstanceViews = ({
   changeName,
   changeProject,
   changeSize,
-  changeAllocationSource,
+  changeAllocationSource
 }) => {
   return (
     <React.Fragment>
@@ -56,8 +57,10 @@ const CreateInstanceViews = ({
                 value={project ? project.id : "Select Project"}
                 onChange={(e, index, value) => changeProject(value)}
               >
-              <MenuItem primaryText="Select Project" value="Select Project"/>
-              {projects.map( project => <MenuItem primaryText={project.name} value={project.id}/>)}
+                <MenuItem primaryText="Select Project" value="Select Project" />
+                {projects.map(project => (
+                  <MenuItem primaryText={project.name} value={project.id} />
+                ))}
               </SelectField>
             </Element>
             <Element style={{ width: "100%" }}>
@@ -121,15 +124,18 @@ const mapDispatchToProps = dispatch =>
       changeProvider: changeProperty("provider"),
       changeName: changeProperty("name"),
       changeProject: changeProperty("project"),
-      changeSize: changeProperty('size'),
-      changeAllocationSource: changeProperty('allocationSource'),
+      changeSize: changeProperty("size"),
+      changeAllocationSource: changeProperty("allocationSource")
     },
     dispatch
   );
-const mapStateToProps = ({ projectList, createInstance: { stepIndex, data } }) => ({
+const mapStateToProps = ({
+  projectList,
+  createInstance: { stepIndex, data }
+}) => ({
   stepIndex: stepIndex,
   name: data.name,
-  project: data.project,
+  project: get.byId(data.project)(projectList.data),
   projects: projectList.data,
   provider: data.provider,
   allocationSource: data.allocationSource,
