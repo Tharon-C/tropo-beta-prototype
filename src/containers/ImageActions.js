@@ -9,6 +9,7 @@ import {
   toggleAddImageToProject,
   toggleFavorite
 } from "../actions/imageActions";
+import { toggleMoveToProject } from "../actions/projectActions";
 
 import { IconButton, MenuItem } from "material-ui";
 import ShareIcon from "material-ui/svg-icons/social/share";
@@ -16,7 +17,7 @@ import FavoriteIcon from "material-ui/svg-icons/action/favorite-border";
 import FavoritedIcon from "material-ui/svg-icons/action/favorite";
 import EditIcon from "material-ui/svg-icons/image/edit";
 import AddIcon from "material-ui/svg-icons/content/add";
-import { LaunchIcon, IntercomIcon } from "../cyverse-ui/icons";
+import { LaunchIcon, IntercomIcon, MoveIcon } from "../cyverse-ui/icons";
 import { ActionGroup, VerticalMenu } from "../cyverse-ui";
 const styles = {
   wrapper: {
@@ -32,6 +33,7 @@ const ImageActions = ({
   hideQuickActions,
   openInstanceLaunch,
   openAddImageToProject,
+  openMoveToProject,
   location,
   isFavorited,
   toggleFavorite,
@@ -66,11 +68,15 @@ const ImageActions = ({
       </IconButton>
     </ActionGroup>
     <VerticalMenu>
-      <MenuItem
+      { !project ? <MenuItem
         primaryText="Add to Project"
         leftIcon={<AddIcon/>}
         onClick={() => openAddImageToProject(image.id, projects[0].id)}
-      />
+      /> :<MenuItem
+      primaryText="Move to Project"
+      leftIcon={<MoveIcon/>}
+      onClick={() => openMoveToProject(image.id, project)}
+      />} 
       <MenuItem primaryText="Report" leftIcon={<IntercomIcon/>}/>
     </VerticalMenu>
   </ActionGroup>
@@ -80,6 +86,7 @@ const mapDispatchToProps = dispatch =>
     {
       openInstanceLaunch: toggleInstanceForm,
       openAddImageToProject: toggleAddImageToProject,
+      openMoveToProject: toggleMoveToProject("images"),
       toggleFavorite
     },
     dispatch

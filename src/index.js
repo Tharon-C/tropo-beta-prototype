@@ -18,6 +18,7 @@ import CreateLinkDialog from "./containers/CreateLinkDialog";
 import registerServiceWorker from "./registerServiceWorker";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import AddImageToProjectDialog from "./containers/AddImageToProjectDialog";
+import MoveToProjectDialog from "./containers/MoveToProjectDialog";
 injectTapEventPlugin();
 
 const appTheme = getMuiTheme(cyverseTheme);
@@ -33,6 +34,7 @@ ReactDOM.render(
             <CreateProjectDialog />
             <CreateLinkDialog />
             <AddImageToProjectDialog />
+            <MoveToProjectDialog />
           </div>
         </ThemeProvider>
       </MuiThemeProvider>

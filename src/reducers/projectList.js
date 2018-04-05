@@ -12,15 +12,33 @@ const initState = {
 
 export default function list(state = initState, action) {
   switch (action.type) {
-    case "ADD_IMAGE_TO_PROJECT": 
-    return R.merge(state, {
-      data: editListItem("id", action.project, {
-        images: [
-          ...get.byId(action.project)(state.data).images,
-          action.image
-        ]
-      })(state.data)
-    });
+    case "CONFIRM_MOVE_TO_PROJECT":
+      return R.merge(state, {
+        data: state.data.map(
+          project =>
+            project.id === action.data.oldProject
+              ? R.merge(project, {
+                  [action.data.assetType]: R.reject(
+                    R.equals(action.data.assetId),
+                    project[action.data.assetType]
+                  )
+                })
+              : project.id === action.data.newProject
+                ? R.merge(project, {
+                    [action.data.assetType]: R.append(
+                      action.data.assetId,
+                      project[action.data.assetType]
+                    )
+                  })
+                : project
+        )
+      });
+    case "ADD_IMAGE_TO_PROJECT":
+      return R.merge(state, {
+        data: editListItem("id", action.project, {
+          images: [...get.byId(action.project)(state.data).images, action.image]
+        })(state.data)
+      });
     case "CREATE_INSTANCE":
       return action.instance.project
         ? R.merge(state, {
@@ -32,7 +50,7 @@ export default function list(state = initState, action) {
             })(state.data)
           })
         : state;
-        case "CREATE_VOLUME":
+    case "CREATE_VOLUME":
       return action.volume.project
         ? R.merge(state, {
             data: editListItem("id", action.volume.project, {
@@ -43,7 +61,7 @@ export default function list(state = initState, action) {
             })(state.data)
           })
         : state;
-        case "CREATE_LINK":
+    case "CREATE_LINK":
       return action.link.project
         ? R.merge(state, {
             data: editListItem("id", action.link.project, {
@@ -63,7 +81,7 @@ export default function list(state = initState, action) {
           state.data
         )
       });
-      case "CREATE_PROJECT":
+    case "CREATE_PROJECT":
       return R.merge(state, {
         data: R.append(
           action.project,
