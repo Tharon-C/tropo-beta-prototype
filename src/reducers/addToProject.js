@@ -18,7 +18,8 @@ export default function list(state = initState(), action) {
       return R.merge(state, {
         showForm: !state.showForm,
         data: R.merge(state.data, {
-          image: action.image
+          image: action.image,
+          project: action.project
         })
       });
     }

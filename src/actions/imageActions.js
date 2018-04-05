@@ -9,12 +9,13 @@ export const changeImageProject = (project) => ({
     project
 });
 
-export const toggleAddImageToProject = ( image ) => ({
+export const toggleAddImageToProject = ( image, project ) => ({
     type: "TOGGLE_ADD_IMAGE_TO_PROJECT_FORM",
     image,
+    project,
 })
 
-export const resetAddToProject = ( image ) => ({
+export const resetAddToProject = () => ({
     type: "RESET_ADD_TO_PROJECT",
 })
 

@@ -8,6 +8,7 @@ import RefreshIcon from "material-ui/svg-icons/navigation/refresh";
 import DesktopIcon from "material-ui/svg-icons/hardware/desktop-mac";
 import DeleteIcon from "material-ui/svg-icons/action/delete";
 import PauseIcon from "material-ui/svg-icons/av/pause";
+import EditIcon from "material-ui/svg-icons/image/edit"
 import { MoveIcon, DetachInstanceIcon, AttachInstanceIcon, IntercomIcon } from "../cyverse-ui/icons";
 import { ActionGroup, VerticalMenu } from "../cyverse-ui";
 const styles = {
@@ -28,10 +29,10 @@ const ImageActions = ({ volume, deleteVolume, hideQuickActions, classes }) => (
       </IconButton>
     </ActionGroup>
     <VerticalMenu>
-      <MenuItem primaryText="Edit" />
-      <MenuItem primaryText="Delete" onClick={()=> deleteVolume(volume.id)}/>
-      <MenuItem primaryText="Move Volume" />
-      <MenuItem primaryText="Report Issue" />
+      <MenuItem primaryText="Edit" leftIcon={<EditIcon/>}/>
+      <MenuItem primaryText="Delete" leftIcon={<DeleteIcon/>}onClick={()=> deleteVolume(volume.id)}/>
+      <MenuItem primaryText="Move Volume" leftIcon={<MoveIcon/>}/>
+<MenuItem primaryText="Report Issue" leftIcon={<IntercomIcon/>}/>
     </VerticalMenu>
   </ActionGroup>
 );

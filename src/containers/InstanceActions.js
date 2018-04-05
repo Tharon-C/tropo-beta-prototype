@@ -10,9 +10,20 @@ import DesktopIcon from "material-ui/svg-icons/hardware/desktop-mac";
 import EditIcon from "material-ui/svg-icons/image/edit";
 import PauseIcon from "material-ui/svg-icons/av/pause";
 import DeleteIcon from "material-ui/svg-icons/action/delete";
-import { ConsoleIcon, IntercomIcon, MoveIcon } from "../cyverse-ui/icons";
+import ImageIcon from "material-ui/svg-icons/content/save";
+import ArrowDropLeft from "material-ui/svg-icons/navigation/arrow-drop-down";
+import KeyIcon from "material-ui/svg-icons/communication/vpn-key"
+import {
+  ConsoleIcon,
+  IntercomIcon,
+  MoveIcon,
+  AttachInstanceIcon,
+  IPIcon,
+  BootscriptIcon,
+} from "../cyverse-ui/icons";
 import { ActionGroup, VerticalMenu } from "../cyverse-ui";
 import { map } from "async";
+
 const styles = {
   wrapper: {
     position: "absolute",
@@ -23,7 +34,12 @@ const styles = {
   },
   quickActions: {}
 };
-const ImageActions = ({ instance, deleteInstance, hideQuickActions, classes }) => (
+const ImageActions = ({
+  instance,
+  deleteInstance,
+  hideQuickActions,
+  classes
+}) => (
   <ActionGroup className={classes.wrapper} stopPropagation>
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
       <IconButton tooltip="Pause Instance">
@@ -37,12 +53,27 @@ const ImageActions = ({ instance, deleteInstance, hideQuickActions, classes }) =
       </IconButton>
     </ActionGroup>
     <VerticalMenu>
-      <MenuItem primaryText="Reboot" />
-      <MenuItem onClick={ () => deleteInstance(instance.id)} primaryText="Delete" />
-      <MenuItem primaryText="Attach Volume" />
-      <MenuItem primaryText="Move To Project" />
-      <MenuItem primaryText="Request Image" />
-      <MenuItem primaryText="Report Issue" />
+      <MenuItem primaryText="Reboot" leftIcon={<RefreshIcon />} />
+      <MenuItem
+        onClick={() => deleteInstance(instance.id)}
+        primaryText="Delete"
+        leftIcon={<DeleteIcon />}
+      />
+      <MenuItem primaryText="Attach Volume" leftIcon={<AttachInstanceIcon />} />
+      <MenuItem primaryText="Move To Project" leftIcon={<MoveIcon />} />
+      <MenuItem primaryText="Request Image" leftIcon={<ImageIcon />} />
+      <MenuItem primaryText="Report Issue" leftIcon={<IntercomIcon />} />
+      <MenuItem
+        primaryText="Advanced Actions"
+        leftIcon={<ArrowDropLeft style={{transform: "rotate(90deg)"}}/>}
+        targetOrigin={{ horizontal: "right", vertical: "bottom" }}
+        anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+        menuItems={[
+          <MenuItem primaryText="Add SSH Key" leftIcon={<KeyIcon />} />,
+          <MenuItem primaryText="Add Bootscript" leftIcon={<BootscriptIcon />} />,
+          <MenuItem primaryText="Add Static IP" leftIcon={<IPIcon />} />,
+        ]}
+      />
     </VerticalMenu>
   </ActionGroup>
 );
@@ -61,8 +92,13 @@ export const InstanceBatchActions = props => (
 );
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    deleteInstance: instanceActions.deleteInstance
-  }, dispatch)
+  return bindActionCreators(
+    {
+      deleteInstance: instanceActions.deleteInstance
+    },
+    dispatch
+  );
 }
-export default connect(null, mapDispatchToProps )(withRouter(injectSheet(styles)(ImageActions)));
+export default connect(null, mapDispatchToProps)(
+  withRouter(injectSheet(styles)(ImageActions))
+);

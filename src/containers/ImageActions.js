@@ -16,7 +16,7 @@ import FavoriteIcon from "material-ui/svg-icons/action/favorite-border";
 import FavoritedIcon from "material-ui/svg-icons/action/favorite";
 import EditIcon from "material-ui/svg-icons/image/edit";
 import AddIcon from "material-ui/svg-icons/content/add";
-import { LaunchIcon, IntercomIcon } from "cyverse-ui/es/icons";
+import { LaunchIcon, IntercomIcon } from "../cyverse-ui/icons";
 import { ActionGroup, VerticalMenu } from "../cyverse-ui";
 const styles = {
   wrapper: {
@@ -36,6 +36,7 @@ const ImageActions = ({
   isFavorited,
   toggleFavorite,
   project,
+  projects,
   classes
 }) => (
   <ActionGroup className={classes.wrapper} stopPropagation>
@@ -65,12 +66,12 @@ const ImageActions = ({
       </IconButton>
     </ActionGroup>
     <VerticalMenu>
-      <MenuItem primaryText="Edit Image" />
       <MenuItem
         primaryText="Add to Project"
-        onClick={() => openAddImageToProject(image.id)}
+        leftIcon={<AddIcon/>}
+        onClick={() => openAddImageToProject(image.id, projects[0].id)}
       />
-      <MenuItem primaryText="Report" />
+      <MenuItem primaryText="Report" leftIcon={<IntercomIcon/>}/>
     </VerticalMenu>
   </ActionGroup>
 );
@@ -84,6 +85,10 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
+  const mapStateToProps = ({projectList:{data: projects}}) => ({
+    projects
+  })
+
 export default withRouter(
-  connect(null, mapDispatchToProps)(injectSheet(styles)(ImageActions))
+  connect(mapStateToProps, mapDispatchToProps)(injectSheet(styles)(ImageActions))
 );

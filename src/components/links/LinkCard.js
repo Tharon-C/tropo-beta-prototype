@@ -9,9 +9,9 @@ import ShareIcon from "material-ui/svg-icons/social/share";
 import FavoritedBorderIcon from "material-ui/svg-icons/action/favorite-border";
 import { Tabs, Tab } from "material-ui";
 import { LinkIcon } from "../../cyverse-ui/icons";
-import ProjectActions, {
-  ProjectBatchActions
-} from "../../containers/ProjectActions";
+import LinkActions, {
+  LinkBatchActions
+} from "../../containers/LinkActions";
 import LinkInfo from "./LinkInfo";
 import LinksTabs from "./LinkTabs";
 import Tag from "../Tag";
@@ -89,7 +89,7 @@ export const ProjectListHeader = withTheme(
     <AssetListHeader
       {...rest}
       summary={<Element typography="label">Summary</Element>}
-      actions={<ProjectBatchActions />}
+      actions={<LinkBatchActions />}
     />
   ))
 );
@@ -136,7 +136,7 @@ class ProjectCard extends Component {
           <ListCardSummary hide={isExpanded}>
             <ProjectSummary image={image} />
           </ListCardSummary>
-          <ProjectActions
+          <LinkActions
             hideQuickActions={isExpanded ? false : !this.state.isHovered}
             isHoveredimage={image}
           />

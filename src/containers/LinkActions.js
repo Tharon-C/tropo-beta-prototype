@@ -17,30 +17,29 @@ const styles = {
   quickActions: {}
 };
 
-export const ProjectMenu = ({...rest}) => (
+export const LinkMenu = ({...rest}) => (
   <VerticalMenu>
-    <MenuItem primaryText="Share Access" leftIcon={<UserAddIcon/>}/>
     <MenuItem primaryText="Delete" leftIcon={<DeleteIcon/>}/>
     <MenuItem primaryText="Report Issue" leftIcon={<IntercomIcon/>}/>
   </VerticalMenu>
 );
 
-export const ProjectQuickActions = ({...rest}) => (
+export const LinkQuickActions = ({...rest}) => (
   <IconButton>
     <EditIcon />
   </IconButton>
 )
 
-const ImageActions = ({ hideQuickActions, classes, hide, ...rest }) => (
+const LinkActions = ({ hideQuickActions, classes, hide, ...rest }) => (
   <ActionGroup hide={hide} { ...rest} className={classes.wrapper} stopPropagation>
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
-      <ProjectQuickActions/>
+      <LinkQuickActions/>
     </ActionGroup>
-    <ProjectMenu/>
+    <LinkMenu/>
   </ActionGroup>
 );
 
-export const ProjectBatchActions = (props) => (
+export const LinkBatchActions = (props) => (
   <ActionGroup {...props} stopPropagation>
     <IconButton>
       <DeleteIcon />
@@ -48,4 +47,4 @@ export const ProjectBatchActions = (props) => (
   </ActionGroup>
 );
 
-export default injectSheet(styles)(ImageActions);
+export default injectSheet(styles)(LinkActions);
