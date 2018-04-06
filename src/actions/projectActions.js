@@ -33,7 +33,6 @@ export const toggleMoveToProject = assetType => (id, oldProject) => ({
     assetType,
     assetId: id,
     oldProject,
-    newProject: oldProject,
   }
 });
 

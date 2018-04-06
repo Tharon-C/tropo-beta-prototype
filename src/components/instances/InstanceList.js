@@ -28,7 +28,7 @@ class InstanceList extends Component {
       loadMoreEnteries,
       range,
       isSticky,
-      FAB,
+      FAB
     } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;

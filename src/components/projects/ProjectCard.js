@@ -121,6 +121,7 @@ class ProjectCard extends Component {
               <ProjectSummary project={project} />
             </ListCardSummary>
             <ProjectActions
+              project={project}
               hide={selectable}
               hideQuickActions={isExpanded ? false : !isHovered}
               isHoveredimage={project}

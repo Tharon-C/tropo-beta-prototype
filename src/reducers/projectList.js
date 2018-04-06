@@ -90,7 +90,7 @@ export default function list(state = initState, action) {
       });
     case "DELETE_PROJECT":
       return R.merge(action.list, {
-        data: R.reject(R.propEq("id", action.link), state.data)
+        data: R.reject(R.propEq("id", action.project), state.data)
       });
     default:
       return state;

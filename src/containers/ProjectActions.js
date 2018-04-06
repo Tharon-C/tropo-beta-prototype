@@ -1,5 +1,9 @@
 import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import injectSheet from "react-jss";
+import { withRouter } from "react-router-dom";
+import { deleteProject } from "../actions/projectActions";
 import { IconButton, MenuItem } from "material-ui";
 import EditIcon from "material-ui/svg-icons/image/edit";
 import DeleteIcon from "material-ui/svg-icons/action/delete";
@@ -17,10 +21,10 @@ const styles = {
   quickActions: {}
 };
 
-export const ProjectMenu = ({...rest}) => (
+export const ProjectMenu = ({deleteProject, project, ...rest}) => (
   <VerticalMenu>
     <MenuItem primaryText="Share Access" leftIcon={<UserAddIcon/>}/>
-    <MenuItem primaryText="Delete" leftIcon={<DeleteIcon/>}/>
+    <MenuItem primaryText="Delete" onClick={() => deleteProject(project.id) } leftIcon={<DeleteIcon/>}/>
     <MenuItem primaryText="Report Issue" leftIcon={<IntercomIcon/>}/>
   </VerticalMenu>
 );
@@ -36,7 +40,7 @@ const ImageActions = ({ hideQuickActions, classes, hide, ...rest }) => (
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
       <ProjectQuickActions/>
     </ActionGroup>
-    <ProjectMenu/>
+    <ProjectMenu {...rest}/>
   </ActionGroup>
 );
 
@@ -48,4 +52,14 @@ export const ProjectBatchActions = (props) => (
   </ActionGroup>
 );
 
-export default injectSheet(styles)(ImageActions);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      deleteProject,
+    },
+    dispatch
+  );
+}
+export default connect(null, mapDispatchToProps)(
+  withRouter(injectSheet(styles)(ImageActions))
+);

@@ -6,6 +6,14 @@ let initState = { isFetching: false, showForm: false, data: initInstances };
 
 export default function list(state = initState, action) {
   switch (action.type) {
+    case "CONFIRM_MOVE_TO_PROJECT":
+      return action.data.assetType === "instances"
+        ? R.merge(state, {
+            data: editListItem("id", action.data.assetId, {
+              project: action.data.newProject
+            })(state.data)
+          })
+        : state;
     case "CREATE_INSTANCE_BUILDING":
       return R.merge(state, {
         data: editListItem("id", action.instance.id, { progress: 80 })(
@@ -13,11 +21,12 @@ export default function list(state = initState, action) {
         )
       });
     case "CREATE_INSTANCE_COMPLETE":
-    return R.merge(state, {
-    data: editListItem("id", action.instance.id, { progress: 100, activity: "Active" })(
-        state.data
-    )
-    });
+      return R.merge(state, {
+        data: editListItem("id", action.instance.id, {
+          progress: 100,
+          activity: "Active"
+        })(state.data)
+      });
     case "CREATE_INSTANCE":
       return R.merge(state, {
         data: R.append(

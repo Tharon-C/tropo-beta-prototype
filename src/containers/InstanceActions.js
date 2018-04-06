@@ -1,10 +1,11 @@
 import React from "react";
 import injectSheet from "react-jss";
 import { bindActionCreators } from "redux";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as instanceActions from "../actions/instanceActions";
+import { toggleMoveToProject } from "../actions/projectActions";
 import { IconButton, MenuItem } from "material-ui";
-import { withRouter } from "react-router-dom";
 import RefreshIcon from "material-ui/svg-icons/navigation/refresh";
 import DesktopIcon from "material-ui/svg-icons/hardware/desktop-mac";
 import EditIcon from "material-ui/svg-icons/image/edit";
@@ -12,14 +13,14 @@ import PauseIcon from "material-ui/svg-icons/av/pause";
 import DeleteIcon from "material-ui/svg-icons/action/delete";
 import ImageIcon from "material-ui/svg-icons/content/save";
 import ArrowDropLeft from "material-ui/svg-icons/navigation/arrow-drop-down";
-import KeyIcon from "material-ui/svg-icons/communication/vpn-key"
+import KeyIcon from "material-ui/svg-icons/communication/vpn-key";
 import {
   ConsoleIcon,
   IntercomIcon,
   MoveIcon,
   AttachInstanceIcon,
   IPIcon,
-  BootscriptIcon,
+  BootscriptIcon
 } from "../cyverse-ui/icons";
 import { ActionGroup, VerticalMenu } from "../cyverse-ui";
 import { map } from "async";
@@ -38,6 +39,7 @@ const ImageActions = ({
   instance,
   deleteInstance,
   hideQuickActions,
+  openMoveToProject,
   classes
 }) => (
   <ActionGroup className={classes.wrapper} stopPropagation>
@@ -60,18 +62,25 @@ const ImageActions = ({
         leftIcon={<DeleteIcon />}
       />
       <MenuItem primaryText="Attach Volume" leftIcon={<AttachInstanceIcon />} />
-      <MenuItem primaryText="Move To Project" leftIcon={<MoveIcon />} />
+      <MenuItem
+        primaryText="Move To Project"
+        onClick={() => openMoveToProject(instance.id, instance.project)}
+        leftIcon={<MoveIcon />}
+      />
       <MenuItem primaryText="Request Image" leftIcon={<ImageIcon />} />
       <MenuItem primaryText="Report Issue" leftIcon={<IntercomIcon />} />
       <MenuItem
         primaryText="Advanced Actions"
-        leftIcon={<ArrowDropLeft style={{transform: "rotate(90deg)"}}/>}
+        leftIcon={<ArrowDropLeft style={{ transform: "rotate(90deg)" }} />}
         targetOrigin={{ horizontal: "right", vertical: "bottom" }}
         anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
         menuItems={[
           <MenuItem primaryText="Add SSH Key" leftIcon={<KeyIcon />} />,
-          <MenuItem primaryText="Add Bootscript" leftIcon={<BootscriptIcon />} />,
-          <MenuItem primaryText="Add Static IP" leftIcon={<IPIcon />} />,
+          <MenuItem
+            primaryText="Add Bootscript"
+            leftIcon={<BootscriptIcon />}
+          />,
+          <MenuItem primaryText="Add Static IP" leftIcon={<IPIcon />} />
         ]}
       />
     </VerticalMenu>
@@ -94,7 +103,8 @@ export const InstanceBatchActions = props => (
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      deleteInstance: instanceActions.deleteInstance
+      deleteInstance: instanceActions.deleteInstance,
+      openMoveToProject: toggleMoveToProject("instances")
     },
     dispatch
   );

@@ -9,7 +9,7 @@ import {
   createLink,
   resetLink
 } from "../actions/linkActions";
-import { TextField } from "material-ui";
+import { TextField, MenuItem, SelectField } from "material-ui";
 import { Element, InfoBlock, P } from "../cyverse-ui";
 const styles = {
   TextField: {
@@ -25,10 +25,13 @@ const CreateLinkDialog = ({
   description,
   summary,
   url,
+  project,
+  projects,
   onChangeName,
   onChangeDescription,
   onChangeSummary,
   onChangeURL,
+  onChangeProject,
   createLink,
   resetLink,
   goToLinks,
@@ -88,6 +91,17 @@ const CreateLinkDialog = ({
       style={styles.TextField}
       floatingLabelText="URL"
     />
+    <SelectField
+          onChange={(e, i, value) => onChangeProject(value)}
+          value={project}
+          style={styles.TextField}
+          floatingLabelText="Select Project"
+        >
+          {projects.map(project => (
+            <MenuItem value={project.id} primaryText={project.name} />
+          ))}
+        </SelectField>
+
   </Dialog>
 );
 const mapDispatchToProps = dispatch =>
@@ -98,6 +112,7 @@ const mapDispatchToProps = dispatch =>
       onChangeName: changeLinkProperty("name"),
       onChangeSummary: changeLinkProperty("summary"),
       onChangeURL: changeLinkProperty("url"),
+      onChangeProject: changeLinkProperty("project"),
       createLink,
       resetLink,
       goToLinks: () => push("/all-assets"),
@@ -105,12 +120,14 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch
   );
-const mapStateToProps = ({ createLink: { showForm, data } }) => ({
+const mapStateToProps = ({ projectList, createLink: { showForm, data } }) => ({
   showForm,
   name: data.name,
   url: data.url,
   description: data.description,
   summary: data.summary,
-  link: data
+  link: data,
+  project: data.project,
+  projects: projectList.data,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CreateLinkDialog);

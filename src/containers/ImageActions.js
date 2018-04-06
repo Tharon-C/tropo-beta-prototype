@@ -68,16 +68,20 @@ const ImageActions = ({
       </IconButton>
     </ActionGroup>
     <VerticalMenu>
-      { !project ? <MenuItem
-        primaryText="Add to Project"
-        leftIcon={<AddIcon/>}
-        onClick={() => openAddImageToProject(image.id, projects[0].id)}
-      /> :<MenuItem
-      primaryText="Move to Project"
-      leftIcon={<MoveIcon/>}
-      onClick={() => openMoveToProject(image.id, project)}
-      />} 
-      <MenuItem primaryText="Report" leftIcon={<IntercomIcon/>}/>
+      {!project ? (
+        <MenuItem
+          primaryText="Add to Project"
+          leftIcon={<AddIcon />}
+          onClick={() => openAddImageToProject(image.id, projects[0].id)}
+        />
+      ) : (
+        <MenuItem
+          primaryText="Move to Project"
+          leftIcon={<MoveIcon />}
+          onClick={() => openMoveToProject(image.id, project)}
+        />
+      )}
+      <MenuItem primaryText="Report" leftIcon={<IntercomIcon />} />
     </VerticalMenu>
   </ActionGroup>
 );
@@ -92,10 +96,12 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-  const mapStateToProps = ({projectList:{data: projects}}) => ({
-    projects
-  })
+const mapStateToProps = ({ projectList: { data: projects } }) => ({
+  projects
+});
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(injectSheet(styles)(ImageActions))
+  connect(mapStateToProps, mapDispatchToProps)(
+    injectSheet(styles)(ImageActions)
+  )
 );

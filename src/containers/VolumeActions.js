@@ -1,15 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
-import { bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
+import { withRouter } from "react-router-dom";
 import injectSheet from "react-jss";
 import { deleteVolume } from "../actions/volumeActions";
+import { toggleMoveToProject } from "../actions/projectActions";
 import { IconButton, MenuItem } from "material-ui";
 import RefreshIcon from "material-ui/svg-icons/navigation/refresh";
 import DesktopIcon from "material-ui/svg-icons/hardware/desktop-mac";
 import DeleteIcon from "material-ui/svg-icons/action/delete";
 import PauseIcon from "material-ui/svg-icons/av/pause";
-import EditIcon from "material-ui/svg-icons/image/edit"
-import { MoveIcon, DetachInstanceIcon, AttachInstanceIcon, IntercomIcon } from "../cyverse-ui/icons";
+import EditIcon from "material-ui/svg-icons/image/edit";
+import {
+  MoveIcon,
+  DetachInstanceIcon,
+  AttachInstanceIcon,
+  IntercomIcon
+} from "../cyverse-ui/icons";
 import { ActionGroup, VerticalMenu } from "../cyverse-ui";
 const styles = {
   wrapper: {
@@ -21,28 +28,44 @@ const styles = {
   },
   quickActions: {}
 };
-const ImageActions = ({ volume, deleteVolume, hideQuickActions, classes }) => (
+const ImageActions = ({
+  volume,
+  deleteVolume,
+  hideQuickActions,
+  openMoveToProject,
+  classes
+}) => (
   <ActionGroup className={classes.wrapper} stopPropagation>
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
       <IconButton tooltip="Detach from Instance">
-      <DetachInstanceIcon/>
+        <DetachInstanceIcon />
       </IconButton>
     </ActionGroup>
     <VerticalMenu>
-      <MenuItem primaryText="Edit" leftIcon={<EditIcon/>}/>
-      <MenuItem primaryText="Delete" leftIcon={<DeleteIcon/>}onClick={()=> deleteVolume(volume.id)}/>
-      <MenuItem primaryText="Move Volume" leftIcon={<MoveIcon/>}/>
-<MenuItem primaryText="Report Issue" leftIcon={<IntercomIcon/>}/>
+      <MenuItem primaryText="Edit" leftIcon={<EditIcon />} />
+      <MenuItem
+        primaryText="Delete"
+        leftIcon={<DeleteIcon />}
+        onClick={() => deleteVolume(volume.id)}
+      />
+      <MenuItem
+        primaryText="Move Volume"
+        leftIcon={<MoveIcon />}
+        onClick={() => {
+          openMoveToProject(volume.id, volume.project)
+        }}
+      />
+      <MenuItem primaryText="Report Issue" leftIcon={<IntercomIcon />} />
     </VerticalMenu>
   </ActionGroup>
 );
 export const VolumeBatchActions = props => (
   <ActionGroup {...props} stopPropagation>
-        <IconButton tooltip="Detach from Instance">
-        <DetachInstanceIcon/>
+    <IconButton tooltip="Detach from Instance">
+      <DetachInstanceIcon />
     </IconButton>
-      <IconButton>
-        <MoveIcon tooltip="Move Volume"/>
+    <IconButton>
+      <MoveIcon tooltip="Move Volume" />
     </IconButton>
     <IconButton tooltip="Delete Volume">
       <DeleteIcon />
@@ -50,7 +73,16 @@ export const VolumeBatchActions = props => (
   </ActionGroup>
 );
 
-const mapDispatchActionsToProps = dispatch => bindActionCreators({
-  deleteVolume 
-}, mapDispatchActionsToProps)
-export default connect(null, mapDispatchActionsToProps)(injectSheet(styles)(ImageActions));
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      deleteVolume,
+      openMoveToProject: toggleMoveToProject("volumes")
+    },
+    dispatch
+  );
+}
+export default connect(null, mapDispatchToProps)(
+  withRouter(injectSheet(styles)(ImageActions))
+);

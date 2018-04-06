@@ -64,7 +64,7 @@ const ProjectInfo = ({
           >
             <AddIcon />
           </FloatingActionButton>
-          <InstanceList filter={item => project.instances.includes(item.id)} />
+          <InstanceList project={project.id} filter={item => project.instances.includes(item.id)} />
         </div>
       );
     case "volumes":

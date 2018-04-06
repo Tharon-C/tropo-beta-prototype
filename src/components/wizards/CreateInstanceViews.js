@@ -67,8 +67,8 @@ class CreateInstanceViews extends Component {
                   onChange={(e, index, value) => changeProject(value)}
                 >
                   <MenuItem
-                    primaryText="Select Project"
-                    value="Select Project"
+                    primaryText="No Project"
+                    value=""
                   />
                   {projects.map(project => (
                     <MenuItem primaryText={project.name} value={project.id} />

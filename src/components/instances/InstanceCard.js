@@ -28,6 +28,7 @@ import {
   P,
   Element
 } from "../../cyverse-ui/";
+import { resetProject } from "../../actions/projectActions";
 
 const ImageIdentity = ({ image, ...rest }) => (
   <AssetIdentity

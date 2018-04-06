@@ -115,6 +115,7 @@ class ProjectCard extends Component {
       checked,
       isExpanded,
       image,
+      project,
       ...rest
     } = this.props;
     const { isHovered } = this.state;
@@ -137,6 +138,8 @@ class ProjectCard extends Component {
             <ProjectSummary image={image} />
           </ListCardSummary>
           <LinkActions
+            link={image}
+            project={project}
             hideQuickActions={isExpanded ? false : !this.state.isHovered}
             isHoveredimage={image}
           />
