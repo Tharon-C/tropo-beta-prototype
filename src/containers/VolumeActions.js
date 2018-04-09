@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 import injectSheet from "react-jss";
-import { deleteVolume } from "../actions/volumeActions";
+import {
+  deleteVolume,
+  toggleAttachToInstance,
+  toggleDetachFromInstance
+} from "../actions/volumeActions";
 import { toggleMoveToProject } from "../actions/projectActions";
 import { IconButton, MenuItem } from "material-ui";
 import RefreshIcon from "material-ui/svg-icons/navigation/refresh";
@@ -28,37 +32,71 @@ const styles = {
   },
   quickActions: {}
 };
+
+export const VolumeMenu = connect(null, mapDispatchToProps)(
+  withRouter(
+    injectSheet(styles)(({ volume, showDetachFromInstance }) => (
+      <VerticalMenu>
+        <MenuItem primaryText="Edit" leftIcon={<EditIcon />} />
+        <MenuItem
+          primaryText="Detach Volume"
+          onClick={() => showDetachFromInstance(volume)}
+          leftIcon={<DetachInstanceIcon />}
+        />
+        <MenuItem primaryText="Report Issue" leftIcon={<IntercomIcon />} />
+      </VerticalMenu>
+    ))
+  )
+);
+
 const ImageActions = ({
   volume,
   deleteVolume,
   hideQuickActions,
   openMoveToProject,
+  showAttachInstance,
+  showDetachFromInstance,
   classes
-}) => (
-  <ActionGroup className={classes.wrapper} stopPropagation>
-    <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
-      <IconButton tooltip="Detach from Instance">
-        <DetachInstanceIcon />
-      </IconButton>
+}) => {
+  console.log(volume);
+  return (
+    <ActionGroup className={classes.wrapper} stopPropagation>
+      <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
+        {volume.instance ? (
+          <IconButton
+            onClick={() => showDetachFromInstance(volume.id)}
+            tooltip="Detach from Instance"
+          >
+            <DetachInstanceIcon />
+          </IconButton>
+        ) : (
+          <IconButton
+            onClick={() => showAttachInstance(volume.id)}
+            tooltip="Attach to Instance"
+          >
+            <AttachInstanceIcon />
+          </IconButton>
+        )}
+      </ActionGroup>
+      <VerticalMenu>
+        <MenuItem primaryText="Edit" leftIcon={<EditIcon />} />
+        <MenuItem
+          primaryText="Delete"
+          leftIcon={<DeleteIcon />}
+          onClick={() => deleteVolume(volume.id)}
+        />
+        <MenuItem
+          primaryText="Move Volume"
+          leftIcon={<MoveIcon />}
+          onClick={() => {
+            openMoveToProject(volume.id, volume.project);
+          }}
+        />
+        <MenuItem primaryText="Report Issue" leftIcon={<IntercomIcon />} />
+      </VerticalMenu>
     </ActionGroup>
-    <VerticalMenu>
-      <MenuItem primaryText="Edit" leftIcon={<EditIcon />} />
-      <MenuItem
-        primaryText="Delete"
-        leftIcon={<DeleteIcon />}
-        onClick={() => deleteVolume(volume.id)}
-      />
-      <MenuItem
-        primaryText="Move Volume"
-        leftIcon={<MoveIcon />}
-        onClick={() => {
-          openMoveToProject(volume.id, volume.project)
-        }}
-      />
-      <MenuItem primaryText="Report Issue" leftIcon={<IntercomIcon />} />
-    </VerticalMenu>
-  </ActionGroup>
-);
+  );
+};
 export const VolumeBatchActions = props => (
   <ActionGroup {...props} stopPropagation>
     <IconButton tooltip="Detach from Instance">
@@ -73,12 +111,13 @@ export const VolumeBatchActions = props => (
   </ActionGroup>
 );
 
-
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       deleteVolume,
-      openMoveToProject: toggleMoveToProject("volumes")
+      openMoveToProject: toggleMoveToProject("volumes"),
+      showAttachInstance: toggleAttachToInstance,
+      showDetachFromInstance: toggleDetachFromInstance
     },
     dispatch
   );

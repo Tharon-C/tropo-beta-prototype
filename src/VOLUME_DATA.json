@@ -4,9 +4,10 @@
     "size": 1,
     "name": "The Vault",
     "created": "Septemeber 16th",
-    "status": "Active",
+    "status": "Attached",
     "provider": 1,
     "project": 1,
+    "instance":  "24c4844c",
     "description":
       "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
     "tags": [{ "id": 24 }]

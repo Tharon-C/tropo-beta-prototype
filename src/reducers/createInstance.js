@@ -15,6 +15,7 @@ const initState = () => {
       provider: 'MaranaCloud',
       allocationSource: 'YourUserName',
       size: 'SM1',
+      volumes: [],
       tags: []
     }
   };

@@ -40,6 +40,7 @@ const ImageActions = ({
   deleteInstance,
   hideQuickActions,
   openMoveToProject,
+  openAttachfromInstance,
   classes
 }) => (
   <ActionGroup className={classes.wrapper} stopPropagation>
@@ -61,7 +62,7 @@ const ImageActions = ({
         primaryText="Delete"
         leftIcon={<DeleteIcon />}
       />
-      <MenuItem primaryText="Attach Volume" leftIcon={<AttachInstanceIcon />} />
+      <MenuItem primaryText="Attach Volume" onClick={()=> openAttachfromInstance(instance.id)} leftIcon={<AttachInstanceIcon />} />
       <MenuItem
         primaryText="Move To Project"
         onClick={() => openMoveToProject(instance.id, instance.project)}
@@ -104,7 +105,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       deleteInstance: instanceActions.deleteInstance,
-      openMoveToProject: toggleMoveToProject("instances")
+      openMoveToProject: toggleMoveToProject("instances"),
+      openAttachfromInstance: instanceActions.toggleAttachFromInstance,
     },
     dispatch
   );

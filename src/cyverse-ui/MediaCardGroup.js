@@ -106,7 +106,7 @@ class MediaCardGroup extends React.Component {
         );
 
         const renderList = stagger ? (
-            <Stagger transition="CY-MediaCard__animation" delay={70}>
+            <Stagger transition="CY-MediaCard__animation" delay={0}>
                 {children}
             </Stagger>
         ) : (

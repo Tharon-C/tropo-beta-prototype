@@ -12,6 +12,9 @@ import createLink from "./createLink";
 import createProject from "./createProject";
 import addToProject from "./addToProject";
 import moveToProject from "./moveToProject";
+import attachToInstance from "./attachToInstance";
+import attachFromInstance from "./attachFromInstance";
+import detachFromInstance from "./detachFromInstance";
 
 export default combineReducers({
   routing: routerReducer,
@@ -27,4 +30,7 @@ export default combineReducers({
   createProject,
   addToProject,
   moveToProject,
+  attachToInstance,
+  attachFromInstance,
+  detachFromInstance,
 });

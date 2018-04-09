@@ -51,20 +51,20 @@ const ImageActions = ({
       </IconButton>
     ) : null}
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
-      <IconButton
-        onClick={() => toggleFavorite(image.id)}
-        tooltip="Add to &quot;Favorites List&quot;"
+    <IconButton
+        onClick={() => openInstanceLaunch(image, project)}
+        tooltip="Launch Instance of this Image"
       >
-        {isFavorited ? <FavoritedIcon color="red" /> : <FavoriteIcon />}
+        <LaunchIcon />
       </IconButton>
       <IconButton tooltip="Get Link to Share">
         <ShareIcon />
       </IconButton>
       <IconButton
-        onClick={() => openInstanceLaunch(image, project)}
-        tooltip="Launch Instance of this Image"
+        onClick={() => toggleFavorite(image.id)}
+        tooltip="Add to &quot;Favorites List&quot;"
       >
-        <LaunchIcon />
+        {isFavorited ? <FavoritedIcon color="red" /> : <FavoriteIcon />}
       </IconButton>
     </ActionGroup>
     <VerticalMenu>

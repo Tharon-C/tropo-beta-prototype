@@ -19,6 +19,9 @@ import registerServiceWorker from "./registerServiceWorker";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import AddImageToProjectDialog from "./containers/AddImageToProjectDialog";
 import MoveToProjectDialog from "./containers/MoveToProjectDialog";
+import AttachToInstanceDialog from "./containers/AttachToInstanceDialog";
+import DetachFromInstanceDialog from "./containers/DetachFromInstanceDialog";
+import AttachFromInstanceDiolog from "./containers/AttachFromInstanceDialog";
 injectTapEventPlugin();
 
 const appTheme = getMuiTheme(cyverseTheme);
@@ -35,6 +38,9 @@ ReactDOM.render(
             <CreateLinkDialog />
             <AddImageToProjectDialog />
             <MoveToProjectDialog />
+            <AttachToInstanceDialog />
+            <AttachFromInstanceDiolog />
+            <DetachFromInstanceDialog />
           </div>
         </ThemeProvider>
       </MuiThemeProvider>

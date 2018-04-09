@@ -6,6 +6,27 @@ let initState = { isFetching: false, showForm: false, data: initInstances };
 
 export default function list(state = initState, action) {
   switch (action.type) {
+    case "SUBMIT_ATTACH_FROM_INSTANCE":
+    case "SUBMIT_ATTACH_TO_INSTANCE":
+      return R.merge(state, {
+        data: editListItem("id", action.instanceId, {
+          volumes: [
+            action.volumeId,
+            ...get.byId(action.instanceId)(state.data).volumes
+          ]
+        })(state.data)
+      });
+    case "SUBMIT_DETACH_FROM_INSTANCE":
+      return R.merge(state, {
+        data: state.data.map(instance =>
+          R.merge(instance, {
+            volumes: R.reject(
+              R.equals(action.volumeId),
+              instance["volumes"]
+            )
+          })
+        )
+      });
     case "CONFIRM_MOVE_TO_PROJECT":
       return action.data.assetType === "instances"
         ? R.merge(state, {

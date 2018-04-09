@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import randomcolor from "randomcolor";
 import injectSheet, { withTheme } from "react-jss";
 import { Avatar, Checkbox } from "material-ui";
@@ -11,13 +12,14 @@ import FavoritedBorderIcon from "material-ui/svg-icons/action/favorite-border";
 import AddIcon from "material-ui/svg-icons/content/add";
 import { Tabs, Tab } from "material-ui";
 import InstanceIcon from "../../icons/InstanceIcon";
+import { VolumeIcon } from "../../cyverse-ui/icons";
 import InstanceActions, {
   InstanceBatchActions
 } from "../../containers/InstanceActions";
 import InstanceInfo from "./InstanceInfo";
 import AssetListHeader from "../AssetListHeader";
 import AssetIdentity from "../AssetIdentity";
-
+import InstanceVolumes from "./InstanceVolumes";
 import {
   ListCard,
   ListCardDetail,
@@ -26,7 +28,8 @@ import {
   ListCardIdentity,
   SummaryText,
   P,
-  Element
+  Element,
+  VerticalMenu
 } from "../../cyverse-ui/";
 import { resetProject } from "../../actions/projectActions";
 
@@ -142,6 +145,7 @@ class ImageCard extends Component {
       checked,
       isExpanded,
       image,
+      volumes,
       ...rest
     } = this.props;
     const { isHovered } = this.state;
@@ -176,9 +180,27 @@ class ImageCard extends Component {
         <ListCardDetail hide={!isExpanded}>
           <InstanceInfo image={image} />
         </ListCardDetail>
+        {image.volumes.length !== 0 && !isExpanded ? (
+          <ListCardHeader whitespace="pb1" style={{ minHeight: "32px" }}>
+          <ListCardIdentity />
+          <Element
+            style={{
+              overflow: "hidden",
+              display: "flex",
+              whiteSpace: "nowrap",
+              width: "100%",
+              padding: "4px"
+            }}
+          >
+          <InstanceVolumes instance={image} />
+          </Element>
+    </ListCardHeader>
+        ) : null}
       </ListCard>
     );
   }
 }
-
-export default ImageCard;
+const mapStateToProps = state => ({
+  volumes: state.volumeList.data
+});
+export default connect(mapStateToProps, null)(ImageCard);

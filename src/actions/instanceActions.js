@@ -31,3 +31,20 @@ export const changeProperty = field => value => ({
 export const resetInstance = () =>({
   type: "RESET_INSTANCE"
 })
+
+export const toggleAttachFromInstance = (instanceId) => ({
+  type: "TOGGLE_ATTACH_FROM_INSTANCE",
+  instanceId,
+})
+export const submitAttachFromInstance = (volumeId, instanceId) => ({
+  type: "SUBMIT_ATTACH_FROM_INSTANCE",
+  volumeId,
+  instanceId
+})
+export const changeVolume = volumeId => ({
+  type: "CHANGE_INSTANCE_VOLUME",
+  volumeId
+})
+export const resetAttachFromInstance = () =>({
+  type: "RESET_ATTACH_FROM_INSTANCE",
+})

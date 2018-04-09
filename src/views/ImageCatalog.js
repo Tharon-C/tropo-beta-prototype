@@ -34,7 +34,7 @@ class ImageCatalog extends Component {
             position: "sticky",
             top: 0,
             boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)",
-            zIndex: zIndex.ViewHeader
+            zIndex: zIndex.viewHeader
           }}
         >
           <Tabs value={this.state.view} style={{ maxWidth: "800px" }}>
