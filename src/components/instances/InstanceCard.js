@@ -87,11 +87,11 @@ const InstanceSummary = withTheme(
       default:
         statusColor = classes.statusInactive;
     }
-    const cellClasses = classnames(classes.statusLight, statusColor);
+    const statusLightClasses = classnames(classes.statusLight, statusColor);
     return (
       <Element className={classes.wraper}>
         <Element className={`${classes.cell} ${classes.activity}`}>
-          <div className={cellClasses} /> {image.activity}
+          <div className={statusLightClasses} /> {image.activity}
         </Element>
         <Element className={classes.cell}>Large1</Element>
         <Element className={classes.cell}>CYMAR</Element>

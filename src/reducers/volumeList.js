@@ -12,7 +12,8 @@ export default function list(state = initState, action) {
       console.log(action)
       return R.merge(state, {
         data: editListItem("id", action.volumeId, {
-          instance: action.instanceId
+          instance: action.instanceId,
+          status: "Attached",
         })(state.data)
       });
     case "SUBMIT_DETACH_FROM_INSTANCE":

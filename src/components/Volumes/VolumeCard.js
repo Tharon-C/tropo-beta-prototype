@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import randomcolor from "randomcolor";
 import injectSheet, { withTheme } from "react-jss";
+import classnames from "classnames"
 import styles from "../../styles/styles";
 import VolumeIcon from "../../icons/VolumeIcon";
 import VolumeActions, {
@@ -45,25 +46,47 @@ const summaryStyles = theme => ({
     alignItems: "center"
   },
   statusLight: {
-    background: theme.palette.success,
     height: "12px",
     width: "12px",
     borderRadius: "900px",
     display: "inline-block",
     marginRight: "8px"
+  },
+  statusInactive: {
+    background: "lightGrey"
+  },
+  statusActive: {
+    background: theme.palette.success
+  },
+  statusError: {
+    background: theme.palette.danger
   }
 });
 
 const VolumeSummary = withTheme(
-  injectSheet(summaryStyles)(({ image, classes }) => (
-    <Element className={classes.wraper}>
-      <Element className={`${classes.cell} ${classes.activity}`}>
-        <div className={classes.statusLight} /> Attatched
+  injectSheet(summaryStyles)(({ image, classes }) => {
+    let statusColor;
+    switch (image.status) {
+      case "Attached":
+        statusColor = classes.statusActive;
+        break;
+      case "Error":
+        statusColor = classes.statusError;
+        break;
+      default:
+        statusColor = classes.statusInactive;
+    }
+    const statusLightClasses = classnames(classes.statusLight, statusColor);
+    return (
+      <Element className={classes.wraper}>
+        <Element className={`${classes.cell} ${classes.activity}`}>
+          <div className={statusLightClasses} /> {image.status}
+        </Element>
+        <Element className={classes.cell}>60GB</Element>
+        <Element className={classes.cell}>CYMAR</Element>
       </Element>
-      <Element className={classes.cell}>60GB</Element>
-      <Element className={classes.cell}>CYMAR</Element>
-    </Element>
-  ))
+    );
+  })
 );
 
 export const VolumeListHeader = withTheme(
