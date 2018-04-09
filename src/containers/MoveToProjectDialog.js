@@ -90,7 +90,7 @@ const mapDispatchToProps = dispatch =>
       confirmMoveToProject,
       resetMoveToProject,
       goToProject: (newProject, asset) =>
-        push(`/projects/${newProject}/${asset}`)
+        push(`${process.env.PUBLIC_URL}/projects/${newProject}/${asset}`)
     },
     dispatch
   );

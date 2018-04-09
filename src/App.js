@@ -36,14 +36,14 @@ class App extends Component {
                     overflowX: "scroll"
                   }}
                 >
-                  <Route exact path="/" component={Dashboard} />
-                  <Route exact path="/image-catalog" component={ImageCatalog} />
-                  <Route exact path="/all-assets" component={AllAssets} />
-                  <Route exact path="/instances" component={Instances} />
-                  <Route exact path="/volumes" component={Volumes} />
-                  <Route exact path="/projects" component={Projects} />
-                  <Route exact path="/notifications" component={Notifications} />
-                  <Route path="/projects/:id" component={ProjectDetail} />
+                  <Route exact path={`${process.env.PUBLIC_URL}/`} component={Dashboard} />
+                  <Route exact path={`${process.env.PUBLIC_URL}/image-catalog`} component={ImageCatalog} />
+                  <Route exact path={`${process.env.PUBLIC_URL}/all-assets`} component={AllAssets} />
+                  <Route exact path={`${process.env.PUBLIC_URL}/instances`} component={Instances} />
+                  <Route exact path={`${process.env.PUBLIC_URL}/volumes`} component={Volumes} />
+                  <Route exact path={`${process.env.PUBLIC_URL}/projects`} component={Projects} />
+                  <Route exact path={`${process.env.PUBLIC_URL}/notifications`} component={Notifications} />
+                  <Route path={`${process.env.PUBLIC_URL}/projects/:id`} component={ProjectDetail} />
                 </main>
               </div>
             </div>

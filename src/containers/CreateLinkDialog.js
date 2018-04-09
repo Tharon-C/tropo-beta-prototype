@@ -115,8 +115,8 @@ const mapDispatchToProps = dispatch =>
       onChangeProject: changeLinkProperty("project"),
       createLink,
       resetLink,
-      goToLinks: () => push("/all-assets"),
-      gotToProject: project => push(`/projects/${project}/links`)
+      goToLinks: () => push(`${process.env.PUBLIC_URL}/all-assets`),
+      gotToProject: project => push(`${process.env.PUBLIC_URL}/projects/${project}/links`)
     },
     dispatch
   );

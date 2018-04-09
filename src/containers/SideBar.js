@@ -88,13 +88,13 @@ const SideBar = ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      dashboard: () => push("/"),
-      imageCatalog: () => push("/image-catalog"),
-      instances: () => push("/instances"),
-      volumes: () => push("/volumes"),
-      projects: () => push("/projects"),
-      allAssets: () => push("/all-assets"),
-      notifications: () => push("/notifications")
+      dashboard: () => push(`${process.env.PUBLIC_URL}/`),
+      imageCatalog: () => push(`${process.env.PUBLIC_URL}/image-catalog`),
+      instances: () => push(`${process.env.PUBLIC_URL}/instances`),
+      volumes: () => push(`${process.env.PUBLIC_URL}/volumes`),
+      projects: () => push(`${process.env.PUBLIC_URL}/projects`),
+      allAssets: () => push(`${process.env.PUBLIC_URL}/all-assets`),
+      notifications: () => push(`${process.env.PUBLIC_URL}/notifications`)
     },
     dispatch
   );

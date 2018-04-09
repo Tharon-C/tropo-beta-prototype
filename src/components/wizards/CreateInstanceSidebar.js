@@ -86,7 +86,7 @@ const CreateInstanceSidebar = ({
         </Step>
         <Step>
           <StepButton onClick={() => setStepIndex(1)}>
-            Review Instance Info
+            Review Instance Settings
           </StepButton>
           <StepContent>
             <P>
@@ -135,8 +135,8 @@ const mapDispatchToProps = dispatch =>
       createInstance,
       resetInstance,
       toggleInstanceForm,
-      goToInstances: () => push("/instances"),
-      goToProject: project => push(`/projects/${project}/instances`)
+      goToInstances: () => push(`${process.env.PUBLIC_URL}/instances`),
+      goToProject: project => push(`${process.env.PUBLIC_URL}/projects/${project}/instances`)
     },
     dispatch
   );

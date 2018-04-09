@@ -25,7 +25,7 @@ import DashboardWidgets from "../components/dashboard/DashboardWidgets";
 class ProjectDetail extends Component {
   onTabClick = tab => {
     const { onTabClick, project } = this.props;
-    onTabClick(`/projects/${project.id}/${tab.props["value"]}`);
+    onTabClick(`${process.env.PUBLIC_URL}/projects/${project.id}/${tab.props["value"]}`);
   };
   render() {
     const { project, view, onTabClick, back } = this.props;
@@ -82,7 +82,7 @@ class ProjectDetail extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      back: () => push("/projects"),
+      back: () => push(`${process.env.PUBLIC_URL}/projects`),
       onTabClick: view => push(view)
     },
     dispatch

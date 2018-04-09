@@ -89,7 +89,17 @@ const InstanceInfo = ({ image, classes }) => (
     <Element typography="label" whitespace="mb1">
       Volumes
     </Element>
-    <InstanceVolumes instance={image} />
+    <Element
+      style={{
+        overflow: "hidden",
+        display: "flex",
+        whiteSpace: "nowrap",
+        width: "100%",
+        padding: "4px"
+      }}
+    >
+      <InstanceVolumes instance={image} />
+    </Element>
   </Element>
 );
 

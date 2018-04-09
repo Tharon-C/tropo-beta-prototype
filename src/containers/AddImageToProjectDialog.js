@@ -74,7 +74,7 @@ const mapDispatchToProps = dispatch =>
       onChangeProject: changeImageProject,
       addToProject,
       resetAddToProject,
-      goToProject: project => push(`/projects/${project}/images`)
+      goToProject: project => push(`${process.env.PUBLIC_URL}/projects/${project}/images`)
     },
     dispatch
   );

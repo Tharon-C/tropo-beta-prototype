@@ -141,7 +141,7 @@ class ProjectCard extends Component {
 }
 const mapDispatchToProps = dispatch => bindActionCreators(
   {
-    goToDetail: projectId => push(`/projects/${projectId}`)
+    goToDetail: projectId => push(`${process.env.PUBLIC_URL}/projects/${projectId}`)
   },
   dispatch
 );

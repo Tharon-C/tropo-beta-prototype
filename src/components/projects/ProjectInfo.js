@@ -39,15 +39,17 @@ const ProjectInfo = ({
   showInstanceForm,
   showLinkForm,
   showVolumeForm,
-  detailView,
+  detailView
 }) => {
   switch (view) {
     case "info":
       return detailView ? (
         <ListCard whitespace="p3">
-          <Info project={project} tags={tags}/>
+          <Info project={project} tags={tags} />
         </ListCard>
-      ) : <Info project={project} tags={tags}/>
+      ) : (
+        <Info project={project} tags={tags} />
+      );
     case "instances":
       return (
         <div style={{ position: "relative" }}>
@@ -64,7 +66,10 @@ const ProjectInfo = ({
           >
             <AddIcon />
           </FloatingActionButton>
-          <InstanceList project={project.id} filter={item => project.instances.includes(item.id)} />
+          <InstanceList
+            project={project.id}
+            filter={item => project.instances.includes(item.id)}
+          />
         </div>
       );
     case "volumes":
@@ -108,7 +113,10 @@ const ProjectInfo = ({
     case "images":
       return (
         <React.Fragment>
-          <ImageList project={project.id} filter={item => project.images.includes(item.id)} />
+          <ImageList
+            project={project.id}
+            filter={item => project.images.includes(item.id)}
+          />
         </React.Fragment>
       );
   }
@@ -124,7 +132,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-const mapStateToProps = ({ tagList, instanceList, volumeList, imageList }) => ({
+const mapStateToProps = ({ tagList }) => ({
   tags: tagList.data
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectInfo);

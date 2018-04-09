@@ -81,7 +81,7 @@ const mapDispatchToProps = dispatch =>
       submitAttachToInstance,
       submitDetachFromInstance,
       resetAttachToInstance,
-      goToInstances: () => push(`/instances`)
+      goToInstances: () => push(`${process.env.PUBLIC_URL}/instances`)
     },
     dispatch
   );

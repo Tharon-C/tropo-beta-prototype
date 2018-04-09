@@ -94,8 +94,8 @@ const mapDispatchToProps = dispatch =>
       onChangeSize: changeVolumeProperty("size"),
       createVolume,
       resetVolume,
-      goToVolumes: () => push("/volumes"),
-      goToProject: project => push(`/projects/${project}/volumes`) 
+      goToVolumes: () => push(`${process.env.PUBLIC_URL}/volumes`),
+      goToProject: project => push(`${process.env.PUBLIC_URL}/projects/${project}/volumes`) 
     },
     dispatch
   );

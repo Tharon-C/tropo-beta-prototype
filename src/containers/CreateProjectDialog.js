@@ -85,7 +85,7 @@ const mapDispatchToProps = dispatch =>
       onChangeSize: changeProjectProperty("size"),
       createProject,
       resetProject,
-      goToProjects: () => push("/projects")
+      goToProjects: () => push(`${process.env.PUBLIC_URL}/projects`)
     },
     dispatch
   );
