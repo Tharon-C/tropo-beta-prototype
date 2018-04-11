@@ -1,6 +1,4 @@
 import React from "react";
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
 import images from "../../IMAGE_DATA.json"
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
