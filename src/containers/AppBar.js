@@ -32,7 +32,7 @@ const AppBar = ({ location, sidebarIsOpen, openSidebar, closeSidebar }) => {
         textTransform: "capitalize"
       }}
     >
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", flexGrow: 1, alignItems: "center" }}>
         <div
           style={{
             display: "flex",

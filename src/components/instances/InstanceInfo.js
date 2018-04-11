@@ -9,14 +9,22 @@ import InstanceVolumes from "./InstanceVolumes";
 const styles = theme => ({
   listItem: {
     display: "flex",
-    marginBottom: "16px"
+    ...theme.whitespace["mb2"],
+    "@media(max-width: 780px)": {
+      display: "block",
+      ...theme.whitespace["mb3"],
+
+    }
   },
   label: {
     width: "100px"
   },
   details: {
     maxWidth: "50%",
-    paddingRight: "36px"
+    paddingRight: "36px",
+    "@media(max-width: 1400px)": {
+      maxWidth: "100%"
+    }
   }
 });
 const InstanceInfo = ({ image, classes }) => (
@@ -32,25 +40,25 @@ const InstanceInfo = ({ image, classes }) => (
         <Element typography="body1">19737</Element>
       </div>
       <div className={classes.listItem}>
-        <Element className={classes.label} typography="label">
+        <Element className={classes.label} typography="label" whitespace="mb1">
           Status
         </Element>
         <Element typography="body1">Active</Element>
       </div>
       <div className={classes.listItem}>
-        <Element className={classes.label} typography="label">
+        <Element className={classes.label} typography="label" whitespace="mb1">
           Size
         </Element>
         <Element typography="body1">Large1</Element>
       </div>
       <div className={classes.listItem}>
-        <Element className={classes.label} typography="label">
+        <Element className={classes.label} typography="label" whitespace="mb1">
           IP Adress
         </Element>
         <Element typography="body1">128.196.65.334</Element>
       </div>
       <div className={classes.listItem}>
-        <Element className={classes.label} typography="label">
+        <Element className={classes.label} typography="label" whitespace="mb1">
           Based on
         </Element>
         <Element typography="body1">Ubuntu 14.04 with Docker 17x</Element>

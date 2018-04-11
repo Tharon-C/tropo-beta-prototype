@@ -8,8 +8,10 @@ import CloseIcon from "material-ui/svg-icons/navigation/close";
 
 const styles = () => ({
   wrapper: {
-    width: "600px",
+    width: "100%",
+    maxWidth: "600px",
     display: "flex",
+    flexGrow: 1,
     alignItems: "center",
     height: "40px",
     background: "rgba(255,255,255,.1)",
