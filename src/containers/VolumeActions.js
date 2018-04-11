@@ -58,7 +58,6 @@ const ImageActions = ({
   showDetachFromInstance,
   classes
 }) => {
-  console.log(volume);
   return (
     <ActionGroup className={classes.wrapper} stopPropagation>
       <ActionGroup hide={hideQuickActions} className={classes.quickActions}>

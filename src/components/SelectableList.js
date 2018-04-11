@@ -12,8 +12,9 @@ function wrapState(ComposedComponent) {
     };
 
     componentWillMount() {
+      const { value, defaultValue} = this.props
       this.setState({
-        selectedIndex: this.props.defaultValue,
+        selectedIndex: value || defaultValue,
       });
     }
 
@@ -24,9 +25,10 @@ function wrapState(ComposedComponent) {
     };
 
     render() {
+      const {value } = this.props
       return (
         <ComposedComponent
-          value={this.state.selectedIndex}
+          value={ value || this.state.selectedIndex}
           onChange={this.handleRequestChange}
         >
           {this.props.children}

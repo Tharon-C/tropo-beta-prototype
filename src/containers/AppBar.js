@@ -6,7 +6,8 @@ import UserIcon from 'material-ui/svg-icons/action/account-circle';
 import SearchBar from '../components/SearchBar';
 
 const AppBar = ({location}) => {
-  const appName = location.pathname.split("/")[1].replace(/-/g, " ")
+  const appName = location.pathname.split("/").filter(i => !!i && i !== "tropo-beta-prototype")[0]
+  const LocationTitle = appName ? appName.replace(/-/g, " ") : "DashBoard";
   return (
   <header
     style={{
@@ -26,7 +27,7 @@ const AppBar = ({location}) => {
   > 
     <div style={{display: 'flex', alignItems: 'center'}}>
       <div style={{ display: 'flex', minWidth: '235px', paddingRight: "16px" }}>
-        <MenuIcon color="white" style={{ marginRight: '32px' }} /> {appName ? appName : "Dashboard"}
+        <MenuIcon color="white" style={{ marginRight: '32px' }} /> {LocationTitle}
       </div>
       <SearchBar style={{ opacity: 0.3, width: '600px' }} /> 
     </div>

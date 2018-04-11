@@ -22,68 +22,70 @@ const SideBar = ({
   projects,
   notifications,
   current
-}) => (
-  <nav
-    style={{
-      background: "#EAEAEA",
-      width: "250px",
-      paddingTop: "16px",
-      overflowX: "scroll",
-      position: "sticky",
-      top: 0,
-      zIndex: zIndex.SideBar,
-      boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)"
-    }}
-  >
-    <SelectableList defaultValue={current || "dashboard"}>
-      <ListItem
-        value={"dashboard"}
-        onClick={dashboard}
-        primaryText="Dashboard"
-        leftIcon={<DashboardIcon />}
-      />
-      <ListItem
-        value={"image-catalog"}
-        onClick={imageCatalog}
-        primaryText="Image Catalog"
-        leftIcon={<ImageIcon />}
-      />
-      <ListItem
-        value={"all-assets"}
-        primaryText="All Assets"
-        onClick={allAssets}
-        leftIcon={<ListIcon />}
-      />
-      <ListItem
-        value={"instances"}
-        style={{ paddingLeft: "30px" }}
-        onClick={instances}
-        primaryText="Instances"
-        leftIcon={<InstanceIcon />}
-      />
-      <ListItem
-        value={"volumes"}
-        style={{ paddingLeft: "30px" }}
-        onClick={volumes}
-        primaryText="Volumes"
-        leftIcon={<VolumeIcon />}
-      />
-      <ListItem
-        value={"projects"}
-        style={{ paddingLeft: "30px" }}
-        onClick={projects}
-        primaryText="Projects"
-        leftIcon={<ProjectsIcon />}
-      />
-      <ListItem
-        value={"notifications"}
-        onClick={notifications}
-        primaryText="Notifications"
-        leftIcon={<NotificationsIcon />}
-      />
-    </SelectableList>
-  </nav>
-);
+}) => {
+  return (
+    <nav
+      style={{
+        background: "#EAEAEA",
+        width: "250px",
+        paddingTop: "16px",
+        overflowX: "scroll",
+        position: "sticky",
+        top: 0,
+        zIndex: zIndex.SideBar,
+        boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)"
+      }}
+    >
+      <SelectableList value={current || "dashboard"}>
+        <ListItem
+          value={"dashboard"}
+          onClick={dashboard}
+          primaryText="Dashboard"
+          leftIcon={<DashboardIcon />}
+        />
+        <ListItem
+          value={"image-catalog"}
+          onClick={imageCatalog}
+          primaryText="Image Catalog"
+          leftIcon={<ImageIcon />}
+        />
+        <ListItem
+          value={"all-assets"}
+          primaryText="All Assets"
+          onClick={allAssets}
+          leftIcon={<ListIcon />}
+        />
+        <ListItem
+          value={"instances"}
+          style={{ paddingLeft: "30px" }}
+          onClick={instances}
+          primaryText="Instances"
+          leftIcon={<InstanceIcon />}
+        />
+        <ListItem
+          value={"volumes"}
+          style={{ paddingLeft: "30px" }}
+          onClick={volumes}
+          primaryText="Volumes"
+          leftIcon={<VolumeIcon />}
+        />
+        <ListItem
+          value={"projects"}
+          style={{ paddingLeft: "30px" }}
+          onClick={projects}
+          primaryText="Projects"
+          leftIcon={<ProjectsIcon />}
+        />
+        <ListItem
+          value={"notifications"}
+          onClick={notifications}
+          primaryText="Notifications"
+          leftIcon={<NotificationsIcon />}
+        />
+      </SelectableList>
+    </nav>
+  );
+};
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
@@ -100,7 +102,9 @@ const mapDispatchToProps = dispatch =>
   );
 
 const mapStateToProps = state => ({
-  current: state.routing.location.pathname.split("/")[1]
+  current: state.routing.location.pathname
+    .split("/")
+    .filter(i => !!i && i !== "tropo-beta-prototype")[0]
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

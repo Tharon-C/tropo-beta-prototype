@@ -37,7 +37,7 @@ const AddImageToProjectDialog = ({
       hideForm();
       resetAttachToInstance();
     }}
-    title="Add Image Project"
+    title="Attach Volume To Instance"
     actions={[
       <FlatButton
         label="Cancel"
@@ -49,6 +49,7 @@ const AddImageToProjectDialog = ({
       <FlatButton
         primary
         label="Attach To Instance"
+        disabled={!instanceId}
         onClick={() => {
           submitAttachToInstance(volume.id, instanceId );
           volume.instance
