@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import {responsiveStateReducer} from "redux-responsive";
 import { routerReducer } from "react-router-redux";
 import instanceList from "./instanceList";
 import projectList from "./projectList";
@@ -15,8 +16,10 @@ import moveToProject from "./moveToProject";
 import attachToInstance from "./attachToInstance";
 import attachFromInstance from "./attachFromInstance";
 import detachFromInstance from "./detachFromInstance";
+import appState from "./appState";
 
 export default combineReducers({
+  browser: responsiveStateReducer,
   routing: routerReducer,
   imageList,
   instanceList,
@@ -33,4 +36,5 @@ export default combineReducers({
   attachToInstance,
   attachFromInstance,
   detachFromInstance,
+  appState,
 });

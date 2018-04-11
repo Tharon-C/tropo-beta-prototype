@@ -7,24 +7,21 @@
   },
   "homepage": "https://tharon-c.github.io/tropo-beta-prototype",
   "dependencies": {
-    "apollo-client-preset": "^1.0.8",
     "classnames": "^2.2.5",
     "cyverse-ui": "2.0.0",
     "gh-pages": "^1.1.0",
-    "graphql": "^0.13.1",
-    "graphql-tag": "^2.8.0",
     "history": "^4.7.2",
     "material-ui": "0.20.0",
     "ramda": "^0.25.0",
     "randomcolor": "^0.5.3",
     "react": "^16.2.0",
-    "react-apollo": "^2.0.4",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "react-tap-event-plugin": "^3.0.2",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-responsive": "^4.3.6"
   },
   "scripts": {
     "start": "react-scripts start",

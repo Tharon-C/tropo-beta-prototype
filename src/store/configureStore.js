@@ -1,13 +1,16 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
+import {responsiveStoreEnhancer, createResponsiveStoreEnhancer } from 'redux-responsive';
 import rootReducer from '../reducers'
 import fakeAPI from '../middleware/fakeAPI'
 
 export const history = createHistory()
 
 const initialState = {}
-const enhancers = []
+const enhancers = [
+  responsiveStoreEnhancer,
+]
 const middleware = [
   fakeAPI,
   routerMiddleware(history),

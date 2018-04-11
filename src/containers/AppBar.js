@@ -1,39 +1,81 @@
-import React from 'react';
-import {withRouter} from 'react-router-dom';
-import {zIndex} from "../styles/styles";
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import UserIcon from 'material-ui/svg-icons/action/account-circle';
-import SearchBar from '../components/SearchBar';
+import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { openSidebar, closeSidebar } from "../actions/appActions";
+import { withRouter } from "react-router-dom";
+import { zIndex } from "../styles/styles";
+import MenuIcon from "material-ui/svg-icons/navigation/menu";
+import UserIcon from "material-ui/svg-icons/action/account-circle";
+import SearchBar from "../components/SearchBar";
+import { IconButton } from "material-ui";
 
-const AppBar = ({location}) => {
-  const appName = location.pathname.split("/").filter(i => !!i && i !== "tropo-beta-prototype")[0]
-  const LocationTitle = appName ? appName.replace(/-/g, " ") : "DashBoard";
+const AppBar = ({ location, sidebarIsOpen, openSidebar, closeSidebar }) => {
+  const appName = location.pathname
+    .split("/")
+    .filter(i => !!i && i !== "tropo-beta-prototype")[0];
+  const locationTitle = appName ? appName.replace(/-/g, " ") : "DashBoard";
+
   return (
-  <header
-    style={{
-      position: "relative",
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      height: 56,
-      background: '#006ca9',
-      zIndex: zIndex.AppBar,
-      fontSize: '20px',
-      color: 'white',
-      padding: '0 16px',
-      boxShadow: '1px 1px 3px 1px rgba(0,0,0,.3)',
-      textTransform: "capitalize",
-    }}
-  > 
-    <div style={{display: 'flex', alignItems: 'center'}}>
-      <div style={{ display: 'flex', minWidth: '235px', paddingRight: "16px" }}>
-        <MenuIcon color="white" style={{ marginRight: '32px' }} /> {LocationTitle}
+    <header
+      style={{
+        position: "relative",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        height: 56,
+        background: "#006ca9",
+        zIndex: zIndex.AppBar,
+        fontSize: "20px",
+        color: "white",
+        padding: "0 16px 0 8px",
+        boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)",
+        textTransform: "capitalize"
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            minWidth: "235px",
+            paddingRight: "16px"
+          }}
+        >
+          <IconButton
+            style={{ marginRight: "16px" }}
+            onClick={() => (sidebarIsOpen ? closeSidebar() : openSidebar())}
+          >
+            <MenuIcon color="white" />
+          </IconButton>{" "}
+          {locationTitle}
+        </div>
+        <SearchBar style={{ opacity: 0.3, width: "600px" }} />
       </div>
-      <SearchBar style={{ opacity: 0.3, width: '600px' }} /> 
-    </div>
-    <div style={{ display: 'flex', alignItems: 'center', fontSize: '16px', fontWeight: '300', padding: '8px' }}>
-      <UserIcon style={{ marginRight: '16px' }} color="white" /> JohnD
-    </div>
-  </header>
-)};
-export default withRouter(AppBar)
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "16px",
+          fontWeight: "300",
+          padding: "8px"
+        }}
+      >
+        <UserIcon style={{ marginRight: "16px" }} color="white" /> JohnD
+      </div>
+    </header>
+  );
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      openSidebar,
+      closeSidebar
+    },
+    dispatch
+  );
+
+const mapStateToProps = ({ appState }) => ({
+  sidebarIsOpen: appState.sidebarOpen
+});
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppBar));
