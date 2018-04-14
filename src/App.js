@@ -20,7 +20,6 @@ import { bindActionCreators } from "../../../Library/Caches/typescript/2.7/node_
 class App extends Component {
   render() {
     const { showWizard, closeSidebar, openSidebar, windowSize } = this.props;
-    console.log(windowSize);
     windowSize === "large" || windowSize === "infinity"
       ? openSidebar()
       : closeSidebar();

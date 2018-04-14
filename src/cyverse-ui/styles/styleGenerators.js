@@ -19,8 +19,8 @@ const generateSpaceStyles = property => sizes =>
             [property[0] + i]: { [property]: curr },
         };
     }, {
-    m0: { margin: 0 },
-    p0: { padding: 0 }
+        m0: { margin: 0 },
+        p0: { padding: 0 }
 });
 
 // Define opacity for each shadow direction

@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import injectSheet from "react-jss";
+import { zIndex } from "../styles/styles";
 import { toggleInstanceForm } from "../actions/instanceActions";
 import { toggleVolumeForm } from "../actions/volumeActions";
 import { toggleLinkForm } from "../actions/linkActions";
@@ -21,7 +22,26 @@ const styles = {
   wrapper: {
     position: "absolute",
     right: "24px",
-    top: "24px"
+    top: "24px",
+    zIndex: zIndex.FAB
+  },
+  wrapperMobile: {
+    position: "fixed",
+    right: "16px",
+    bottom: "16px",
+    right: "16px",
+    height: "318px",
+    width: "58px",
+    zIndex: zIndex.FAB,
+  },
+  btnMobile: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+  },
+  actionsMobile: {
+    top:0,
+    transformOrigin: "bottom"
   }
 };
 
@@ -34,11 +54,13 @@ class AssetsFAB extends Component {
       showInstanceForm,
       showLinkForm,
       showProjectForm,
-      showVolumeForm
+      showVolumeForm,
+      isMobile,
     } = this.props;
     return (
-      <div className={classes.wrapper}>
+      <div className={isMobile ? classes.wrapperMobile : classes.wrapper}>
         <FloatingActionButton
+          btnClasses={isMobile ? classes.btnMobile : null}
           secondary
           className={classes.FAB}
           isOpen={this.state.isOpen}
@@ -48,7 +70,7 @@ class AssetsFAB extends Component {
             });
           }}
         >
-          <FloatingActionButtonActions>
+          <FloatingActionButtonActions className={ isMobile ? classes.actionsMobile : null}>
             <FloatingActionButtonAction
               tooltip="Create Instance"
               children={<InstanceIcon />}

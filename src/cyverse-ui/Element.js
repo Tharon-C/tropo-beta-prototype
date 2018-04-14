@@ -10,6 +10,9 @@ import * as events from "./utils/events";
 const getColor = (palette, background) =>
     palette[background] || background;
 const styles = theme => ({
+    reset: {
+        margin: 0
+    },
     ...R.mergeAll(R.toPairs(theme.palette).map( color => (
         { ["background_" + color[0]]: { background: color[1] } } 
     ))),
@@ -73,7 +76,8 @@ class Element extends React.Component {
         
         const wrapperClasses = classnames(
             { [className]: className },
-            "Element",
+            "Cy-Element",
+            classes.reset,
             { [classes.hide]: hide },
             { [classes.hideReadable]: hideReadable },
             { [elevationClass]: elevation > 0 },

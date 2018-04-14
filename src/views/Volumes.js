@@ -1,10 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
 import injectSheet from "react-jss";
+import { isMobile } from "../selectors/browser";
 import { zIndex } from "../styles/styles";
 import { Tabs, Tab } from "material-ui";
 import AssetsFAB from "../containers/AssetsFAB";
 import VolumeList from "../components/Volumes/VolumeList";
-import { FloatingActionButton, Element } from "../cyverse-ui";
+import { Element } from "../cyverse-ui";
 import CommentLink from "../components/CommentsLink";
 
 const styles = {
@@ -18,16 +20,23 @@ const styles = {
   }
 };
 
-const Instances = ({ classes }) => (
+const Instances = ({ classes, isMobile }) => (
   <React.Fragment>
-    <div className={classes.viewHeader}>
-      <AssetsFAB />
-    </div>
-    <Element whitespace={["pv4", "ps13"]}>
-      <VolumeList isSticky={true}/>
+    {isMobile ? (
+      <AssetsFAB isMobile={true} />
+    ) : (
+      <div className={classes.viewHeader}>
+        <AssetsFAB />
+      </div>
+    )}
+    <Element whitespace={isMobile ? "ps2" : ["pv4", "ps13"]}>
+      <VolumeList isMobile={true} isSticky={true} />
     </Element>
     <CommentLink href="https://projects.invisionapp.com/share/BXGE8OWQZ62#/screens/285755680/comments" />
   </React.Fragment>
 );
 
-export default injectSheet(styles)(Instances);
+const mapStateToProps = state => ({
+  isMobile: isMobile(state)
+});
+export default connect(mapStateToProps, null)(injectSheet(styles)(Instances));

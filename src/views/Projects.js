@@ -1,11 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import injectSheet from "react-jss";
-import {zIndex } from "../styles/styles";
+import { isMobile } from "../selectors/browser";
+import { zIndex } from "../styles/styles";
 import { Tabs, Tab } from "material-ui";
 import ProjectList from "../components/projects/ProjectList";
-import {
-  Element
-} from "../cyverse-ui";
+import { Element } from "../cyverse-ui";
 import AssetsFAB from "../containers/AssetsFAB";
 import CommentLink from "../components/CommentsLink";
 const styles = {
@@ -22,14 +22,18 @@ const styles = {
 class Instances extends Component {
   state = { isOpen: false };
   render() {
-    const { classes } = this.props;
+    const { classes, isMobile } = this.props;
     return (
       <React.Fragment>
-        <div className={classes.viewHeader}>
-            <AssetsFAB/>
-        </div>
-        <Element whitespace={["pv4", "ps13"]}>
-          <ProjectList isSticky/>
+        {isMobile ? (
+          <AssetsFAB isMobile={true} />
+        ) : (
+          <div className={classes.viewHeader}>
+            <AssetsFAB />
+          </div>
+        )}
+        <Element whitespace={isMobile ? "ps2" : ["pv4", "ps13"]}>
+          <ProjectList isMobile={isMobile} isSticky />
         </Element>
         <CommentLink href="https://projects.invisionapp.com/share/BXGE8OWQZ62#/screens/285754824/comments" />
       </React.Fragment>
@@ -37,4 +41,7 @@ class Instances extends Component {
   }
 }
 
-export default injectSheet(styles)(Instances);
+const mapStateToProps = state => ({
+  isMobile: isMobile(state)
+});
+export default connect(mapStateToProps, null)(injectSheet(styles)(Instances));

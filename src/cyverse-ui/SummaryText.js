@@ -1,18 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import injectSheet from "react-jss";
+import injectSheet, {withTheme} from "react-jss";
 import classnames from "classnames";
 import Element from "./Element";
 
 // Each key of the returned object will be available as a className below.
-const styles = {
+const styles = theme => ({
     wrapper: {
         overflow: "hidden",
         textOverflow: "ellipsis",
         whiteSpace: "nowrap",
         maxWidth: "500px",
-    },
-};
+    }
+});
 
 /**
  * SummaryText is used to limit text to a single line and available width. Typically used to preview a large block of text that can be shown by clicking `ShowMoreEllipsis` or a collapsed `MediaCard`.
@@ -51,4 +51,4 @@ SummaryText.propTypes = {
     root: PropTypes.string,
 };
 
-export default injectSheet(styles)(SummaryText);
+export default withTheme(injectSheet(styles)(SummaryText));

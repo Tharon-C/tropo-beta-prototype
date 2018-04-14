@@ -1,6 +1,8 @@
 import React from "react";
 import injectSheet from "react-jss";
-import {zIndex} from "../styles/styles";
+import {connect} from "react-redux";
+import {isMobile} from "../selectors/browser";
+import { zIndex } from "../styles/styles";
 import { Tabs, Tab } from "material-ui";
 import { Element } from "../cyverse-ui";
 import AssetsFAB from "../containers/AssetsFAB";
@@ -17,16 +19,21 @@ const styles = {
   }
 };
 
-const Instances = ({ classes }) => (
+const Instances = ({ classes, isMobile}) => (
   <React.Fragment>
-    <div className={classes.viewHeader}>
-      <AssetsFAB />
-    </div>
-    <Element whitespace={["pv4", "ps13"]}>
-      <InstanceList isSticky={true}/>
+    {isMobile ? <AssetsFAB isMobile={true}/> : (
+      <div className={classes.viewHeader}>
+        <AssetsFAB/>
+      </div>
+    )}
+    <Element whitespace={isMobile ? "ps2" : ["pv4", "ps13"]}>
+      <InstanceList isMobile={isMobile} isSticky={true} />
     </Element>
     <CommentsLink href="https://projects.invisionapp.com/share/BXGE8OWQZ62#/screens/285754822/comments" />
   </React.Fragment>
 );
 
-export default injectSheet(styles)(Instances);
+const mapStateToProps = state => ({
+  isMobile: isMobile(state)
+})
+export default connect( mapStateToProps, null)(injectSheet(styles)(Instances));

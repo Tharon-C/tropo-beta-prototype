@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import VolumeCard, { VolumeListHeader } from "./VolumeCard";
+import VolumeCardCompact from "./VolumeCardCompact";
 
 class VolumeList extends Component {
   state = {
@@ -19,35 +20,55 @@ class VolumeList extends Component {
     this.setState({ selectedItems });
   };
   render() {
-    const { filter = () => true, volumes, showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
+    const {
+      filter = () => true,
+      volumes,
+      showHeader = true,
+      loadMoreEnteries,
+      range,
+      isMobile,
+      isSticky
+    } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
     return (
       <section style={{ maxWidth: "1000px", margin: "auto" }}>
         {showHeader ? (
           <VolumeListHeader
+            compact={isMobile}
             isSticky={isSticky}
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {
               this.setState({
-                selectedItems: isChecked ? volumes.filter(filter).map(volume => volume.id) : []
+                selectedItems: isChecked
+                  ? volumes.filter(filter).map(volume => volume.id)
+                  : []
               });
             }}
           />
         ) : null}
-        <MediaCardGroup>
+        <MediaCardGroup noScroll={isMobile}>
           {volumes.filter(filter).map((volume, i) => {
-              return (
-                <VolumeCard
-                  key={volume.id}
-                  uid={volume.id}
-                  isCheckable={selectedItems.length > 0}
-                  checked={selectedItems.includes(volume.id)}
-                  onCheck={this.onCheck}
-                  image={volume}
-                />
-              );
-            })}
+            return !isMobile ? (
+              <VolumeCard
+                key={volume.id}
+                uid={volume.id}
+                isCheckable={selectedItems.length > 0}
+                checked={selectedItems.includes(volume.id)}
+                onCheck={this.onCheck}
+                image={volume}
+              />
+            ) : (
+              <VolumeCardCompact
+                key={volume.id}
+                uid={volume.id}
+                isCheckable={selectedItems.length > 0}
+                checked={selectedItems.includes(volume.id)}
+                onCheck={this.onCheck}
+                image={volume}
+              />
+            );
+          })}
         </MediaCardGroup>
       </section>
     );
@@ -55,5 +76,5 @@ class VolumeList extends Component {
 }
 const mapStateToProps = state => ({
   volumes: state.volumeList.data
-})
+});
 export default connect(mapStateToProps, null)(VolumeList);

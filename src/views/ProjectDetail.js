@@ -3,6 +3,7 @@ import * as R from "ramda";
 import { push } from "react-router-redux";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { isMobile} from "../selectors/browser";
 import { get } from "../utils";
 import { zIndex } from "../styles/styles";
 
@@ -28,7 +29,7 @@ class ProjectDetail extends Component {
     onTabClick(`${process.env.PUBLIC_URL}/projects/${project.id}/${tab.props["value"]}`);
   };
   render() {
-    const { project, view, onTabClick, back } = this.props;
+    const { project, view, onTabClick, back, isMobile } = this.props;
     console.log(project);
     return (
       <React.Fragment>
@@ -58,7 +59,7 @@ class ProjectDetail extends Component {
         </div>
         <Element
           style={{ maxWidth: "1200px", margin: "auto" }}
-          whitespace={["pv4", "ps13"]}
+          whitespace="ps1"
         >
           <ListCard>
             <ListCardHeader>
@@ -67,12 +68,13 @@ class ProjectDetail extends Component {
               </ListCardIdentity>
             </ListCardHeader>
             <ProjectTabs
+              compact={isMobile}
               view={view}
               whitespace="mb2"
               onTabClick={this.onTabClick}
             />
           </ListCard>
-          <ProjectInfo detailView={true} project={project} view={view} />
+          <ProjectInfo isMobile={isMobile} detailView={true} project={project} view={view} />
         </Element>
       </React.Fragment>
     );
@@ -93,7 +95,8 @@ const mapStateToProps = (state, { match }) => {
   return {
     project: get.byId(match.params.id)(state.projectList.data),
     view,
-    location
+    location,
+    isMobile: isMobile(state)
   };
 };
 

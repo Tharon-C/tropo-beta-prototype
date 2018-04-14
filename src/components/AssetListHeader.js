@@ -1,6 +1,6 @@
 import React from "react";
 import injectSheet, { withTheme } from "react-jss";
-import {zIndex} from "../styles/styles";
+import { zIndex } from "../styles/styles";
 import { Avatar, Checkbox } from "material-ui";
 import {
   ListCard,
@@ -21,7 +21,11 @@ const styles = {
   wrapper: {
     position: "sticky",
     top: "48px",
-    zIndex: zIndex.AssetListHeader 
+    zIndex: zIndex.AssetListHeader
+  },
+  wrapperCompact: {
+    position: "sticky",
+    zIndex: zIndex.AssetListHeader
   },
   header: {
     minHeight: "48px"
@@ -29,7 +33,11 @@ const styles = {
   checkbox: {
     marginLeft: "6px",
     marginRight: "6px"
-  }
+  },
+  checkboxCompact: {
+    marginLeft: "22px",
+    marginRight: "22px"
+  },
 };
 
 export const AssetListHeader = ({
@@ -38,19 +46,29 @@ export const AssetListHeader = ({
   summary,
   actions,
   classes,
-  isSticky
+  isSticky,
+  compact
 }) => (
-  <ListCard className={isSticky ? classes.wrapper : null} whitespace="mb1">
+  <ListCard className={isSticky && !compact ? classes.wrapper : classes.wrapperCompact} whitespace="mb1">
     <ListCardHeader className={classes.header}>
-      <ListCardIdentity>
-        <Element className={classes.checkbox}>
+      {compact ? (
+        <Element className={classes.checkboxCompact}>
           <Checkbox onCheck={onBatchClick} />
         </Element>
-        <Element hide={batchMode} typography="label">
-          Name
-        </Element>
-      </ListCardIdentity>
-      <ListCardSummary hide={batchMode}>{summary}</ListCardSummary>
+      ) : (
+        <React.Fragment>
+          <ListCardIdentity>
+            <Element className={classes.checkbox}>
+              <Checkbox onCheck={onBatchClick} />
+            </Element>
+
+            <Element hide={batchMode} typography="label">
+              Name
+            </Element>
+          </ListCardIdentity>
+          <ListCardSummary hide={batchMode}>{summary}</ListCardSummary>
+        </React.Fragment>
+      )}
       <ActionGroup whitespace="mr3" hide={!batchMode}>
         {actions}
       </ActionGroup>

@@ -33,7 +33,7 @@ import {
 } from "../../cyverse-ui/";
 import { resetProject } from "../../actions/projectActions";
 
-const ImageIdentity = ({ image, ...rest }) => (
+const InstanceIdentity = ({ image, onClick,...rest }) => (
   <AssetIdentity
     {...rest}
     percent={image.progress}
@@ -100,26 +100,12 @@ const InstanceSummary = withTheme(
   })
 );
 
-export const InstanceListHeader = withTheme(
+export const InstanceListHeaderCompact = withTheme(
   injectSheet(summaryStyles)(
     ({ project, classes, createInstance, ...rest }) => (
       <AssetListHeader
         {...rest}
-        summary={
-          <Element className={classes.wraper}>
-            <Element className={`${classes.cell} ${classes.activity}`}>
-              <Element typography="label">Status</Element>
-            </Element>
-            <Element className={classes.cell}>
-              {" "}
-              <Element typography="label">Size</Element>
-            </Element>
-            <Element className={classes.cell}>
-              {" "}
-              <Element typography="label">Provider</Element>
-            </Element>
-          </Element>
-        }
+        compact={true}
         actions={<InstanceBatchActions />}
       />
     )
@@ -152,60 +138,60 @@ class ImageCard extends Component {
     const { isHovered } = this.state;
 
     let isCompact = false;
-    switch(windowSize) {
-      case "small": isCompact = true
+    switch (windowSize) {
+      case "small":
+        isCompact = true;
     }
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
+          style={{minHeight: "48px"}}
           onClick={onExpand}
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
         >
           <ListCardIdentity>
-            <ImageIdentity
-              isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
-              image={image}
-              onCheck={this.onCheck}
-              checked={checked}
-              compact={isCompact}
-            />
-          </ListCardIdentity>
-          <ListCardSummary hide={isExpanded}>
-            {simple ? (
-              <SummaryText>{image.description}</SummaryText>
-            ) : isCompact ? null : (
-              <InstanceSummary image={image} />
+            {isExpanded ? (
+              <Checkbox />
+            ) : (
+              <InstanceIdentity
+                isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
+                image={image}
+                onCheck={this.onCheck}
+                checked={checked}
+                compact={true}
+              />
             )}
-          </ListCardSummary>
+          </ListCardIdentity>
+          { isExpanded ? 
           <InstanceActions
             instance={image}
             hideQuickActions={isExpanded ? false : !this.state.isHovered}
             isHoveredimage={image}
-          />
+          /> : null}
         </ListCardHeader>
         <ListCardDetail hide={!isExpanded}>
+          <InstanceIdentity whitespace="mb4" image={image} />
           <InstanceInfo image={image} />
         </ListCardDetail>
-        {isCompact && !isExpanded ? 
-          <SummaryText whitespace="ms7">{image.description}</SummaryText> : null  
-        }
+        {!isExpanded && image.description ? (
+          <SummaryText whitespace="ms7">{image.description}</SummaryText>
+        ) : null}
         {image.volumes.length !== 0 && !isExpanded ? (
-          <ListCardHeader whitespace="pb1" style={{ minHeight: "32px" }}>
-          { !isCompact ? 
-          <ListCardIdentity /> : <div style={{width: 62}}/>}
-          <Element
-            style={{
-              overflow: "hidden",
-              display: "flex",
-              whiteSpace: "nowrap",
-              width: "100%",
-              padding: "4px"
-            }}
-          >
-          <InstanceVolumes instance={image} />
-          </Element>
-    </ListCardHeader>
+          <ListCardHeader whitespace="pv1" style={{ minHeight: "32px" }}>
+            <div style={{ width: 62 }} />
+            <Element
+              style={{
+                overflow: "hidden",
+                display: "flex",
+                whiteSpace: "nowrap",
+                width: "100%",
+                padding: "4px"
+              }}
+            >
+              <InstanceVolumes instance={image} />
+            </Element>
+          </ListCardHeader>
         ) : null}
       </ListCard>
     );
@@ -213,6 +199,6 @@ class ImageCard extends Component {
 }
 const mapStateToProps = state => ({
   volumes: state.volumeList.data,
-  windowSize: state.browser.mediaType,
+  windowSize: state.browser.mediaType
 });
 export default connect(mapStateToProps, null)(ImageCard);

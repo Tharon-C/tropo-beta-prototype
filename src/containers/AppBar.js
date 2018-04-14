@@ -4,17 +4,17 @@ import { bindActionCreators } from "redux";
 import { openSidebar, closeSidebar } from "../actions/appActions";
 import { withRouter } from "react-router-dom";
 import { zIndex } from "../styles/styles";
+import { isMobile } from "../selectors/browser";
 import MenuIcon from "material-ui/svg-icons/navigation/menu";
 import UserIcon from "material-ui/svg-icons/action/account-circle";
 import SearchBar from "../components/SearchBar";
 import { IconButton } from "material-ui";
 
-const AppBar = ({ location, sidebarIsOpen, openSidebar, closeSidebar }) => {
+const AppBar = ({ location, sidebarIsOpen, openSidebar, closeSidebar, isMobile }) => {
   const appName = location.pathname
     .split("/")
     .filter(i => !!i && i !== "tropo-beta-prototype")[0];
   const locationTitle = appName ? appName.replace(/-/g, " ") : "DashBoard";
-
   return (
     <header
       style={{
@@ -49,7 +49,9 @@ const AppBar = ({ location, sidebarIsOpen, openSidebar, closeSidebar }) => {
           </IconButton>{" "}
           {locationTitle}
         </div>
+        { isMobile ? null :
         <SearchBar style={{ opacity: 0.3, width: "600px" }} />
+        }
       </div>
       <div
         style={{
@@ -75,7 +77,8 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-const mapStateToProps = ({ appState }) => ({
-  sidebarIsOpen: appState.sidebarOpen
+const mapStateToProps = state => ({
+  sidebarIsOpen: state.appState.sidebarOpen,
+  isMobile: isMobile(state)
 });
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppBar));

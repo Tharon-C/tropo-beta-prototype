@@ -8,6 +8,7 @@ const styles = theme => ({
         maxWidth: "600px",
         lineHeight: "24px",
         margin: 0,
+        ...theme.whitespace.m0,
         ...theme.whitespace.mb3,
     },
 });

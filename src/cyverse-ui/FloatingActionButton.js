@@ -9,7 +9,7 @@ import Element from "./Element";
 // Each key of the returned object will be available as a className below.
 const styles = theme => ({
     wrapper: {
-        position: "relative",
+
     },
     icon: {
         transition: "transform ease .1s",
@@ -55,6 +55,7 @@ class FloatingActionButton extends Component {
             backgroundColor,
             secondary,
             isOpen,
+            btnClasses,
             ...rest
         } = this.props;
         // Define classes for wrapper
@@ -85,7 +86,7 @@ class FloatingActionButton extends Component {
             <Element {...rest} className={wrapperClasses}>
                 <MuiFloatingActionButton
                     {...rest}
-                    className="CY-FloatingActionButton-btn"
+                    className={`CY-FloatingActionButton-btn ${btnClasses}`}
                     backgroundColor={
                         isOpen ? "#585858" : closedBackground
                     }

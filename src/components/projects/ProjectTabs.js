@@ -2,12 +2,14 @@ import React from "react";
 import { Tab, Tabs } from "material-ui";
 import { Element } from "../../cyverse-ui";
 
-const ImageDetailTabs = ({ image, onTabClick, view, ...rest }) => (
-  <Element {...rest}>
+const ImageDetailTabs = ({ image, onTabClick, view, compact, ...rest }) => (
+  <Element {...rest} style={{
+    overflow: compact ? "scroll" : null
+  }}>
     <Tabs
       style={{
-        width: "100%",
-        maxWidth: "700px"
+        width: compact ? 500 : "100%",
+        maxWidth: "700px",
       }}
       value={view}
     >

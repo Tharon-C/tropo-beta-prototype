@@ -39,7 +39,8 @@ const ProjectInfo = ({
   showInstanceForm,
   showLinkForm,
   showVolumeForm,
-  detailView
+  detailView,
+  isMobile,
 }) => {
   switch (view) {
     case "info":
@@ -67,6 +68,7 @@ const ProjectInfo = ({
             <AddIcon />
           </FloatingActionButton>
           <InstanceList
+            isMobile={isMobile}
             project={project.id}
             filter={item => project.instances.includes(item.id)}
           />
@@ -88,7 +90,7 @@ const ProjectInfo = ({
           >
             <AddIcon />
           </FloatingActionButton>
-          <VolumeList filter={item => project.volumes.includes(item.id)} />
+          <VolumeList isMobile={isMobile} filter={item => project.volumes.includes(item.id)} />
         </div>
       );
     case "links":
