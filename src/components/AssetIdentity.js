@@ -8,14 +8,13 @@ const AssetIdentity = ({
   onCheck,
   icon,
   percent,
-  compact,
   ...rest
 }) => (
   <Identity
     {...rest}
-    compact={compact}
     image={
       <Checkable
+        size={32}
         isCheckable={isCheckable}
         checkboxProps={{
           checked,
@@ -23,8 +22,8 @@ const AssetIdentity = ({
         }}
       >
         <ProgressAvatar
-          size={compact ? 32 : 36}
-          thickness={5}
+          size={32}
+          thickness={3}
           percent={percent}
           color="black"
           backgroundColor="white"

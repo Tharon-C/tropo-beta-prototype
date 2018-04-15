@@ -65,7 +65,6 @@ class VolumeCard extends Component {
         >
           <ListCardIdentity>
               <VolumeIdentity
-                compact={true}
                 hide={isExpanded}
                 isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
                 image={image}

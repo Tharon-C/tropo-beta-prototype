@@ -59,7 +59,7 @@ class ProjectDetail extends Component {
         </div>
         <Element
           style={{ maxWidth: "1200px", margin: "auto" }}
-          whitespace="ps1"
+          whitespace={isMobile ? "ps1" : ["ps13", "pv3"]}
         >
           <ListCard>
             <ListCardHeader>

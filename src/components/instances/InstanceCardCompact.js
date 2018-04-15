@@ -159,7 +159,6 @@ class ImageCard extends Component {
                 image={image}
                 onCheck={this.onCheck}
                 checked={checked}
-                compact={true}
               />
             )}
           </ListCardIdentity>

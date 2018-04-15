@@ -42,12 +42,11 @@ const Identity = props => {
     image,
     primaryText,
     secondaryText,
-    compact,
     ...rest
   } = props;
 
   // Set Image size
-  const imageSize = lg ? 60 : compact ? 28 : 36;
+  const imageSize = lg ? 60 : 32;
   const renderImage = React.cloneElement(image, {
     size: imageSize
   });
@@ -73,13 +72,13 @@ const Identity = props => {
       <div className="CY-Identity-textGroup">
         <Element
           className={`CY-Identity-text ${classes.text}`}
-          typography={lg ? "title" : compact ? "body1" : "body2"}
+          typography={lg ? "title" :  "body2"}
         >
           {primaryText}
         </Element>
         <Element
           className={`CY-Identity-subtext ${classes.text}`}
-          typography={lg ? "subheading" : compact ? "label" : "caption"}
+          typography={lg ? "subheading" : "caption"}
         >
           {secondaryText}
         </Element>

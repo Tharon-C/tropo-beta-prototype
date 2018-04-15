@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import {zIndex} from "../../styles/styles";
+import browserState from "../../containers/browser";
 import CircleCloseIcon from "material-ui/svg-icons/navigation/close";
 import { IconButton, RaisedButton, FlatButton, TextField } from "material-ui";
 import {
@@ -22,13 +23,13 @@ import ProjectList from "../projects/ProjectList";
 import ImageList from "../images/ImageList";
 import { toggleInstanceForm } from "../../actions/instanceActions";
 
-const Wizard = ({ show, close, location, sidebarContent, view, title }) => (
+const Wizard = ({ show, close, location, sidebarContent, view, title, isMobile }) => (
   show ? (
     <Element
       root="section"
       style={{
         position: "fixed",
-        display: "flex",
+        display: isMobile ? "block" : "flex",
         top: 0,
         left: 0,
         right: 0,
@@ -69,7 +70,14 @@ const Wizard = ({ show, close, location, sidebarContent, view, title }) => (
         elevation={3}
         style={{
           background: "white",
+          zIndex: 999,
+          ...isMobile ? { 
+            width: "100%",
+            position: "fixed",
+            bottom: 0,
+          } : {
           width: "470px"
+          }
         }}
       >
         <Element
@@ -93,4 +101,4 @@ const Wizard = ({ show, close, location, sidebarContent, view, title }) => (
   ) : null
 )
 
-export default Wizard;
+export default browserState(Wizard);

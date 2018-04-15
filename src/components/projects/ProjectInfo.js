@@ -16,6 +16,21 @@ import ImageList from "../images/ImageList";
 import LinkList from "../links/LinkList";
 
 import { SummaryText, ListCard } from "../../cyverse-ui/";
+export const FAB = ({ isMobile, ...rest }) => (
+  <FloatingActionButton
+    mini
+    secondary
+    style={{
+      position: "absolute",
+      right: 0,
+      top: "-20px",
+      zIndex: 999,
+      
+    }}
+  >
+    <AddIcon />
+  </FloatingActionButton>
+);
 
 export const Info = ({ project, tags }) => (
   <Element>
@@ -40,7 +55,7 @@ const ProjectInfo = ({
   showLinkForm,
   showVolumeForm,
   detailView,
-  isMobile,
+  isMobile
 }) => {
   switch (view) {
     case "info":
@@ -54,19 +69,7 @@ const ProjectInfo = ({
     case "instances":
       return (
         <div style={{ position: "relative" }}>
-          <FloatingActionButton
-            mini
-            secondary
-            onClick={() => showInstanceForm(null, project.id)}
-            style={{
-              position: "absolute",
-              right: 0,
-              top: "-20px",
-              zIndex: 1
-            }}
-          >
-            <AddIcon />
-          </FloatingActionButton>
+          <FAB onClick={() => showInstanceForm(null, project.id)} />
           <InstanceList
             isMobile={isMobile}
             project={project.id}
@@ -90,7 +93,10 @@ const ProjectInfo = ({
           >
             <AddIcon />
           </FloatingActionButton>
-          <VolumeList isMobile={isMobile} filter={item => project.volumes.includes(item.id)} />
+          <VolumeList
+            isMobile={isMobile}
+            filter={item => project.volumes.includes(item.id)}
+          />
         </div>
       );
     case "links":
