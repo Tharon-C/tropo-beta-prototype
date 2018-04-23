@@ -3,6 +3,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { changeProperty } from "../../actions/instanceActions";
 import { get } from "../../utils";
+import { isMobile } from "../../selectors/browser";
 import {
   IconButton,
   RaisedButton,
@@ -36,7 +37,8 @@ class CreateInstanceViews extends Component {
       changeSize,
       changeImage,
       image,
-      changeAllocationSource
+      changeAllocationSource,
+      isMobile,
     } = this.props;
     return (
       <React.Fragment>
@@ -51,8 +53,8 @@ class CreateInstanceViews extends Component {
             }}
             elevation={2}
           >
-            <Element whitespace="mb3" style={{ display: "flex" }}>
-              <Element whitespace="pr4" style={{ width: "100%" }}>
+            <Element whitespace="mb3" style={{ display: "flex", flexWrap: "wrap", marginRight: "-10px", marginLeft: "-10px" }}>
+              <Element whitespace={ ["mb3"]} style={{ flex:"1 0 300px", padding: "10px" }}>
                 <Element typography="body2">Basic Information</Element>
                 <TextField
                   value={name}
@@ -75,7 +77,7 @@ class CreateInstanceViews extends Component {
                   ))}
                 </SelectField>
               </Element>
-              <Element style={{ width: "100%" }}>
+              <Element style={{ flex:"1 0 300px", padding: "10px" }}>
                 <Element typography="body2">Instance Resources</Element>
                 <SelectField
                   style={{ width: "100%" }}
@@ -184,10 +186,10 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch
   );
-const mapStateToProps = ({
-  projectList,
-  createInstance: { stepIndex, data }
-}) => ({
+const mapStateToProps = state => {
+  const {projectList,
+  createInstance: { stepIndex, data }} = state
+  return {
   stepIndex: stepIndex,
   name: data.name,
   project: get.byId(data.project)(projectList.data),
@@ -195,8 +197,9 @@ const mapStateToProps = ({
   image: data.image,
   provider: data.provider,
   allocationSource: data.allocationSource,
-  size: data.size
-});
+  size: data.size,
+  isMobile: isMobile(state),
+}};
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   CreateInstanceViews
