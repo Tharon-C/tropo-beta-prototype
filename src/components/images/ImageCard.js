@@ -47,9 +47,9 @@ const ImageIdentity = ({ image, isSelected }) => (
   />
 );
 
-const ImageSummary = ({ image }) => {
+const ImageSummary = ({ image, ...rest }) => {
   return (
-    <div style={{ padding: "8px 0px" }}>
+    <Element { ...rest} style={{ padding: "4px 16px" }}>
       <SummaryText>{image.summary}</SummaryText>
       <div style={{ paddingTop: "8px" }}>
         {image.tags.slice(0, 6).map(({ id }) => {
@@ -59,7 +59,7 @@ const ImageSummary = ({ image }) => {
           <ShowMoreEllipsis style={{ display: "inlineBlock" }} />
         ) : null}
       </div>
-    </div>
+    </Element>
   );
 };
 
@@ -95,7 +95,7 @@ class ImageCard extends Component {
     onCardClick(image);
   }
   render() {
-    const { onExpand, isExpanded, isSelected, image, selectMode, project, ...rest } = this.props;
+    const { onExpand, isExpanded, isSelected, image, selectMode, project, isCompact, ...rest } = this.props;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
@@ -106,7 +106,7 @@ class ImageCard extends Component {
           <ListCardIdentity>
             <ImageIdentity image={image} isSelected={isSelected} />
           </ListCardIdentity>
-          <ListCardSummary hide={isExpanded}>
+          <ListCardSummary hide={isExpanded || isCompact }>
             <ImageSummary image={image} />
           </ListCardSummary>
           {!selectMode ? (
@@ -119,6 +119,7 @@ class ImageCard extends Component {
             />
           ) : null}
         </ListCardHeader>
+        <ImageSummary image={image} hide={isExpanded || !isCompact }/>
         <ImageDetailTabs hide={!isExpanded} onTabClick={this.onTabClick} />
         <ListCardDetail hide={!isExpanded}>
           <ImageInfo selectMode={selectMode} view={this.state.view} image={image} />

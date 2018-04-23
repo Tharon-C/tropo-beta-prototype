@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import browser from "../containers/browser";
 import { zIndex } from "../styles/styles";
 import { Tabs, Tab } from "material-ui";
 import { Element } from "../cyverse-ui";
@@ -26,6 +27,7 @@ class ImageCatalog extends Component {
     this.setState( state =>  ({view: item.props.value}))
   }
   render() {
+    const { isMobile } = this.props;
     return (
       <React.Fragment>
         <div
@@ -52,7 +54,7 @@ class ImageCatalog extends Component {
             />
           </Tabs>
         </div>
-        <Element whitespace={["pv4", "ps13"]}>
+        <Element whitespace={isMobile ? "ps2" : ["pv4", "ps13"]}>
           <ImageList filter={this.currentListFilter()} />
         </Element>
         <CommentLink href="https://projects.invisionapp.com/share/BXGE8OWQZ62#/screens/285752976/comments" />
@@ -61,4 +63,4 @@ class ImageCatalog extends Component {
   }
 }
 
-export default ImageCatalog;
+export default browser(ImageCatalog);

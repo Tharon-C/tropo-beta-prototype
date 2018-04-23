@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {isMobile} from "../../selectors/browser";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import ImageCard from "./ImageCard";
@@ -23,7 +24,9 @@ class ImageList extends Component {
       selectMode = false,
       onImageClick,
       selected,
-      project
+      project,
+      isCompact,
+      isMobile,
     } = this.props;
     const currentList = images.filter(filter).slice(0, 20 * this.state.page);
     return (
@@ -32,6 +35,7 @@ class ImageList extends Component {
           {currentList.map((image, i) => {
             return (
               <ImageCard
+                isCompact={ isCompact || isMobile}
                 isSelected={image.id === selected}
                 onCardClick={onImageClick}
                 selectMode={selectMode}
@@ -59,6 +63,7 @@ class ImageList extends Component {
   }
 }
 const mapStateToProps = state => ({
-  images: state.imageList.data
+  images: state.imageList.data,
+  isMobile: isMobile(state)
 });
 export default connect(mapStateToProps, null)(ImageList);
