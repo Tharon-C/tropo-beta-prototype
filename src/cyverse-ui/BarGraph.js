@@ -9,7 +9,7 @@ const styles = theme => ({
     wrapper: {
         display: "flex",
         background: "rgba(0,0,0,.08)",
-        height:  "8px",
+        height: "8px",
     },
     barBefore: {
         transition: "flex-basis ease .3s",

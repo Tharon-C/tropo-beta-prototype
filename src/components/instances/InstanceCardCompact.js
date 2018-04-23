@@ -162,12 +162,11 @@ class ImageCard extends Component {
               />
             )}
           </ListCardIdentity>
-          { isExpanded ? 
           <InstanceActions
             instance={image}
-            hideQuickActions={isExpanded ? false : !this.state.isHovered}
+            hideQuickActions={true}
             isHoveredimage={image}
-          /> : null}
+          />
         </ListCardHeader>
         <ListCardDetail hide={!isExpanded}>
           <InstanceIdentity whitespace="mb4" image={image} />

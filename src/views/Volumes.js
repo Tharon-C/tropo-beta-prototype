@@ -30,7 +30,7 @@ const Instances = ({ classes, isMobile }) => (
       </div>
     )}
     <Element whitespace={isMobile ? "ps2" : ["pv4", "ps13"]}>
-      <VolumeList isMobile={true} isSticky={true} />
+      <VolumeList isMobile={isMobile} isSticky={true} />
     </Element>
     <CommentLink href="https://projects.invisionapp.com/share/BXGE8OWQZ62#/screens/285755680/comments" />
   </React.Fragment>

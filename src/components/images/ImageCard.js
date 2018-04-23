@@ -30,7 +30,9 @@ import {
 const ImageIdentity = ({ image, isSelected }) => (
   <Identity
     image={
-      isSelected ? <CheckIcon style={{width: 40, height: 40,color: "green"}}/> : image.avatar ? (
+      isSelected ? (
+        <CheckIcon style={{ width: 40, height: 40, color: "green" }} />
+      ) : image.avatar ? (
         <Avatar backgroundColor="#EFEFEF" src={image.avatar} />
       ) : (
         <Avatar
@@ -49,7 +51,7 @@ const ImageIdentity = ({ image, isSelected }) => (
 
 const ImageSummary = ({ image, ...rest }) => {
   return (
-    <Element { ...rest} style={{ padding: "4px 16px" }}>
+    <Element {...rest} style={{ padding: "4px 16px" }}>
       <SummaryText>{image.summary}</SummaryText>
       <div style={{ paddingTop: "8px" }}>
         {image.tags.slice(0, 6).map(({ id }) => {
@@ -90,39 +92,67 @@ class ImageCard extends Component {
     this.setState({ view: tab.props["data-route"] });
   };
   onCardClick = e => {
-    const {onExpand, onCardClick = () => {}, image} = this.props;
+    const { onExpand, onCardClick = () => {}, image } = this.props;
     onExpand(e);
     onCardClick(image);
-  }
+  };
   render() {
-    const { onExpand, isExpanded, isSelected, image, selectMode, project, isCompact, ...rest } = this.props;
+    const {
+      onExpand,
+      isExpanded,
+      isSelected,
+      image,
+      selectMode,
+      project,
+      isSticky,
+      isCompact,
+      ...rest
+    } = this.props;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
-        <ListCardHeader
-          onClick={this.onCardClick}
-          onMouseEnter={this.onMouseEnter}
-          onMouseLeave={this.onMouseLeave}
+        <div
+          style={
+            isExpanded && isSticky
+              ? {
+                  position: "sticky",
+                  background: "white",
+                  top: 48,
+                  zIndex: 700,
+                  border: "solid 1px lightgrey"
+                }
+              : null
+          }
         >
-          <ListCardIdentity>
-            <ImageIdentity image={image} isSelected={isSelected} />
-          </ListCardIdentity>
-          <ListCardSummary hide={isExpanded || isCompact }>
-            <ImageSummary image={image} />
-          </ListCardSummary>
-          {!selectMode ? (
-            <ImageActions
-              hideQuickActions={isExpanded ? false : !this.state.isHovered}
-              isFavorited={image.favorited}
-              isHoveredimage={image}
-              image={image}
-              project={project}
-            />
-          ) : null}
-        </ListCardHeader>
-        <ImageSummary image={image} hide={isExpanded || !isCompact }/>
-        <ImageDetailTabs hide={!isExpanded} onTabClick={this.onTabClick} />
+          <ListCardHeader
+            onClick={this.onCardClick}
+            onMouseEnter={this.onMouseEnter}
+            onMouseLeave={this.onMouseLeave}
+          >
+            <ListCardIdentity>
+              <ImageIdentity image={image} isSelected={isSelected} />
+            </ListCardIdentity>
+            <ListCardSummary hide={isExpanded || isCompact}>
+              <ImageSummary image={image} />
+            </ListCardSummary>
+            {!selectMode ? (
+              <ImageActions
+                hideQuickActions={isExpanded ? false : !this.state.isHovered}
+                isFavorited={image.favorited}
+                isHoveredimage={image}
+                image={image}
+                project={project}
+              />
+            ) : null}
+          </ListCardHeader>
+          <ImageSummary image={image} hide={isExpanded || !isCompact} />
+          <ImageDetailTabs hide={!isExpanded} onTabClick={this.onTabClick} />
+        </div>
         <ListCardDetail hide={!isExpanded}>
-          <ImageInfo selectMode={selectMode} view={this.state.view} image={image} />
+          <ImageInfo
+            selectMode={selectMode}
+            view={this.state.view}
+            image={image}
+          />
         </ListCardDetail>
       </ListCard>
     );

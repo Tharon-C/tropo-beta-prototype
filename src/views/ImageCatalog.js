@@ -55,7 +55,7 @@ class ImageCatalog extends Component {
           </Tabs>
         </div>
         <Element whitespace={isMobile ? "ps2" : ["pv4", "ps13"]}>
-          <ImageList filter={this.currentListFilter()} />
+          <ImageList isSticky={true} filter={this.currentListFilter()} />
         </Element>
         <CommentLink href="https://projects.invisionapp.com/share/BXGE8OWQZ62#/screens/285752976/comments" />
       </React.Fragment>

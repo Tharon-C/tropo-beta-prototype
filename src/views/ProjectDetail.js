@@ -42,7 +42,8 @@ class ProjectDetail extends Component {
             top: 0,
             height: 48,
             boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)",
-            zIndex: zIndex.viewHeader
+            zIndex: zIndex.viewHeader,
+            marginBottom: "4px"
           }}
         >
           <SubHeader
@@ -61,7 +62,7 @@ class ProjectDetail extends Component {
           style={{ maxWidth: "1200px", margin: "auto" }}
           whitespace={isMobile ? "ps1" : ["ps13", "pv3"]}
         >
-          <ListCard>
+          <ListCard style={{ marginBottom: "4px"}}>
             <ListCardHeader>
               <ListCardIdentity>
                 <ProjectIdentity project={project} />
@@ -70,7 +71,6 @@ class ProjectDetail extends Component {
             <ProjectTabs
               compact={isMobile}
               view={view}
-              whitespace="mb2"
               onTabClick={this.onTabClick}
             />
           </ListCard>

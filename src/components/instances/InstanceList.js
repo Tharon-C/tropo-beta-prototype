@@ -74,6 +74,7 @@ class InstanceList extends Component {
               />
             ) : (
               <InstanceCard
+                isSticky={isSticky}
                 key={image.id}
                 uid={image.id}
                 isCheckable={selectedItems.length > 0}

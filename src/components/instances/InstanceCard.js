@@ -94,7 +94,7 @@ const InstanceSummary = withTheme(
           <div className={statusLightClasses} /> {image.activity}
         </Element>
         <Element className={classes.cell}>Large1</Element>
-        <Element className={classes.cell}>CYMAR</Element>
+        <Element className={classes.cell}>874.366.473.12</Element>
       </Element>
     );
   })
@@ -116,7 +116,7 @@ export const InstanceListHeader = withTheme(
             </Element>
             <Element className={classes.cell}>
               {" "}
-              <Element typography="label">Provider</Element>
+              <Element typography="label">IP Address</Element>
             </Element>
           </Element>
         }
@@ -139,6 +139,7 @@ class ImageCard extends Component {
   };
   render() {
     const {
+      isSticky,
       simple,
       isCheckable,
       onExpand,
@@ -158,6 +159,13 @@ class ImageCard extends Component {
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
+          style={isExpanded && isSticky ? {
+            position: "sticky",
+            background: "white",
+            top: 48,
+            zIndex: 800,
+            border: "solid 1px lightgrey"
+          } : null}
           onClick={onExpand}
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
@@ -174,9 +182,7 @@ class ImageCard extends Component {
           <ListCardSummary hide={isExpanded}>
             {simple ? (
               <SummaryText>{image.description}</SummaryText>
-            ) : isCompact ? null : (
-              <InstanceSummary image={image} />
-            )}
+            ) : <InstanceSummary image={image}/> }
           </ListCardSummary>
           <InstanceActions
             instance={image}
@@ -187,9 +193,6 @@ class ImageCard extends Component {
         <ListCardDetail hide={!isExpanded}>
           <InstanceInfo image={image} />
         </ListCardDetail>
-        {isCompact && !isExpanded ? 
-          <SummaryText whitespace="ms7">{image.description}</SummaryText> : null  
-        }
         {image.volumes.length !== 0 && !isExpanded ? (
           <ListCardHeader whitespace="pb1" style={{ minHeight: "32px" }}>
           { !isCompact ? 

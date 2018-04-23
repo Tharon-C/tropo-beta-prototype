@@ -26,6 +26,7 @@ class ImageList extends Component {
       selected,
       project,
       isCompact,
+      isSticky,
       isMobile,
     } = this.props;
     const currentList = images.filter(filter).slice(0, 20 * this.state.page);
@@ -35,6 +36,7 @@ class ImageList extends Component {
           {currentList.map((image, i) => {
             return (
               <ImageCard
+                isSticky={isSticky}
                 isCompact={ isCompact || isMobile}
                 isSelected={image.id === selected}
                 onCardClick={onImageClick}

@@ -18,14 +18,22 @@ import LinkList from "../links/LinkList";
 import { SummaryText, ListCard } from "../../cyverse-ui/";
 export const FAB = ({ isMobile, ...rest }) => (
   <FloatingActionButton
-    mini
+    {...rest}
+    mini={!isMobile}
     secondary
     style={{
-      position: "absolute",
-      right: 0,
-      top: "-20px",
       zIndex: 999,
-      
+      ...(isMobile
+        ? {
+            position: "fixed",
+            right: 16,
+            bottom: 16
+          }
+        : {
+            position: "absolute",
+            right: 0,
+            top: "-20px"
+          })
     }}
   >
     <AddIcon />
@@ -69,7 +77,10 @@ const ProjectInfo = ({
     case "instances":
       return (
         <div style={{ position: "relative" }}>
-          <FAB onClick={() => showInstanceForm(null, project.id)} />
+          <FAB
+            isMobile={isMobile}
+            onClick={() => showInstanceForm(null, project.id)}
+          />
           <InstanceList
             isMobile={isMobile}
             project={project.id}
@@ -80,19 +91,7 @@ const ProjectInfo = ({
     case "volumes":
       return (
         <div style={{ position: "relative" }}>
-          <FloatingActionButton
-            mini
-            secondary
-            onClick={() => showVolumeForm(project)}
-            style={{
-              position: "absolute",
-              right: 0,
-              top: "-20px",
-              zIndex: 1
-            }}
-          >
-            <AddIcon />
-          </FloatingActionButton>
+          <FAB isMobile={isMobile} onClick={() => showVolumeForm(project)} />
           <VolumeList
             isMobile={isMobile}
             filter={item => project.volumes.includes(item.id)}
@@ -102,19 +101,7 @@ const ProjectInfo = ({
     case "links":
       return (
         <div style={{ position: "relative" }}>
-          <FloatingActionButton
-            mini
-            secondary
-            onClick={() => showLinkForm(project)}
-            style={{
-              position: "absolute",
-              right: 0,
-              top: "-20px",
-              zIndex: 1
-            }}
-          >
-            <AddIcon />
-          </FloatingActionButton>
+          <FAB isMobile={isMobile} onClick={() => showLinkForm(project)} />
           <LinkList filter={item => project.links.includes(item.id)} />
         </div>
       );

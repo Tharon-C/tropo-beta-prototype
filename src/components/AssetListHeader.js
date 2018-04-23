@@ -21,11 +21,13 @@ const styles = {
   wrapper: {
     position: "sticky",
     top: "48px",
+    marginBottom: "4px",
     zIndex: zIndex.AssetListHeader
   },
   wrapperCompact: {
     position: "sticky",
-    zIndex: zIndex.AssetListHeader
+    zIndex: zIndex.AssetListHeader,
+    marginBottom: "4px",
   },
   header: {
     minHeight: "48px"
@@ -37,7 +39,7 @@ const styles = {
   checkboxCompact: {
     marginLeft: "22px",
     marginRight: "22px"
-  },
+  }
 };
 
 export const AssetListHeader = ({
@@ -49,7 +51,9 @@ export const AssetListHeader = ({
   isSticky,
   compact
 }) => (
-  <ListCard className={isSticky && !compact ? classes.wrapper : classes.wrapperCompact} whitespace="mb1">
+  <ListCard
+    className={isSticky && !compact ? classes.wrapper : classes.wrapperCompact}
+  >
     <ListCardHeader className={classes.header}>
       {compact ? (
         <Element className={classes.checkboxCompact}>
