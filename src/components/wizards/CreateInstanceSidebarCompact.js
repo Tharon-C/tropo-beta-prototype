@@ -40,7 +40,13 @@ const StepActions = ({ stepIndex, onNext, onPrev, selectedImage }) => {
         disabled={stepIndex === 0}
         onClick={onPrev}
       />
-      {stepIndex == 0 ? "Select an Image" : "Basic Settings"}
+      <Element typography="body2">
+      {stepIndex !== 0
+        ? "Basic Settings"
+        : selectedImage
+          ? `${selectedImage.name} Selected`
+          : "Select an Image"}
+      </Element>
       <FlatButton
         label="Next"
         labelPosition="before"
@@ -72,7 +78,7 @@ const CreateInstanceSidebar = ({
         onNext={() => (stepIndex === 0 ? setStepIndex(1) : null)}
         onPrev={() => (stepIndex === 1 ? setStepIndex(0) : null)}
       />
-      <Hr/>
+      <Hr />
       <Element
         style={{
           display: "flex",
@@ -89,7 +95,7 @@ const CreateInstanceSidebar = ({
         />
         <RaisedButton
           primary
-          style={{ width: "40%"}}
+          style={{ width: "40%" }}
           label="Launch"
           onClick={() => {
             createInstance(newInstance);
