@@ -10,11 +10,20 @@ import UserIcon from "material-ui/svg-icons/action/account-circle";
 import SearchBar from "../components/SearchBar";
 import { IconButton } from "material-ui";
 
-const AppBar = ({ location, sidebarIsOpen, openSidebar, closeSidebar, isMobile }) => {
+const AppBar = ({
+  location,
+  sidebarIsOpen,
+  openSidebar,
+  closeSidebar,
+  isMobile
+}) => {
   const appName = location.pathname
     .split("/")
     .filter(i => !!i && i !== "tropo-beta-prototype")[0];
   const locationTitle = appName ? appName.replace(/-/g, " ") : "DashBoard";
+  const appColor = ["instances", "volumes", "projects"].includes(locationTitle)
+    ? "grey"
+    : "#006ca9";
   return (
     <header
       style={{
@@ -23,7 +32,7 @@ const AppBar = ({ location, sidebarIsOpen, openSidebar, closeSidebar, isMobile }
         justifyContent: "space-between",
         alignItems: "center",
         height: 56,
-        background: "#006ca9",
+        background: appColor,
         zIndex: zIndex.AppBar,
         fontSize: "20px",
         color: "white",
@@ -49,9 +58,9 @@ const AppBar = ({ location, sidebarIsOpen, openSidebar, closeSidebar, isMobile }
           </IconButton>{" "}
           {locationTitle}
         </div>
-        { isMobile ? null :
-        <SearchBar style={{ opacity: 0.3, width: "600px" }} />
-        }
+        {isMobile ? null : (
+          <SearchBar style={{ opacity: 0.3, width: "600px" }} />
+        )}
       </div>
       <div
         style={{
