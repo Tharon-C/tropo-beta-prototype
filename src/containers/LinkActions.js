@@ -22,8 +22,14 @@ const styles = {
   quickActions: {}
 };
 
-export const LinkMenu = ({openMoveToProject, link}) => (
+export const LinkMenu = ({openMoveToProject, isCompact, link}) => (
   <VerticalMenu>
+    { isCompact ? (
+      <MenuItem
+      primaryText="Edit"
+      leftIcon={<EditIcon />}
+    /> 
+    ) : null }
     <MenuItem primaryText="Delete" leftIcon={<DeleteIcon/>}/>
     <MenuItem
         primaryText="Move To Project"

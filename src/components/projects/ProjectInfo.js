@@ -102,7 +102,7 @@ const ProjectInfo = ({
       return (
         <div style={{ position: "relative" }}>
           <FAB isMobile={isMobile} onClick={() => showLinkForm(project)} />
-          <LinkList filter={item => project.links.includes(item.id)} />
+          <LinkList isCompact={isMobile} filter={item => project.links.includes(item.id)} />
         </div>
       );
     case "images":

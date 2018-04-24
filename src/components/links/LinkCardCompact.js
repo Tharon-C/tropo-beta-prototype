@@ -77,8 +77,8 @@ const summaryStyles = theme => ({
 });
 
 const ProjectSummary = withTheme(
-  injectSheet(summaryStyles)(({ image, classes }) => (
-    <Element className={classes.wraper}>
+  injectSheet(summaryStyles)(({ image, classes, ...rest }) => (
+    <Element {...rest } className={classes.wraper}>
       <SummaryText>{image.description}</SummaryText>
     </Element>
   ))
@@ -122,6 +122,7 @@ class ProjectCard extends Component {
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
+          style={{ minHeight: "48px"}}
           onClick={onExpand}
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
@@ -134,17 +135,16 @@ class ProjectCard extends Component {
               checked={checked}
             />
           </ListCardIdentity>
-          <ListCardSummary hide={isExpanded}>
-            <ProjectSummary image={image} />
-          </ListCardSummary>
           <LinkActions
             hide={isCheckable}
+            isCompact={true}
             link={image}
             project={project}
-            hideQuickActions={isExpanded ? false : !this.state.isHovered}
+            hideQuickActions={true}
             isHoveredimage={image}
           />
         </ListCardHeader>
+        <ProjectSummary whitespace="ms3" hide={isExpanded} image={image} />
         <ListCardDetail hide={!isExpanded}>
           <LinkInfo image={image} view={this.state.view} />
         </ListCardDetail>

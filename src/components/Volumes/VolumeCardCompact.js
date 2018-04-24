@@ -75,6 +75,13 @@ class VolumeCard extends Component {
               <Checkbox onCheck={this.onCheck} checked={checked} />
               : null}
           </ListCardIdentity>
+          <VolumeActions
+            hide={isCheckable}
+            isCompact={true}
+            volume={image}
+            hideQuickActions={true}
+            isHoveredimage={image}
+          />
         </ListCardHeader>
         {image.description && !isExpanded ? (
           <SummaryText whitespace={["ms7", "pb1"]}>

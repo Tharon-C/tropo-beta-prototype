@@ -41,9 +41,11 @@ const ImageActions = ({
   hideQuickActions,
   openMoveToProject,
   openAttachfromInstance,
-  classes
+  isCompact,
+  classes,
+  ...rest,
 }) => (
-  <ActionGroup className={classes.wrapper} stopPropagation>
+  <ActionGroup {...rest} className={classes.wrapper} stopPropagation>
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
       <IconButton tooltip="Pause Instance">
         <PauseIcon />
@@ -56,6 +58,13 @@ const ImageActions = ({
       </IconButton>
     </ActionGroup>
     <VerticalMenu>
+      { isCompact ? (
+        <React.Fragment>
+          <MenuItem primaryText="Pause Instance" leftIcon={<PauseIcon />} /> 
+          <MenuItem primaryText="Open Desktop" leftIcon={<DesktopIcon />} /> 
+          <MenuItem primaryText="Open Console" leftIcon={<ConsoleIcon />} /> 
+        </React.Fragment>
+      ) : null}
       <MenuItem primaryText="Reboot" leftIcon={<RefreshIcon />} />
       <MenuItem
         onClick={() => deleteInstance(instance.id)}

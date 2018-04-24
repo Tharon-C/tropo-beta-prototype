@@ -158,6 +158,7 @@ class VolumeCard extends Component {
             )}
           </ListCardSummary>
           <VolumeActions
+            hide={isCheckable}
             volume={image}
             hideQuickActions={isExpanded ? false : !this.state.isHovered}
             isHoveredimage={image}

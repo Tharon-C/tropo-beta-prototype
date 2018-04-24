@@ -185,6 +185,7 @@ class ImageCard extends Component {
             ) : <InstanceSummary image={image}/> }
           </ListCardSummary>
           <InstanceActions
+            hide={isCheckable}
             instance={image}
             hideQuickActions={isExpanded ? false : !this.state.isHovered}
             isHoveredimage={image}

@@ -80,7 +80,6 @@ class ProjectCard extends Component {
       isExpanded,
       project,
       isSticky,
-      selectable,
       top = "0",
       goToDetail,
       ...rest
@@ -91,13 +90,15 @@ class ProjectCard extends Component {
         <div
           style={
             !isExpanded
-            ? null : isSticky
-            ? {
-                position: "sticky",
-                top: "48px",
-                background: "white",
-                zIndex: "899"
-              } : null
+              ? null
+              : isSticky
+                ? {
+                    position: "sticky",
+                    top: "48px",
+                    background: "white",
+                    zIndex: "899"
+                  }
+                : null
           }
         >
           <ListCardHeader
@@ -107,11 +108,7 @@ class ProjectCard extends Component {
           >
             <ListCardIdentity>
               <ProjectIdentity
-                isCheckable={
-                  isExpanded
-                  ? true : isCheckable
-                  ? true : isHovered
-                }
+                isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
                 project={project}
                 onCheck={this.onCheck}
                 checked={checked}
@@ -122,12 +119,19 @@ class ProjectCard extends Component {
             </ListCardSummary>
             <ProjectActions
               project={project}
-              hide={selectable}
+              hide={isCheckable}
               hideQuickActions={isExpanded ? false : !isHovered}
               isHoveredimage={project}
             />
-            <Element hide={isExpanded ? false : !isHovered} onClick={ () => goToDetail(project.id) } style={{ position: "absolute", right: 0, top: 0}}>
-                <ExpandIcon color="lightgrey" style={{width: "15px", height: "15px"}}/>
+            <Element
+              hide={isExpanded ? false : !isHovered}
+              onClick={() => goToDetail(project.id)}
+              style={{ position: "absolute", right: 0, top: 0 }}
+            >
+              <ExpandIcon
+                color="lightgrey"
+                style={{ width: "15px", height: "15px" }}
+              />
             </Element>
           </ListCardHeader>
           <ProjectTabs hide={!isExpanded} onTabClick={this.onTabClick} />
@@ -139,11 +143,13 @@ class ProjectCard extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => bindActionCreators(
-  {
-    goToDetail: projectId => push(`${process.env.PUBLIC_URL}/projects/${projectId}`)
-  },
-  dispatch
-);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      goToDetail: projectId =>
+        push(`${process.env.PUBLIC_URL}/projects/${projectId}`)
+    },
+    dispatch
+  );
 
 export default connect(null, mapDispatchToProps)(ProjectCard);

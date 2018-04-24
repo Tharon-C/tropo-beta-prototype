@@ -21,10 +21,12 @@ const styles = {
   quickActions: {}
 };
 
-export const ProjectMenu = ({deleteProject, project, ...rest}) => (
+export const ProjectMenu = ({deleteProject, project, isCompact, ...rest}) => (
   <VerticalMenu>
-    <MenuItem primaryText="Share Access" leftIcon={<UserAddIcon/>}/>
+    { isCompact ? <MenuItem primaryText="Edit" leftIcon={<EditIcon/>}/>:
+    null}
     <MenuItem primaryText="Delete" onClick={() => deleteProject(project.id) } leftIcon={<DeleteIcon/>}/>
+    <MenuItem primaryText="Share Access" leftIcon={<UserAddIcon/>}/>
     <MenuItem primaryText="Report Issue" leftIcon={<IntercomIcon/>}/>
   </VerticalMenu>
 );
@@ -35,8 +37,8 @@ export const ProjectQuickActions = ({...rest}) => (
   </IconButton>
 )
 
-const ImageActions = ({ hideQuickActions, classes, hide, ...rest }) => (
-  <ActionGroup hide={hide} { ...rest} className={classes.wrapper} stopPropagation>
+const ImageActions = ({ hideQuickActions, classes, ...rest }) => (
+  <ActionGroup {...rest} className={classes.wrapper} stopPropagation>
     <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
       <ProjectQuickActions/>
     </ActionGroup>

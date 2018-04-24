@@ -1,12 +1,13 @@
 import React from 'react';
 import { SvgIcon } from 'material-ui';
 
-const ConsoleIcon = ({ size = 24, ...rest }) => {
+const ConsoleIcon = ({ size = 24, style, ...rest }) => {
     return (
         <SvgIcon { ...rest }
             style={{
                 height: size,
                 width: size,
+                ...style,
             }}
         >
             <g transform="translate(2.000000, 2.000000)">

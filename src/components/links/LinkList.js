@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import LinkCard, { ProjectListHeader } from "./LinkCard";
+import LinkCardCompact from "./LinkCardCompact";
 
 class LinkList extends Component {
   state = {
@@ -19,7 +20,15 @@ class LinkList extends Component {
     this.setState({ selectedItems });
   };
   render() {
-    const { filter = () => false, links, showHeader = true, loadMoreEnteries, range, isSticky } = this.props;
+    const {
+      filter = () => false,
+      links,
+      showHeader = true,
+      loadMoreEnteries,
+      range,
+      isSticky,
+      isCompact
+    } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
     return (
@@ -35,7 +44,16 @@ class LinkList extends Component {
         />
         <MediaCardGroup>
           {links.filter(filter).map((image, i) => {
-            return (
+            return isCompact ? (
+              <LinkCardCompact
+                key={image.id}
+                uid={image.id}
+                isCheckable={selectedItems.length > 0}
+                checked={selectedItems.includes(image.id)}
+                onCheck={this.onCheck}
+                image={image}
+              />
+            ) : (
               <LinkCard
                 key={image.id}
                 uid={image.id}
@@ -53,5 +71,5 @@ class LinkList extends Component {
 }
 const mapStateToProps = state => ({
   links: state.linkList.data
-})
+});
 export default connect(mapStateToProps, null)(LinkList);

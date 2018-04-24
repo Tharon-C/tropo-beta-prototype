@@ -56,10 +56,12 @@ const ImageActions = ({
   openMoveToProject,
   showAttachInstance,
   showDetachFromInstance,
-  classes
+  isCompact,
+  classes,
+  ...rest
 }) => {
   return (
-    <ActionGroup className={classes.wrapper} stopPropagation>
+    <ActionGroup {...rest} className={classes.wrapper} stopPropagation>
       <ActionGroup hide={hideQuickActions} className={classes.quickActions}>
         {volume.instance ? (
           <IconButton
@@ -78,6 +80,21 @@ const ImageActions = ({
         )}
       </ActionGroup>
       <VerticalMenu>
+        {isCompact ? (
+          volume.instance ? (
+            <MenuItem
+              primaryText="Detatch From Instance"
+              onClick={() => showDetachFromInstance(volume.id)}
+              leftIcon={<DetachInstanceIcon />}
+            />
+          ) : (
+            <MenuItem
+              primaryText="Attach To Instance"
+              onClick={() => showAttachInstance(volume.id)}
+              leftIcon={<AttachInstanceIcon />}
+            />
+          )
+        ) : null}
         <MenuItem primaryText="Edit" leftIcon={<EditIcon />} />
         <MenuItem
           primaryText="Delete"

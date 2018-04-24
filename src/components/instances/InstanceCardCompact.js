@@ -163,6 +163,8 @@ class ImageCard extends Component {
             )}
           </ListCardIdentity>
           <InstanceActions
+            hide={isCheckable}
+            isCompact={true}
             instance={image}
             hideQuickActions={true}
             isHoveredimage={image}
@@ -173,11 +175,10 @@ class ImageCard extends Component {
           <InstanceInfo image={image} />
         </ListCardDetail>
         {!isExpanded && image.description ? (
-          <SummaryText whitespace="ms7">{image.description}</SummaryText>
+          <SummaryText whitespace="ms3">{image.description}</SummaryText>
         ) : null}
         {image.volumes.length !== 0 && !isExpanded ? (
-          <ListCardHeader whitespace="pv1" style={{ minHeight: "32px" }}>
-            <div style={{ width: 62 }} />
+          <ListCardHeader whitespace={["pv1", "ms3"]} style={{ minHeight: "32px" }}>
             <Element
               style={{
                 overflow: "hidden",

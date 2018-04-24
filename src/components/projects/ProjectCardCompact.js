@@ -72,7 +72,6 @@ class ProjectCard extends Component {
       isExpanded,
       project,
       isSticky,
-      selectable,
       top = "0",
       goToDetail,
       ...rest
@@ -80,28 +79,29 @@ class ProjectCard extends Component {
     const { isHovered } = this.state;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
-          <ListCardHeader
-            style={{ minHeight: "48px"}}
-            onClick={() => goToDetail(project.id)}
-            onMouseEnter={this.onMouseEnter}
-            onMouseLeave={this.onMouseLeave}
-          >
-            <ListCardIdentity>
-              <ProjectIdentity
-                compact={true}
-                hide={isExpanded}
-                isCheckable={
-                  isExpanded
-                  ? true : isCheckable
-                  ? true : isHovered
-                }
-                project={project}
-                onCheck={this.onCheck}
-                checked={checked}
-              />
-            </ListCardIdentity>
-          </ListCardHeader>
-          {project.description && !isExpanded ? (
+        <ListCardHeader
+          style={{ minHeight: "48px" }}
+          onClick={() => goToDetail(project.id)}
+          onMouseEnter={this.onMouseEnter}
+          onMouseLeave={this.onMouseLeave}
+        >
+          <ListCardIdentity>
+            <ProjectIdentity
+              compact={true}
+              hide={isExpanded}
+              isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
+              project={project}
+              onCheck={this.onCheck}
+              checked={checked}
+            />
+          </ListCardIdentity>
+          <ProjectActions
+            hide={isCheckable}
+            isCompact={true}
+            hideQuickActions={true}
+          />
+        </ListCardHeader>
+        {project.description && !isExpanded ? (
           <SummaryText whitespace={["ms7", "pb1"]}>
             {project.description}
           </SummaryText>
@@ -110,11 +110,13 @@ class ProjectCard extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => bindActionCreators(
-  {
-    goToDetail: projectId => push(`${process.env.PUBLIC_URL}/projects/${projectId}`)
-  },
-  dispatch
-);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      goToDetail: projectId =>
+        push(`${process.env.PUBLIC_URL}/projects/${projectId}`)
+    },
+    dispatch
+  );
 
 export default connect(null, mapDispatchToProps)(ProjectCard);
