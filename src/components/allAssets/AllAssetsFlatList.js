@@ -4,9 +4,13 @@ import { connect } from "react-redux";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import ProjectCard, { ProjectListHeader } from "../projects/ProjectCard";
+import ProjectCardCompact from "../projects/ProjectCardCompact";
 import InstanceCard from "../instances/InstanceCard"
+import InstanceCardCompact from "../instances/InstanceCardCompact"
 import LinkCard from "../links/LinkCard";
+import LinkCardCompact from "../links/LinkCardCompact";
 import VolumeCard, { VolumeListHeader } from "../Volumes/VolumeCard";
+import VolumeCardCompact from "../Volumes/VolumeCardCompact";
 
 class AllAssetsList extends Component {
   state = {
@@ -35,7 +39,8 @@ class AllAssetsList extends Component {
       showHeader = true,
       loadMoreEnteries,
       range,
-      isSticky
+      isSticky,
+      isCompact
     } = this.props;
     const { selectedItems } = this.state;
     const batchMode = selectedItems.length > 0;
@@ -43,6 +48,7 @@ class AllAssetsList extends Component {
       <section style={{ maxWidth: "1000px", margin: "auto" }}>
         {showHeader ? (
           <ProjectListHeader
+            isCompact={isCompact}
             isSticky
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {
@@ -56,7 +62,17 @@ class AllAssetsList extends Component {
         ) : null}
         <MediaCardGroup whitespace="mb3">
           {[
-            ...showInstances ? instances.map(item => (
+            ...showInstances ? instances.map(item => isCompact ? (
+              <InstanceCardCompact
+                simple={true}
+                key={item.id}
+                uid={item.id}
+                isCheckable={selectedItems.length > 0}
+                checked={selectedItems.includes(item.id)}
+                onCheck={this.onCheck}
+                image={item}
+              />
+            ) : (
               <InstanceCard
                 simple={true}
                 key={item.id}
@@ -67,8 +83,8 @@ class AllAssetsList extends Component {
                 image={item}
               />
             )) : [],
-            ...showLinks ? links.map(item => (
-              <LinkCard
+            ...showLinks ? links.map(item => isCompact ? (
+              <LinkCardCompact
                 key={item.id}
                 uid={item.id}
                 isCheckable={selectedItems.length > 0}
@@ -76,8 +92,26 @@ class AllAssetsList extends Component {
                 onCheck={this.onCheck}
                 image={item}
               />
-            )) : [],
-            ...showProjects ? projects.map(item => (
+            ) : (
+            <LinkCard
+              key={item.id}
+              uid={item.id}
+              isCheckable={selectedItems.length > 0}
+              checked={selectedItems.includes(item.id)}
+              onCheck={this.onCheck}
+              image={item}
+            />
+          )) : [],
+            ...showProjects ? projects.map(item => isCompact ? (
+              <ProjectCardCompact
+                key={item.id}
+                uid={item.id}
+                isCheckable={selectedItems.length > 0}
+                checked={selectedItems.includes(item.id)}
+                onCheck={this.onCheck}
+                project={item}
+              />
+            ) : (
               <ProjectCard
                 key={item.id}
                 uid={item.id}
@@ -87,7 +121,17 @@ class AllAssetsList extends Component {
                 project={item}
               />
             )) : [],
-            ...showVolumes ? volumes.map(item => (
+            ...showVolumes ? volumes.map(item => isCompact ? (
+              <VolumeCardCompact
+                simple={true}
+                key={item.id}
+                uid={item.id}
+                isCheckable={selectedItems.length > 0}
+                checked={selectedItems.includes(item.id)}
+                onCheck={this.onCheck}
+                image={item}
+              />
+            ) : (
               <VolumeCard
                 simple={true}
                 key={item.id}

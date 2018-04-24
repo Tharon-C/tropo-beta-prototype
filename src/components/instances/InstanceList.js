@@ -37,19 +37,9 @@ class InstanceList extends Component {
     const batchMode = selectedItems.length > 0;
     return (
       <section style={{ maxWidth: "1000px", margin: "auto" }}>
-        {!showHeader ? null : isMobile ? (
-         <InstanceListHeaderCompact
-         FAB={FAB}
-         isSticky={isSticky}
-         batchMode={batchMode}
-         onBatchClick={(e, isChecked) => {
-           this.setState({
-             selectedItems: isChecked ? instances.map(image => image.id) : []
-           });
-         }}
-       /> 
-        ) :(
+        {showHeader ? (
           <InstanceListHeader
+            isCompact={isMobile}
             FAB={FAB}
             isSticky={isSticky}
             batchMode={batchMode}
@@ -59,7 +49,7 @@ class InstanceList extends Component {
               });
             }}
           />
-        )}
+        ): null}
         <MediaCardGroup>
           {instances.filter(filter).map((image, i) => {
             return isMobile ? (

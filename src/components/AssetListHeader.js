@@ -49,13 +49,13 @@ export const AssetListHeader = ({
   actions,
   classes,
   isSticky,
-  compact
+  isCompact
 }) => (
   <ListCard
-    className={isSticky && !compact ? classes.wrapper : classes.wrapperCompact}
+    className={isSticky && !isCompact ? classes.wrapper : classes.wrapperCompact}
   >
     <ListCardHeader className={classes.header}>
-      {compact ? (
+      {isCompact ? (
         <Element className={classes.checkboxCompact}>
           <Checkbox onCheck={onBatchClick} />
         </Element>

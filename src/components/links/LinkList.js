@@ -34,6 +34,7 @@ class LinkList extends Component {
     return (
       <section style={{ maxWidth: "1000px", margin: "auto" }}>
         <ProjectListHeader
+          isCompact={isCompact}
           isSticky={isSticky}
           batchMode={batchMode}
           onBatchClick={(e, isChecked) => {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import injectSheet from "react-jss";
+import browserState from "../containers/browser";
 import { Checkbox, Toggle } from "material-ui";
 import { FloatingActionButton, Element } from "../cyverse-ui";
 import AssetsFAB from "../containers/AssetsFAB";
@@ -41,7 +42,7 @@ class Instances extends Component {
     showProjects: true
   };
   render() {
-    const { classes } = this.props;
+    const { classes, isMobile } = this.props;
     const { expandedView } = this.state;
     return (
       <React.Fragment>
@@ -93,13 +94,13 @@ class Instances extends Component {
             onToggle={() => this.setState({ expandedView: !expandedView })}
             label="Expanded View"
           />
-          <AssetsFAB />
+          <AssetsFAB isMobile={isMobile}/>
         </div>
-        <Element whitespace={["pv4", "ps13"]}>
+        <Element whitespace={isMobile ? "ps2" : ["pv4", "ps13"]}>
           {!expandedView ? (
-            <AllAssetList isSticky />
+            <AllAssetList isCompact={isMobile} isSticky />
           ) : (
-            <AllAssetsFlatList {...this.state} isSticky />
+            <AllAssetsFlatList {...this.state} isCompact={isMobile} isSticky />
           )}
         </Element>
         <CommentLink href="https://projects.invisionapp.com/share/BXGE8OWQZ62#/screens/285754476/comments" />
@@ -108,4 +109,4 @@ class Instances extends Component {
   }
 }
 
-export default injectSheet(styles)(Instances);
+export default browserState(injectSheet(styles)(Instances));

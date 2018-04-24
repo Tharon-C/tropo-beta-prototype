@@ -37,7 +37,7 @@ class ProjectList extends Component {
       <section style={{ maxWidth: "1000px", margin: "auto" }}>
         {showHeader ? (
           <ProjectListHeader
-            compact={isMobile}
+            isCompact={isMobile}
             isSticky={isSticky}
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {

@@ -4,9 +4,14 @@ import { connect } from "react-redux";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import ProjectCard, { ProjectListHeader } from "../projects/ProjectCard";
+import ProjectCardCompact from "../projects/ProjectCardCompact";
+
 import InstanceCard from "../instances/InstanceCard";
+import InstanceCardCompact from "../instances/InstanceCardCompact";
 import LinkCard from "../links/LinkCard";
+import LinkCardCompact from "../links/LinkCardCompact";
 import VolumeCard, { VolumeListHeader } from "../Volumes/VolumeCard";
+import VolumeCardCompact from "../Volumes/VolumeCardCompact";
 
 class AllAssetsList extends Component {
   state = {
@@ -31,7 +36,8 @@ class AllAssetsList extends Component {
       showHeader = true,
       loadMoreEnteries,
       range,
-      isSticky
+      isSticky,
+      isCompact
     } = this.props;
 
     const detInstances = instances.filter(item => !item.project);
@@ -45,6 +51,7 @@ class AllAssetsList extends Component {
         {projects && showHeader ? (
           <ProjectListHeader
             isSticky
+            isCompact={isCompact}
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {
               this.setState({
@@ -58,7 +65,16 @@ class AllAssetsList extends Component {
         {projects ? (
           <MediaCardGroup whitespace="mb3">
             {projects.map((project, i) => {
-              return (
+              return isCompact ? (
+                <ProjectCardCompact
+                  key={project.id}
+                  uid={project.id}
+                  isCheckable={selectedItems.length > 0}
+                  checked={selectedItems.includes(project.id)}
+                  onCheck={this.onCheck}
+                  project={project}
+                />
+              ) : (
                 <ProjectCard
                   key={project.id}
                   uid={project.id}
@@ -71,10 +87,13 @@ class AllAssetsList extends Component {
             })}
           </MediaCardGroup>
         ) : null}
-        {detInstances.length > 0 || detVolumes.length > 0 || detLinks.length > 0 ? (
+        {detInstances.length > 0 ||
+        detVolumes.length > 0 ||
+        detLinks.length > 0 ? (
           <React.Fragment>
             <VolumeListHeader
               isSticky
+              isCompact={isCompact}
               batchMode={batchMode}
               onBatchClick={(e, isChecked) => {
                 this.setState({
@@ -88,7 +107,16 @@ class AllAssetsList extends Component {
               {R.union(
                 R.union(
                   detInstances.map((instance, i) => {
-                    return (
+                    return isCompact ? (
+                      <InstanceCardCompact
+                        key={instance.id}
+                        uid={instance.id}
+                        isCheckable={selectedItems.length > 0}
+                        checked={selectedItems.includes(instance.id)}
+                        onCheck={this.onCheck}
+                        image={instance}
+                      />
+                    ) : (
                       <InstanceCard
                         key={instance.id}
                         uid={instance.id}
@@ -100,7 +128,16 @@ class AllAssetsList extends Component {
                     );
                   }),
                   detVolumes.map((volume, i) => {
-                    return (
+                    return isCompact ? (
+                      <VolumeCardCompact
+                        key={volume.id}
+                        uid={volume.id}
+                        isCheckable={selectedItems.length > 0}
+                        checked={selectedItems.includes(volume.id)}
+                        onCheck={this.onCheck}
+                        image={volume}
+                      />
+                    ) : (
                       <VolumeCard
                         key={volume.id}
                         uid={volume.id}
@@ -113,7 +150,16 @@ class AllAssetsList extends Component {
                   })
                 ),
                 detLinks.map((volume, i) => {
-                  return (
+                  return isCompact ? (
+                    <LinkCardCompact
+                      key={volume.id}
+                      uid={volume.id}
+                      isCheckable={selectedItems.length > 0}
+                      checked={selectedItems.includes(volume.id)}
+                      onCheck={this.onCheck}
+                      image={volume}
+                    />
+                  ) : (
                     <LinkCard
                       key={volume.id}
                       uid={volume.id}
