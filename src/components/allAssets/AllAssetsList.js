@@ -114,7 +114,7 @@ class AllAssetsList extends Component {
                         isCheckable={selectedItems.length > 0}
                         checked={selectedItems.includes(instance.id)}
                         onCheck={this.onCheck}
-                        image={instance}
+                        instance={instance}
                       />
                     ) : (
                       <InstanceCard
@@ -123,7 +123,7 @@ class AllAssetsList extends Component {
                         isCheckable={selectedItems.length > 0}
                         checked={selectedItems.includes(instance.id)}
                         onCheck={this.onCheck}
-                        image={instance}
+                        instance={instance}
                       />
                     );
                   }),
