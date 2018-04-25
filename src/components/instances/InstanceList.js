@@ -45,32 +45,31 @@ class InstanceList extends Component {
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {
               this.setState({
-                selectedItems: isChecked ? instances.map(image => image.id) : []
+                selectedItems: isChecked ? instances.map(instance => instance.id) : []
               });
             }}
           />
         ): null}
         <MediaCardGroup>
-          {instances.filter(filter).map((image, i) => {
+          {instances.filter(filter).map((instance, i) => {
             return isMobile ? (
               <InstanceCardCompact
-                key={image.id}
-                uid={image.id}
+                key={instance.id}
                 isCheckable={selectedItems.length > 0}
-                checked={selectedItems.includes(image.id)}
+                checked={selectedItems.includes(instance.id)}
                 onCheck={this.onCheck}
-                image={image}
+                instance={instance}
                 onDelete={deleteInstance} 
               />
             ) : (
               <InstanceCard
                 isSticky={isSticky}
-                key={image.id}
-                uid={image.id}
+                key={instance.id}
+                uid={instance.id}
                 isCheckable={selectedItems.length > 0}
-                checked={selectedItems.includes(image.id)}
+                checked={selectedItems.includes(instance.id)}
                 onCheck={this.onCheck}
-                image={image}
+                instance={instance}
                 onDelete={deleteInstance}
               />
             );

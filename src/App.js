@@ -13,6 +13,7 @@ import Projects from "./views/Projects";
 import Notifications from "./views/Notifications";
 import AllAssets from "./views/AllAssets";
 import ProjectDetail from "./views/ProjectDetail";
+import InstanceDetail from "./views/InstanceDetail"
 import dashboard from "material-ui/svg-icons/action/dashboard";
 import viewAgenda from "material-ui/svg-icons/action/view-agenda";
 import { bindActionCreators } from "../../../Library/Caches/typescript/2.7/node_modules/redux";
@@ -79,6 +80,10 @@ class App extends Component {
             <Route
               path={`${process.env.PUBLIC_URL}/projects/:id`}
               component={ProjectDetail}
+            />
+            <Route
+              path={`${process.env.PUBLIC_URL}/instances/:id`}
+              component={InstanceDetail}
             />
           </main>
         </div>

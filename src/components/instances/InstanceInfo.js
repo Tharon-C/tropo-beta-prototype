@@ -27,7 +27,7 @@ const styles = theme => ({
     }
   }
 });
-const InstanceInfo = ({ image, classes }) => (
+const InstanceInfo = ({ instance, classes }) => (
   <Element className={classes.details}>
     <Element whitespace="mb4">
       <Element typography="body2" whitespace="mb4">
@@ -85,12 +85,12 @@ const InstanceInfo = ({ image, classes }) => (
     <Element typography="label" whitespace="mb1">
       Notes
     </Element>
-    <P whitespace="mb4">{image.description}</P>
+    <P whitespace="mb4">{instance.description}</P>
     <Element whitespace="mb4">
       <Element typography="label" whitespace="mb1">
         Tags
       </Element>
-      {image.tags.map(({ id }) => {
+      {instance.tags.map(({ id }) => {
         return <Tag label={get.byId(id)(tags).name} />;
       })}
     </Element>
@@ -106,7 +106,7 @@ const InstanceInfo = ({ image, classes }) => (
         padding: "4px"
       }}
     >
-      <InstanceVolumes instance={image} />
+      <InstanceVolumes instance={instance} />
     </Element>
   </Element>
 );
