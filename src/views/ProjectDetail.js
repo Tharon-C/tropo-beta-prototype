@@ -3,7 +3,7 @@ import * as R from "ramda";
 import { push } from "react-router-redux";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { isMobile} from "../selectors/browser";
+import { isMobile } from "../selectors/browser";
 import { get } from "../utils";
 import { zIndex } from "../styles/styles";
 
@@ -21,12 +21,13 @@ import { ProjectIdentity } from "../components/projects/ProjectCard";
 import ProjectInfo from "../components/projects/ProjectInfo";
 import ProjectTabs from "../components/projects/ProjectTabs";
 import { ProjectQuickActions, ProjectMenu } from "../containers/ProjectActions";
-import DashboardWidgets from "../components/dashboard/DashboardWidgets";
 
 class ProjectDetail extends Component {
   onTabClick = tab => {
     const { onTabClick, project } = this.props;
-    onTabClick(`${process.env.PUBLIC_URL}/projects/${project.id}/${tab.props["value"]}`);
+    onTabClick(
+      `${process.env.PUBLIC_URL}/projects/${project.id}/${tab.props["value"]}`
+    );
   };
   render() {
     const { project, view, onTabClick, back, isMobile } = this.props;
@@ -50,23 +51,21 @@ class ProjectDetail extends Component {
             style={{ width: "100%" }}
             name="Project Detail"
             onBack={back}
-            actions={
-              <React.Fragment>
-                <ProjectQuickActions />
-                <ProjectMenu />
-              </React.Fragment>
-            }
           />
         </div>
         <Element
           style={{ maxWidth: "1200px", margin: "auto" }}
           whitespace={isMobile ? "ps1" : ["ps13", "pv3"]}
         >
-          <ListCard style={{ marginBottom: "4px"}}>
+          <ListCard style={{ marginBottom: "4px" }}>
             <ListCardHeader>
               <ListCardIdentity>
                 <ProjectIdentity project={project} />
               </ListCardIdentity>
+              <ActionGroup>
+                <ProjectQuickActions />
+                <ProjectMenu />
+              </ActionGroup>
             </ListCardHeader>
             <ProjectTabs
               compact={isMobile}
@@ -74,7 +73,12 @@ class ProjectDetail extends Component {
               onTabClick={this.onTabClick}
             />
           </ListCard>
-          <ProjectInfo isMobile={isMobile} detailView={true} project={project} view={view} />
+          <ProjectInfo
+            isMobile={isMobile}
+            detailView={true}
+            project={project}
+            view={view}
+          />
         </Element>
       </React.Fragment>
     );
