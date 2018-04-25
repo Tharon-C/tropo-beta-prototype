@@ -1,9 +1,3 @@
-export const isMobile = state => {
-  switch (state.browser.mediaType) {
-    case "small":
-    case "extraSmall":
-      return true;
-    default:
-      return false;
-  }
-};
+export const isMobile = state => state.browser.lessThan.medium;
+
+export const isLarge = state => state.browser.lessThan.infinity;

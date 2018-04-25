@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import injectSheet from "react-jss";
 import browserState from "../containers/browser";
-import { Checkbox, Toggle } from "material-ui";
+import {
+  Checkbox,
+  Toggle,
+  SelectField,
+  MenuItem,
+  IconButton,
+  IconMenu
+} from "material-ui";
+import FilterIcon from "material-ui/svg-icons/content/filter-list";
 import { FloatingActionButton, Element } from "../cyverse-ui";
 import AssetsFAB from "../containers/AssetsFAB";
 import AllAssetList from "../components/allAssets/AllAssetsList";
@@ -19,7 +27,7 @@ const styles = {
     boxShadow: "1px 1px 3px 1px rgba(0,0,0,.3)",
     height: "48px",
     zIndex: "900",
-    padding: "0 120px 0 16px"
+    padding: "0 16px"
   },
   filters: {
     display: "flex",
@@ -33,68 +41,55 @@ const styles = {
   }
 };
 
+const assets = ["Instances", "Projects", "Volumes", "Links"];
 class Instances extends Component {
   state = {
-    expandedView: false,
-    showInstances: true,
-    showVolumes: true,
-    showLinks: true,
-    showProjects: true
+    values: assets,
   };
+
+  handleChange = (event, values) => {
+    this.setState({ values });
+  };
+
   render() {
-    const { classes, isMobile } = this.props;
-    const { expandedView } = this.state;
+    const { classes, isMobile, isLarge } = this.props;
+    const { expandedView, values } = this.state;
     return (
       <React.Fragment>
         <div className={classes.viewHeader}>
           <div className={classes.filters}>
             {expandedView ? (
               <React.Fragment>
-                <Element className={classes.filtersLabel} typography="label">
-                  Show:
-                </Element>
-                <Checkbox
-                  checked={this.state.showInstances}
-                  onCheck={() =>
-                    this.setState({ showInstances: !this.state.showInstances })
+                <Element typography="label">Filter List:</Element>
+                <IconMenu
+                  iconButtonElement={
+                    <IconButton>
+                      <FilterIcon />
+                    </IconButton>
                   }
-                  style={styles.filter}
-                  label="Instances"
-                />
-                <Checkbox
-                  checked={this.state.showVolumes}
-                  onCheck={() =>
-                    this.setState({ showVolumes: !this.state.showVolumes })
-                  }
-                  style={styles.filter}
-                  label="Volumes"
-                />
-                <Checkbox
-                  checked={this.state.showProjects}
-                  onCheck={() =>
-                    this.setState({ showProjects: !this.state.showProjects })
-                  }
-                  style={styles.filter}
-                  label="Projects"
-                />
-                <Checkbox
-                  checked={this.state.showLinks}
-                  onCheck={() =>
-                    this.setState({ showLinks: !this.state.showLinks })
-                  }
-                  style={styles.filter}
-                  label="Links"
-                />
+                  value={values}
+                  onChange={this.handleChange}
+                  multiple={true}
+                  clickCloseDelay={0}
+                >
+                  {assets.map(asset => (
+                    <MenuItem
+                      checked={values.includes(asset)}
+                      value={asset}
+                      primaryText={asset}
+                    />
+                  ))}
+                </IconMenu>
               </React.Fragment>
             ) : null}
           </div>
           <Toggle
-            style={{ width: "160px" }}
+            style={{ width: "160px", marginRight: !isMobile ? 130 : 0 }}
             toggled={this.state.expandedView}
             onToggle={() => this.setState({ expandedView: !expandedView })}
             label="Expanded View"
           />
-          <AssetsFAB isMobile={isMobile}/>
+          <AssetsFAB isMobile={isMobile} />
         </div>
         <Element whitespace={isMobile ? "ps2" : ["pv4", "ps13"]}>
           {!expandedView ? (

@@ -5,8 +5,8 @@ import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import ProjectCard, { ProjectListHeader } from "../projects/ProjectCard";
 import ProjectCardCompact from "../projects/ProjectCardCompact";
-import InstanceCard from "../instances/InstanceCard"
-import InstanceCardCompact from "../instances/InstanceCardCompact"
+import InstanceCard from "../instances/InstanceCard";
+import InstanceCardCompact from "../instances/InstanceCardCompact";
 import LinkCard from "../links/LinkCard";
 import LinkCardCompact from "../links/LinkCardCompact";
 import VolumeCard, { VolumeListHeader } from "../Volumes/VolumeCard";
@@ -28,10 +28,7 @@ class AllAssetsList extends Component {
   };
   render() {
     const {
-      showProjects,
-      showInstances,
-      showLinks,
-      showVolumes,
+      values: displayAssets,
       links,
       projects,
       instances,
@@ -62,86 +59,106 @@ class AllAssetsList extends Component {
         ) : null}
         <MediaCardGroup whitespace="mb3">
           {[
-            ...showInstances ? instances.map(item => isCompact ? (
-              <InstanceCardCompact
-                simple={true}
-                key={item.id}
-                uid={item.id}
-                isCheckable={selectedItems.length > 0}
-                checked={selectedItems.includes(item.id)}
-                onCheck={this.onCheck}
-                image={item}
-              />
-            ) : (
-              <InstanceCard
-                simple={true}
-                key={item.id}
-                uid={item.id}
-                isCheckable={selectedItems.length > 0}
-                checked={selectedItems.includes(item.id)}
-                onCheck={this.onCheck}
-                image={item}
-              />
-            )) : [],
-            ...showLinks ? links.map(item => isCompact ? (
-              <LinkCardCompact
-                key={item.id}
-                uid={item.id}
-                isCheckable={selectedItems.length > 0}
-                checked={selectedItems.includes(item.id)}
-                onCheck={this.onCheck}
-                image={item}
-              />
-            ) : (
-            <LinkCard
-              key={item.id}
-              uid={item.id}
-              isCheckable={selectedItems.length > 0}
-              checked={selectedItems.includes(item.id)}
-              onCheck={this.onCheck}
-              image={item}
-            />
-          )) : [],
-            ...showProjects ? projects.map(item => isCompact ? (
-              <ProjectCardCompact
-                key={item.id}
-                uid={item.id}
-                isCheckable={selectedItems.length > 0}
-                checked={selectedItems.includes(item.id)}
-                onCheck={this.onCheck}
-                project={item}
-              />
-            ) : (
-              <ProjectCard
-                key={item.id}
-                uid={item.id}
-                isCheckable={selectedItems.length > 0}
-                checked={selectedItems.includes(item.id)}
-                onCheck={this.onCheck}
-                project={item}
-              />
-            )) : [],
-            ...showVolumes ? volumes.map(item => isCompact ? (
-              <VolumeCardCompact
-                simple={true}
-                key={item.id}
-                uid={item.id}
-                isCheckable={selectedItems.length > 0}
-                checked={selectedItems.includes(item.id)}
-                onCheck={this.onCheck}
-                image={item}
-              />
-            ) : (
-              <VolumeCard
-                simple={true}
-                key={item.id}
-                uid={item.id}
-                isCheckable={selectedItems.length > 0}
-                checked={selectedItems.includes(item.id)}
-                onCheck={this.onCheck}
-                image={item}
-              />
-            )) : [],
+            ...(displayAssets.includes("Instances")
+              ? instances.map(
+                  item =>
+                    isCompact ? (
+                      <InstanceCardCompact
+                        simple={true}
+                        key={item.id}
+                        uid={item.id}
+                        isCheckable={selectedItems.length > 0}
+                        checked={selectedItems.includes(item.id)}
+                        onCheck={this.onCheck}
+                        image={item}
+                      />
+                    ) : (
+                      <InstanceCard
+                        simple={true}
+                        key={item.id}
+                        uid={item.id}
+                        isCheckable={selectedItems.length > 0}
+                        checked={selectedItems.includes(item.id)}
+                        onCheck={this.onCheck}
+                        image={item}
+                      />
+                    )
+                )
+              : []),
+            ...(displayAssets.includes("Links")
+              ? links.map(
+                  item =>
+                    isCompact ? (
+                      <LinkCardCompact
+                        key={item.id}
+                        uid={item.id}
+                        isCheckable={selectedItems.length > 0}
+                        checked={selectedItems.includes(item.id)}
+                        onCheck={this.onCheck}
+                        image={item}
+                      />
+                    ) : (
+                      <LinkCard
+                        key={item.id}
+                        uid={item.id}
+                        isCheckable={selectedItems.length > 0}
+                        checked={selectedItems.includes(item.id)}
+                        onCheck={this.onCheck}
+                        image={item}
+                      />
+                    )
+                )
+              : []),
+            ...(displayAssets.includes("Projects")
+              ? projects.map(
+                  item =>
+                    isCompact ? (
+                      <ProjectCardCompact
+                        key={item.id}
+                        uid={item.id}
+                        isCheckable={selectedItems.length > 0}
+                        checked={selectedItems.includes(item.id)}
+                        onCheck={this.onCheck}
+                        project={item}
+                      />
+                    ) : (
+                      <ProjectCard
+                        key={item.id}
+                        uid={item.id}
+                        isCheckable={selectedItems.length > 0}
+                        checked={selectedItems.includes(item.id)}
+                        onCheck={this.onCheck}
+                        project={item}
+                      />
+                    )
+                )
+              : []),
+            ...(displayAssets.includes("Volumes")
+              ? volumes.map(
+                  item =>
+                    isCompact ? (
+                      <VolumeCardCompact
+                        simple={true}
+                        key={item.id}
+                        uid={item.id}
+                        isCheckable={selectedItems.length > 0}
+                        checked={selectedItems.includes(item.id)}
+                        onCheck={this.onCheck}
+                        image={item}
+                      />
+                    ) : (
+                      <VolumeCard
+                        simple={true}
+                        key={item.id}
+                        uid={item.id}
+                        isCheckable={selectedItems.length > 0}
+                        checked={selectedItems.includes(item.id)}
+                        onCheck={this.onCheck}
+                        image={item}
+                      />
+                    )
+                )
+              : [])
           ].map(item => item)}
         </MediaCardGroup>
       </section>
