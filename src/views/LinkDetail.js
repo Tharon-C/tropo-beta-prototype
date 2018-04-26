@@ -18,14 +18,14 @@ import {
   ActionGroup,
   ListCardDetail
 } from "../cyverse-ui";
-import { InstanceIdentity } from "../components/instances/InstanceCard";
-import InstanceInfo from "../components/instances/InstanceInfo";
-import InstanceActions from "../containers/InstanceActions";
+import { LinkIdentity } from "../components/links/LinkCard";
+import LinkInfo from "../components/links/LinkInfo";
+import LinkActions from "../containers/LinkActions";
 
-class InstanceDetail extends Component {
+class LinkDetail extends Component {
   render() {
-    const { instance, back, isMobile } = this.props;
-    console.log(instance);
+    const { link, back, isMobile } = this.props;
+    console.log(link);
     return (
       <React.Fragment>
         <div
@@ -43,7 +43,7 @@ class InstanceDetail extends Component {
         >
           <SubHeader
             style={{ width: "100%" }}
-            name="Instance Detail"
+            name="Link Detail"
             onBack={back}
           />
         </div>
@@ -54,17 +54,17 @@ class InstanceDetail extends Component {
           <ListCard style={{ marginBottom: "4px" }}>
             <ListCardHeader>
               <ListCardIdentity>
-                <InstanceIdentity instance={instance} />
+                <LinkIdentity link={link} />
               </ListCardIdentity>
               <ActionGroup>
-                <InstanceActions instance={instance}/>
+                <LinkActions link={link}/>
               </ActionGroup>
             </ListCardHeader>
             <ListCardDetail>
-              <InstanceInfo
+              <LinkInfo
                 isMobile={isMobile}
                 detailView={true}
-                instance={instance}
+                link={link}
               />
             </ListCardDetail>
           </ListCard>
@@ -77,7 +77,7 @@ class InstanceDetail extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      back: () => push(`${process.env.PUBLIC_URL}/instances`),
+      back: () => push(`${process.env.PUBLIC_URL}/all-assets`),
       onTabClick: view => push(view)
     },
     dispatch
@@ -86,11 +86,11 @@ const mapStateToProps = (state, { match }) => {
   const location = state.routing.location.pathname.split("/").reverse();
   const view = match.isExact ? "info" : location[0];
   return {
-    instance: get.byId(match.params.id)(state.instanceList.data),
+    link: get.byId(match.params.id)(state.linkList.data),
     view,
     location,
     isMobile: isMobile(state)
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InstanceDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(LinkDetail);

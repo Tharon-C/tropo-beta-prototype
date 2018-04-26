@@ -56,7 +56,7 @@ class VolumeList extends Component {
                 isCheckable={selectedItems.length > 0}
                 checked={selectedItems.includes(volume.id)}
                 onCheck={this.onCheck}
-                image={volume}
+                volume={volume}
               />
             ) : (
               <VolumeCardCompact
@@ -65,7 +65,7 @@ class VolumeList extends Component {
                 isCheckable={selectedItems.length > 0}
                 checked={selectedItems.includes(volume.id)}
                 onCheck={this.onCheck}
-                image={volume}
+                volume={volume}
               />
             );
           })}

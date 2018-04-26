@@ -27,7 +27,7 @@ import {
   ShowMoreEllipsis
 } from "../../cyverse-ui/";
 
-const ImageIdentity = ({ image, isSelected }) => (
+export const ImageIdentity = ({ image, isSelected }) => (
   <Identity
     image={
       isSelected ? (
@@ -65,7 +65,7 @@ const ImageSummary = ({ image, ...rest }) => {
   );
 };
 
-const ImageDetailTabs = ({ image, onTabClick, ...rest }) => (
+export const ImageDetailTabs = ({ image, onTabClick, ...rest }) => (
   <Element {...rest}>
     <Tabs
       style={{

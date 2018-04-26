@@ -19,7 +19,7 @@ const styles = theme => ({
         paddingRight: "36px"
     }
 })
-const VolumeInfo = ({image, classes}) => (
+const VolumeInfo = ({volume, classes}) => (
     <Element className={classes.details}>
         <Element whitespace="mb4">
             <Element typography="body2" whitespace="mb4">
@@ -69,11 +69,11 @@ const VolumeInfo = ({image, classes}) => (
         <Element typography="label" whitespace="mb1">
             Notes
         </Element>
-        <P whitespace="mb4">{image.description}</P>
+        <P whitespace="mb4">{volume.description}</P>
         <Element typography="label" whitespace="mb1">
             Tags
         </Element>
-        {image.tags.map(({ id }) => {
+        {volume.tags.map(({ id }) => {
           return <Tag label={get.byId(id)(tags).name} />;
         })} 
     </Element>

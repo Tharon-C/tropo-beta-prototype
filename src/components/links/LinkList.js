@@ -52,7 +52,7 @@ class LinkList extends Component {
                 isCheckable={selectedItems.length > 0}
                 checked={selectedItems.includes(image.id)}
                 onCheck={this.onCheck}
-                image={image}
+                link={image}
               />
             ) : (
               <LinkCard
@@ -61,7 +61,7 @@ class LinkList extends Component {
                 isCheckable={selectedItems.length > 0}
                 checked={selectedItems.includes(image.id)}
                 onCheck={this.onCheck}
-                image={image}
+                link={image}
               />
             );
           })}

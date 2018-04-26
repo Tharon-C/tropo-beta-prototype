@@ -36,7 +36,7 @@ import { resetProject } from "../../actions/projectActions";
 export const InstanceIdentity = ({ instance, ...rest }) => (
   <AssetIdentity
     {...rest}
-    percentage={instance.progress}
+    percent={instance.progress}
     icon={<InstanceIcon />}
     primaryText={instance.name}
     secondaryText="Created May 8, 2017"
@@ -111,11 +111,9 @@ export const InstanceListHeader = withTheme(
               <Element typography="label">Status</Element>
             </Element>
             <Element className={classes.cell}>
-              {" "}
               <Element typography="label">Size</Element>
             </Element>
             <Element className={classes.cell}>
-              {" "}
               <Element typography="label">IP Address</Element>
             </Element>
           </Element>

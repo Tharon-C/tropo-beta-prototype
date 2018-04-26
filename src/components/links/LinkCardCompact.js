@@ -32,11 +32,11 @@ import {
   ShowMoreEllipsis
 } from "../../cyverse-ui/";
 
-const ProjectIdentity = ({ image, ...rest }) => (
+const ProjectIdentity = ({ link, ...rest }) => (
   <AssetIdentity
     {...rest}
     icon={<LinkIcon />}
-    primaryText={image.name}
+    primaryText={link.name}
     secondaryText="Created May 8, 2017"
   />
 );
@@ -77,9 +77,9 @@ const summaryStyles = theme => ({
 });
 
 const ProjectSummary = withTheme(
-  injectSheet(summaryStyles)(({ image, classes, ...rest }) => (
+  injectSheet(summaryStyles)(({ link, classes, ...rest }) => (
     <Element {...rest } className={classes.wraper}>
-      <SummaryText>{image.description}</SummaryText>
+      <SummaryText>{link.description}</SummaryText>
     </Element>
   ))
 );
@@ -114,7 +114,7 @@ class ProjectCard extends Component {
       onExpand,
       checked,
       isExpanded,
-      image,
+      link,
       project,
       ...rest
     } = this.props;
@@ -130,7 +130,7 @@ class ProjectCard extends Component {
           <ListCardIdentity>
             <ProjectIdentity
               isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
-              image={image}
+              link={link}
               onCheck={this.onCheck}
               checked={checked}
             />
@@ -138,15 +138,15 @@ class ProjectCard extends Component {
           <LinkActions
             hide={isCheckable}
             isCompact={true}
-            link={image}
+            link={link}
             project={project}
             hideQuickActions={true}
-            isHoveredimage={image}
+            isHoveredimage={link}
           />
         </ListCardHeader>
-        <ProjectSummary whitespace="ms3" hide={isExpanded} image={image} />
+        <ProjectSummary whitespace="ms3" hide={isExpanded} link={link} />
         <ListCardDetail hide={!isExpanded}>
-          <LinkInfo image={image} view={this.state.view} />
+          <LinkInfo link={link} view={this.state.view} />
         </ListCardDetail>
       </ListCard>
     );

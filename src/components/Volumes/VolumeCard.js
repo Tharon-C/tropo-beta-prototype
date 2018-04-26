@@ -23,11 +23,11 @@ import {
   Element
 } from "../../cyverse-ui/";
 
-const VolumeIdentity = ({ image, ...rest }) => (
+export const VolumeIdentity = ({ volume, ...rest }) => (
   <AssetIdentity
     {...rest}
     icon={<VolumeIcon />}
-    primaryText={image.name}
+    primaryText={volume.name}
     secondaryText="Created May 8, 2017"
   />
 );
@@ -64,9 +64,9 @@ const summaryStyles = theme => ({
 });
 
 const VolumeSummary = withTheme(
-  injectSheet(summaryStyles)(({ image, classes }) => {
+  injectSheet(summaryStyles)(({ volume, classes }) => {
     let statusColor;
-    switch (image.status) {
+    switch (volume.status) {
       case "Attached":
         statusColor = classes.statusActive;
         break;
@@ -80,7 +80,7 @@ const VolumeSummary = withTheme(
     return (
       <Element className={classes.wraper}>
         <Element className={`${classes.cell} ${classes.activity}`}>
-          <div className={statusLightClasses} /> {image.status}
+          <div className={statusLightClasses} /> {volume.status}
         </Element>
         <Element className={classes.cell}>60GB</Element>
         <Element className={classes.cell}>CYMAR</Element>
@@ -131,7 +131,7 @@ class VolumeCard extends Component {
       onExpand,
       checked,
       isExpanded,
-      image,
+      volume,
       ...rest
     } = this.props;
     const { isHovered } = this.state;
@@ -145,27 +145,27 @@ class VolumeCard extends Component {
           <ListCardIdentity>
             <VolumeIdentity
               isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
-              image={image}
+              volume={volume}
               onCheck={this.onCheck}
               checked={checked}
             />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
             {simple ? (
-              <SummaryText>{image.description}</SummaryText>
+              <SummaryText>{volume.description}</SummaryText>
             ) : (
-              <VolumeSummary image={image} />
+              <VolumeSummary volume={volume} />
             )}
           </ListCardSummary>
           <VolumeActions
             hide={isCheckable}
-            volume={image}
+            volume={volume}
             hideQuickActions={isExpanded ? false : !this.state.isHovered}
-            isHoveredimage={image}
+            isHoveredimage={volume}
           />
         </ListCardHeader>
         <ListCardDetail hide={!isExpanded}>
-          <VolumeInfo image={image} />
+          <VolumeInfo volume={volume} />
         </ListCardDetail>
       </ListCard>
     );

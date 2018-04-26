@@ -32,11 +32,11 @@ import {
   ShowMoreEllipsis
 } from "../../cyverse-ui/";
 
-const ProjectIdentity = ({ image, ...rest }) => (
+export const LinkIdentity = ({ link, ...rest }) => (
   <AssetIdentity
     {...rest}
     icon={<LinkIcon />}
-    primaryText={image.name}
+    primaryText={link.name}
     secondaryText="Created May 8, 2017"
   />
 );
@@ -77,9 +77,9 @@ const summaryStyles = theme => ({
 });
 
 const ProjectSummary = withTheme(
-  injectSheet(summaryStyles)(({ image, classes }) => (
+  injectSheet(summaryStyles)(({ link, classes }) => (
     <Element className={classes.wraper}>
-      <SummaryText>{image.description}</SummaryText>
+      <SummaryText>{link.description}</SummaryText>
     </Element>
   ))
 );
@@ -114,7 +114,7 @@ class ProjectCard extends Component {
       onExpand,
       checked,
       isExpanded,
-      image,
+      link,
       project,
       ...rest
     } = this.props;
@@ -127,26 +127,26 @@ class ProjectCard extends Component {
           onMouseLeave={this.onMouseLeave}
         >
           <ListCardIdentity>
-            <ProjectIdentity
+            <LinkIdentity
               isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
-              image={image}
+              link={link}
               onCheck={this.onCheck}
               checked={checked}
             />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
-            <ProjectSummary image={image} />
+            <ProjectSummary link={link} />
           </ListCardSummary>
           <LinkActions
             hide={isCheckable}
-            link={image}
+            link={link}
             project={project}
             hideQuickActions={isExpanded ? false : !this.state.isHovered}
-            isHoveredimage={image}
+            isHoveredimage={link}
           />
         </ListCardHeader>
         <ListCardDetail hide={!isExpanded}>
-          <LinkInfo image={image} view={this.state.view} />
+          <LinkInfo link={link} view={this.state.view} />
         </ListCardDetail>
       </ListCard>
     );

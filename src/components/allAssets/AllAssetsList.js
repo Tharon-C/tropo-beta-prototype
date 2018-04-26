@@ -135,7 +135,7 @@ class AllAssetsList extends Component {
                         isCheckable={selectedItems.length > 0}
                         checked={selectedItems.includes(volume.id)}
                         onCheck={this.onCheck}
-                        image={volume}
+                        volume={volume}
                       />
                     ) : (
                       <VolumeCard
@@ -144,7 +144,7 @@ class AllAssetsList extends Component {
                         isCheckable={selectedItems.length > 0}
                         checked={selectedItems.includes(volume.id)}
                         onCheck={this.onCheck}
-                        image={volume}
+                        volume={volume}
                       />
                     );
                   })

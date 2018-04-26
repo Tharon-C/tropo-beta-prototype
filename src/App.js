@@ -14,6 +14,9 @@ import Notifications from "./views/Notifications";
 import AllAssets from "./views/AllAssets";
 import ProjectDetail from "./views/ProjectDetail";
 import InstanceDetail from "./views/InstanceDetail"
+import VolumeDetail from "./views/VolumeDetail";
+import LinkDetail from "./views/LinkDetail";
+import ImageDetail from "./views/ImageDetail";
 import dashboard from "material-ui/svg-icons/action/dashboard";
 import viewAgenda from "material-ui/svg-icons/action/view-agenda";
 import { bindActionCreators } from "../../../Library/Caches/typescript/2.7/node_modules/redux";
@@ -84,6 +87,18 @@ class App extends Component {
             <Route
               path={`${process.env.PUBLIC_URL}/instances/:id`}
               component={InstanceDetail}
+            />
+            <Route
+              path={`${process.env.PUBLIC_URL}/volumes/:id`}
+              component={VolumeDetail}
+            />
+            <Route
+              path={`${process.env.PUBLIC_URL}/links/:id`}
+              component={LinkDetail}
+            />
+            <Route
+              path={`${process.env.PUBLIC_URL}/image-catalog/:id`}
+              component={ImageDetail}
             />
           </main>
         </div>

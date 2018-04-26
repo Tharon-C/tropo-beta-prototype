@@ -18,14 +18,14 @@ import {
   ActionGroup,
   ListCardDetail
 } from "../cyverse-ui";
-import { InstanceIdentity } from "../components/instances/InstanceCard";
-import InstanceInfo from "../components/instances/InstanceInfo";
-import InstanceActions from "../containers/InstanceActions";
+import { VolumeIdentity } from "../components/Volumes/VolumeCard";
+import VolumeInfo from "../components/Volumes/VolumeInfo";
+import VolumeActions from "../containers/VolumeActions";
 
-class InstanceDetail extends Component {
+class VolumeDetail extends Component {
   render() {
-    const { instance, back, isMobile } = this.props;
-    console.log(instance);
+    const { volume, back, isMobile } = this.props;
+    console.log(volume);
     return (
       <React.Fragment>
         <div
@@ -43,7 +43,7 @@ class InstanceDetail extends Component {
         >
           <SubHeader
             style={{ width: "100%" }}
-            name="Instance Detail"
+            name="Volume Detail"
             onBack={back}
           />
         </div>
@@ -54,17 +54,17 @@ class InstanceDetail extends Component {
           <ListCard style={{ marginBottom: "4px" }}>
             <ListCardHeader>
               <ListCardIdentity>
-                <InstanceIdentity instance={instance} />
+                <VolumeIdentity volume={volume} />
               </ListCardIdentity>
               <ActionGroup>
-                <InstanceActions instance={instance}/>
+                <VolumeActions volume={volume}/>
               </ActionGroup>
             </ListCardHeader>
             <ListCardDetail>
-              <InstanceInfo
+              <VolumeInfo
                 isMobile={isMobile}
                 detailView={true}
-                instance={instance}
+                volume={volume}
               />
             </ListCardDetail>
           </ListCard>
@@ -77,7 +77,7 @@ class InstanceDetail extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      back: () => push(`${process.env.PUBLIC_URL}/instances`),
+      back: () => push(`${process.env.PUBLIC_URL}/volumes`),
       onTabClick: view => push(view)
     },
     dispatch
@@ -86,11 +86,11 @@ const mapStateToProps = (state, { match }) => {
   const location = state.routing.location.pathname.split("/").reverse();
   const view = match.isExact ? "info" : location[0];
   return {
-    instance: get.byId(match.params.id)(state.instanceList.data),
+    volume: get.byId(match.params.id)(state.volumeList.data),
     view,
     location,
     isMobile: isMobile(state)
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InstanceDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(VolumeDetail);

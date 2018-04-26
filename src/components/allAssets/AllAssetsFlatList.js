@@ -95,7 +95,7 @@ class AllAssetsList extends Component {
                         isCheckable={selectedItems.length > 0}
                         checked={selectedItems.includes(item.id)}
                         onCheck={this.onCheck}
-                        image={item}
+                        link={item}
                       />
                     ) : (
                       <LinkCard
@@ -104,7 +104,7 @@ class AllAssetsList extends Component {
                         isCheckable={selectedItems.length > 0}
                         checked={selectedItems.includes(item.id)}
                         onCheck={this.onCheck}
-                        image={item}
+                        link={item}
                       />
                     )
                 )
@@ -144,7 +144,7 @@ class AllAssetsList extends Component {
                         isCheckable={selectedItems.length > 0}
                         checked={selectedItems.includes(item.id)}
                         onCheck={this.onCheck}
-                        image={item}
+                        volume={item}
                       />
                     ) : (
                       <VolumeCard
@@ -154,7 +154,7 @@ class AllAssetsList extends Component {
                         isCheckable={selectedItems.length > 0}
                         checked={selectedItems.includes(item.id)}
                         onCheck={this.onCheck}
-                        image={item}
+                        volume={item}
                       />
                     )
                 )

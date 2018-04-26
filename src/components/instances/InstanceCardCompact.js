@@ -33,12 +33,12 @@ import {
 } from "../../cyverse-ui/";
 import { resetProject } from "../../actions/projectActions";
 
-const InstanceIdentity = ({ image, onClick,...rest }) => (
+const InstanceIdentity = ({ instance, onClick,...rest }) => (
   <AssetIdentity
     {...rest}
-    percent={image.progress}
+    percent={instance.progress}
     icon={<InstanceIcon />}
-    primaryText={image.name}
+    primaryText={instance.name}
     secondaryText="Created May 8, 2017"
   />
 );
@@ -75,9 +75,9 @@ const summaryStyles = theme => ({
 });
 
 const InstanceSummary = withTheme(
-  injectSheet(summaryStyles)(({ image, classes }) => {
+  injectSheet(summaryStyles)(({ instance, classes }) => {
     let statusColor;
-    switch (image.activity) {
+    switch (instance.activity) {
       case "Active":
         statusColor = classes.statusActive;
         break;
@@ -91,7 +91,7 @@ const InstanceSummary = withTheme(
     return (
       <Element className={classes.wraper}>
         <Element className={`${classes.cell} ${classes.activity}`}>
-          <div className={statusLightClasses} /> {image.activity}
+          <div className={statusLightClasses} /> {instance.activity}
         </Element>
         <Element className={classes.cell}>Large1</Element>
         <Element className={classes.cell}>CYMAR</Element>
@@ -130,7 +130,7 @@ class ImageCard extends Component {
       onExpand,
       checked,
       isExpanded,
-      image,
+      instance,
       volumes,
       windowSize,
       ...rest
@@ -156,7 +156,7 @@ class ImageCard extends Component {
             ) : (
               <InstanceIdentity
                 isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
-                image={image}
+                instance={instance}
                 onCheck={this.onCheck}
                 checked={checked}
               />
@@ -165,19 +165,19 @@ class ImageCard extends Component {
           <InstanceActions
             hide={isCheckable}
             isCompact={true}
-            instance={image}
+            instance={instance}
             hideQuickActions={true}
-            isHoveredimage={image}
+            isHoveredimage={instance}
           />
         </ListCardHeader>
         <ListCardDetail hide={!isExpanded}>
-          <InstanceIdentity whitespace="mb4" image={image} />
-          <InstanceInfo image={image} />
+          <InstanceIdentity whitespace="mb4" instance={instance} />
+          <InstanceInfo instance={instance} />
         </ListCardDetail>
-        {!isExpanded && image.description ? (
-          <SummaryText whitespace="ms3">{image.description}</SummaryText>
+        {!isExpanded && instance.description ? (
+          <SummaryText whitespace="ms3">{instance.description}</SummaryText>
         ) : null}
-        {image.volumes.length !== 0 && !isExpanded ? (
+        {instance.volumes.length !== 0 && !isExpanded ? (
           <ListCardHeader whitespace={["pv1", "ms3"]} style={{ minHeight: "32px" }}>
             <Element
               style={{
@@ -188,7 +188,7 @@ class ImageCard extends Component {
                 padding: "4px"
               }}
             >
-              <InstanceVolumes instance={image} />
+              <InstanceVolumes instance={instance} />
             </Element>
           </ListCardHeader>
         ) : null}

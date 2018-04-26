@@ -24,11 +24,11 @@ import {
 } from "../../cyverse-ui/";
 import { Checkbox } from "material-ui";
 
-const VolumeIdentity = ({ image, ...rest }) => (
+const VolumeIdentity = ({ volume, ...rest }) => (
   <AssetIdentity
     {...rest}
     icon={<VolumeIcon />}
-    primaryText={image.name}
+    primaryText={volume.name}
     secondaryText="Created May 8, 2017"
   />
 );
@@ -51,7 +51,7 @@ class VolumeCard extends Component {
       onExpand,
       checked,
       isExpanded,
-      image,
+      volume,
       ...rest
     } = this.props;
     const { isHovered } = this.state;
@@ -67,7 +67,7 @@ class VolumeCard extends Component {
               <VolumeIdentity
                 hide={isExpanded}
                 isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
-                image={image}
+                volume={volume}
                 onCheck={this.onCheck}
                 checked={checked}
               />
@@ -78,19 +78,19 @@ class VolumeCard extends Component {
           <VolumeActions
             hide={isCheckable}
             isCompact={true}
-            volume={image}
+            volume={volume}
             hideQuickActions={true}
-            isHoveredimage={image}
+            isHoveredimage={volume}
           />
         </ListCardHeader>
-        {image.description && !isExpanded ? (
+        {volume.description && !isExpanded ? (
           <SummaryText whitespace={["ms7", "pb1"]}>
-            {image.description}
+            {volume.description}
           </SummaryText>
         ) : null}
         <ListCardDetail hide={!isExpanded}>
-          <VolumeIdentity whitespace="mb3" image={image} />
-          <VolumeInfo image={image} />
+          <VolumeIdentity whitespace="mb3" volume={volume} />
+          <VolumeInfo volume={volume} />
         </ListCardDetail>
       </ListCard>
     );

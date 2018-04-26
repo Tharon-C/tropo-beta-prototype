@@ -18,14 +18,18 @@ import {
   ActionGroup,
   ListCardDetail
 } from "../cyverse-ui";
-import { InstanceIdentity } from "../components/instances/InstanceCard";
-import InstanceInfo from "../components/instances/InstanceInfo";
-import InstanceActions from "../containers/InstanceActions";
+import { ImageIdentity, ImageDetailTabs } from "../components/images/ImageCard";
+import ImageInfo from "../components/images/ImageInfo";
+import ImageActions from "../containers/ImageActions";
 
-class InstanceDetail extends Component {
+class ImageDetail extends Component {
+  state = { view: "info" }
+  onTabClick = tab => {
+    this.setState({ view: tab.props["data-route"] });
+  };
   render() {
-    const { instance, back, isMobile } = this.props;
-    console.log(instance);
+    const { image, back, isMobile } = this.props;
+    console.log(image);
     return (
       <React.Fragment>
         <div
@@ -43,7 +47,7 @@ class InstanceDetail extends Component {
         >
           <SubHeader
             style={{ width: "100%" }}
-            name="Instance Detail"
+            name="Image Detail"
             onBack={back}
           />
         </div>
@@ -54,18 +58,18 @@ class InstanceDetail extends Component {
           <ListCard style={{ marginBottom: "4px" }}>
             <ListCardHeader>
               <ListCardIdentity>
-                <InstanceIdentity instance={instance} />
+                <ImageIdentity image={image} />
               </ListCardIdentity>
               <ActionGroup>
-                <InstanceActions instance={instance}/>
+                <ImageActions image={image}/>
               </ActionGroup>
             </ListCardHeader>
+            <ImageDetailTabs onTabClick={this.onTabClick} />
             <ListCardDetail>
-              <InstanceInfo
-                isMobile={isMobile}
-                detailView={true}
-                instance={instance}
-              />
+            <ImageInfo
+            view={this.state.view}
+            image={image}
+          />
             </ListCardDetail>
           </ListCard>
         </Element>
@@ -77,20 +81,18 @@ class InstanceDetail extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      back: () => push(`${process.env.PUBLIC_URL}/instances`),
+      back: () => push(`${process.env.PUBLIC_URL}/image-catalog`),
       onTabClick: view => push(view)
     },
     dispatch
   );
 const mapStateToProps = (state, { match }) => {
   const location = state.routing.location.pathname.split("/").reverse();
-  const view = match.isExact ? "info" : location[0];
   return {
-    instance: get.byId(match.params.id)(state.instanceList.data),
-    view,
+    image: get.byId(match.params.id)(state.imageList.data),
     location,
     isMobile: isMobile(state)
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InstanceDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(ImageDetail);
