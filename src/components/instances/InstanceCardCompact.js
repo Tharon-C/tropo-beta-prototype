@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { push } from "react-router-redux";
 import randomcolor from "randomcolor";
 import injectSheet, { withTheme } from "react-jss";
 import { Avatar, Checkbox } from "material-ui";
@@ -33,7 +35,7 @@ import {
 } from "../../cyverse-ui/";
 import { resetProject } from "../../actions/projectActions";
 
-const InstanceIdentity = ({ instance, onClick,...rest }) => (
+const InstanceIdentity = ({ instance, ...rest }) => (
   <AssetIdentity
     {...rest}
     percent={instance.progress}
@@ -133,6 +135,7 @@ class ImageCard extends Component {
       instance,
       volumes,
       windowSize,
+      goToDetail,
       ...rest
     } = this.props;
     const { isHovered } = this.state;
@@ -143,24 +146,20 @@ class ImageCard extends Component {
         isCompact = true;
     }
     return (
-      <ListCard isExpanded={isExpanded} {...rest}>
+      <ListCard>
         <ListCardHeader
-          style={{minHeight: "48px"}}
-          onClick={onExpand}
+          style={{ minHeight: "48px" }}
+          onClick={() => goToDetail(instance.id)}
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
         >
           <ListCardIdentity>
-            {isExpanded ? (
-              <Checkbox />
-            ) : (
-              <InstanceIdentity
-                isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
-                instance={instance}
-                onCheck={this.onCheck}
-                checked={checked}
-              />
-            )}
+            <InstanceIdentity
+              isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
+              instance={instance}
+              onCheck={this.onCheck}
+              checked={checked}
+            />
           </ListCardIdentity>
           <InstanceActions
             hide={isCheckable}
@@ -170,15 +169,14 @@ class ImageCard extends Component {
             isHoveredimage={instance}
           />
         </ListCardHeader>
-        <ListCardDetail hide={!isExpanded}>
-          <InstanceIdentity whitespace="mb4" instance={instance} />
-          <InstanceInfo instance={instance} />
-        </ListCardDetail>
         {!isExpanded && instance.description ? (
           <SummaryText whitespace="ms3">{instance.description}</SummaryText>
         ) : null}
         {instance.volumes.length !== 0 && !isExpanded ? (
-          <ListCardHeader whitespace={["pv1", "ms3"]} style={{ minHeight: "32px" }}>
+          <ListCardHeader
+            whitespace={["pv1", "ms3"]}
+            style={{ minHeight: "32px" }}
+          >
             <Element
               style={{
                 overflow: "hidden",
@@ -196,8 +194,17 @@ class ImageCard extends Component {
     );
   }
 }
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      goToDetail: instanceId =>
+        push(`${process.env.PUBLIC_URL}/instances/${instanceId}`)
+    },
+    dispatch
+  );
+
 const mapStateToProps = state => ({
   volumes: state.volumeList.data,
   windowSize: state.browser.mediaType
 });
-export default connect(mapStateToProps, null)(ImageCard);
+export default connect(mapStateToProps, mapDispatchToProps)(ImageCard);

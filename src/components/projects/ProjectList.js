@@ -9,10 +9,8 @@ class ProjectList extends Component {
   state = {
     batchMode: false,
     selectedItems: [],
-    selected: null
   };
   onCheck = (e, state, item) => {
-    const { selectable } = this.props;
     // We can set or use any prop we want for this check
     const curr = item.props.uid;
     const list = this.state.selectedItems;

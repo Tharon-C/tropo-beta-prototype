@@ -174,7 +174,6 @@ class ImageCard extends Component {
               instance={instance}
               onCheck={this.onCheck}
               checked={checked}
-              compact={isCompact}
             />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>

@@ -87,8 +87,6 @@ class ProjectCard extends Component {
         >
           <ListCardIdentity>
             <ProjectIdentity
-              compact={true}
-              hide={isExpanded}
               isCheckable={isExpanded ? true : isCheckable ? true : isHovered}
               project={project}
               onCheck={this.onCheck}

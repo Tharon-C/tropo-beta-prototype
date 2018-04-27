@@ -23,7 +23,7 @@ import ImageInfo from "../components/images/ImageInfo";
 import ImageActions from "../containers/ImageActions";
 
 class ImageDetail extends Component {
-  state = { view: "info" }
+  state = { view: "info" };
   onTabClick = tab => {
     this.setState({ view: tab.props["data-route"] });
   };
@@ -61,15 +61,12 @@ class ImageDetail extends Component {
                 <ImageIdentity image={image} />
               </ListCardIdentity>
               <ActionGroup>
-                <ImageActions image={image}/>
+                <ImageActions image={image} />
               </ActionGroup>
             </ListCardHeader>
             <ImageDetailTabs onTabClick={this.onTabClick} />
             <ListCardDetail>
-            <ImageInfo
-            view={this.state.view}
-            image={image}
-          />
+              <ImageInfo view={this.state.view} image={image} />
             </ListCardDetail>
           </ListCard>
         </Element>

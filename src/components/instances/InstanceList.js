@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import InstanceCard, { InstanceListHeader } from "./InstanceCard";
-import InstanceCardCompact, {InstanceListHeaderCompact} from "./InstanceCardCompact";
+import InstanceCardCompact, {
+  InstanceListHeaderCompact
+} from "./InstanceCardCompact";
 
 class InstanceList extends Component {
   state = {
@@ -30,7 +32,7 @@ class InstanceList extends Component {
       range,
       isSticky,
       FAB,
-      isMobile,
+      isMobile
     } = this.props;
 
     const { selectedItems } = this.state;
@@ -45,21 +47,24 @@ class InstanceList extends Component {
             batchMode={batchMode}
             onBatchClick={(e, isChecked) => {
               this.setState({
-                selectedItems: isChecked ? instances.map(instance => instance.id) : []
+                selectedItems: isChecked
+                  ? instances.map(instance => instance.id)
+                  : []
               });
             }}
           />
-        ): null}
+        ) : null}
         <MediaCardGroup>
           {instances.filter(filter).map((instance, i) => {
             return isMobile ? (
               <InstanceCardCompact
+                uid={instance.id}
                 key={instance.id}
                 isCheckable={selectedItems.length > 0}
                 checked={selectedItems.includes(instance.id)}
                 onCheck={this.onCheck}
                 instance={instance}
-                onDelete={deleteInstance} 
+                onDelete={deleteInstance}
               />
             ) : (
               <InstanceCard
@@ -82,7 +87,7 @@ class InstanceList extends Component {
 
 function mapStateToProps(store) {
   return {
-    instances: store.instanceList.data,
+    instances: store.instanceList.data
   };
 }
 

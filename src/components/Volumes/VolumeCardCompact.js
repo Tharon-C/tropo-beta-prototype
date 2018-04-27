@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect} from "react-redux";
+import {bindActionCreators} from 'redux';
+import {push} from "react-router-redux";
 import randomcolor from "randomcolor";
 import injectSheet, { withTheme } from "react-jss";
 import classnames from "classnames";
@@ -52,14 +55,15 @@ class VolumeCard extends Component {
       checked,
       isExpanded,
       volume,
+      goToDetail,
       ...rest
     } = this.props;
     const { isHovered } = this.state;
     return (
-      <ListCard isExpanded={isExpanded} {...rest}>
+      <ListCard {...rest}>
         <ListCardHeader
           style={{ minHeight: "48px" }}
-          onClick={onExpand}
+          onClick={() => goToDetail(volume.id)}
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
         >
@@ -76,7 +80,6 @@ class VolumeCard extends Component {
               : null}
           </ListCardIdentity>
           <VolumeActions
-            hide={isCheckable}
             isCompact={true}
             volume={volume}
             hideQuickActions={true}
@@ -88,13 +91,17 @@ class VolumeCard extends Component {
             {volume.description}
           </SummaryText>
         ) : null}
-        <ListCardDetail hide={!isExpanded}>
-          <VolumeIdentity whitespace="mb3" volume={volume} />
-          <VolumeInfo volume={volume} />
-        </ListCardDetail>
       </ListCard>
     );
   }
 }
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      goToDetail: volumeId =>
+        push(`${process.env.PUBLIC_URL}/volumes/${volumeId}`)
+    },
+    dispatch
+  );
 
-export default VolumeCard;
+export default connect(null, mapDispatchToProps)(VolumeCard);

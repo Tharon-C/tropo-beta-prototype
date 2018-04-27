@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import {connect} from "react-redux";
+import { bindActionCreators} from "redux";
+import { push } from "react-router-redux";
 import randomcolor from "randomcolor";
 import { Avatar } from "material-ui";
 import get from "../../utils/get";
@@ -106,6 +109,7 @@ class ImageCard extends Component {
       project,
       isSticky,
       isCompact,
+      goToDetail,
       ...rest
     } = this.props;
     return (
@@ -124,7 +128,7 @@ class ImageCard extends Component {
           }
         >
           <ListCardHeader
-            onClick={this.onCardClick}
+            onClick={isCompact ? () => goToDetail(image.id) : this.onCardClick}
             onMouseEnter={this.onMouseEnter}
             onMouseLeave={this.onMouseLeave}
           >
@@ -158,5 +162,12 @@ class ImageCard extends Component {
     );
   }
 }
-
-export default ImageCard;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      goToDetail: imageId =>
+        push(`${process.env.PUBLIC_URL}/image-catalog/${imageId}`)
+    },
+    dispatch
+  );
+export default connect(null, mapDispatchToProps)(ImageCard);

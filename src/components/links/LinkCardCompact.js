@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import {connect} from "react-redux";
+import { bindActionCreators } from "redux";
+import { push } from "react-router-redux";
 import randomcolor from "randomcolor";
 import injectSheet, { withTheme } from "react-jss";
 import { Avatar, Checkbox } from "material-ui";
@@ -94,7 +97,7 @@ export const ProjectListHeader = withTheme(
   ))
 );
 
-class ProjectCard extends Component {
+class LinkCard extends Component {
   state = { isHovered: false, view: "info" };
   onMouseEnter = () => {
     this.setState({ isHovered: true });
@@ -116,14 +119,15 @@ class ProjectCard extends Component {
       isExpanded,
       link,
       project,
+      goToDetail,
       ...rest
     } = this.props;
     const { isHovered } = this.state;
     return (
-      <ListCard isExpanded={isExpanded} {...rest}>
+      <ListCard {...rest}>
         <ListCardHeader
           style={{ minHeight: "48px"}}
-          onClick={onExpand}
+          onClick={() => goToDetail(link.id)}
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
         >
@@ -152,5 +156,12 @@ class ProjectCard extends Component {
     );
   }
 }
-
-export default ProjectCard;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      goToDetail: linkId =>
+        push(`${process.env.PUBLIC_URL}/links/${linkId}`)
+    },
+    dispatch
+  );
+export default connect( null, mapDispatchToProps)(LinkCard);
