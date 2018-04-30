@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {isMobile} from "../../selectors/browser";
+import { isMobile } from "../../selectors/browser";
 import { FlatButton } from "material-ui";
 import { MediaCardGroup, Element } from "../../cyverse-ui/";
 import ImageCard from "./ImageCard";
+import ImageCardCompact from "./ImageCardCompact";
 
 class ImageList extends Component {
   state = { page: 1 };
@@ -27,17 +28,26 @@ class ImageList extends Component {
       project,
       isCompact,
       isSticky,
-      isMobile,
+      isMobile
     } = this.props;
     const currentList = images.filter(filter).slice(0, 20 * this.state.page);
     return (
       <section style={{ maxWidth: "1000px", margin: "auto" }}>
         <MediaCardGroup>
           {currentList.map((image, i) => {
-            return (
+            return isCompact || isMobile ? (
+              <ImageCardCompact
+                isSticky={isSticky}
+                isSelected={image.id === selected}
+                onCardClick={onImageClick}
+                selectMode={selectMode}
+                key={image.id}
+                image={image}
+                project={project}
+              />
+            ) : (
               <ImageCard
                 isSticky={isSticky}
-                isCompact={ isCompact || isMobile}
                 isSelected={image.id === selected}
                 onCardClick={onImageClick}
                 selectMode={selectMode}
