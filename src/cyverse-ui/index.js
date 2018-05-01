@@ -30,3 +30,4 @@ export { default as SummaryText } from './SummaryText';
 export { default as Element } from './Element';
 export { default as Paper} from './Paper';
 export { default as BarGraph } from './BarGraph';
+export { default as CopyButton } from './CopyButton';

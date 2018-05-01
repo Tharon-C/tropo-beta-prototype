@@ -14,6 +14,7 @@ import { Tabs, Tab } from "material-ui";
 import { LaunchIcon } from "cyverse-ui/es/icons";
 import ImageActions from "../../containers/ImageActions";
 import ImageInfo from "./ImageInfo";
+import ImageSummary from "./ImageSummary";
 import Tag from "./../Tag";
 import tags from "../../TAG_DATA.json";
 
@@ -50,22 +51,6 @@ export const ImageIdentity = ({ image, isSelected }) => (
     secondaryText="Updated May 8, 2017"
   />
 );
-
-const ImageSummary = ({ image, ...rest }) => {
-  return (
-    <Element {...rest} style={{ padding: "4px 16px" }}>
-      <SummaryText>{image.summary}</SummaryText>
-      <div style={{ paddingTop: "8px" }}>
-        {image.tags.slice(0, 6).map(({ id }) => {
-          return <Tag label={get.byId(id)(tags).name} />;
-        })}
-        {image.tags.length > 6 ? (
-          <ShowMoreEllipsis style={{ display: "inlineBlock" }} />
-        ) : null}
-      </div>
-    </Element>
-  );
-};
 
 class ImageCard extends Component {
   render() {

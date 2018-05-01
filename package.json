@@ -12,6 +12,7 @@
     "gh-pages": "^1.1.0",
     "history": "^4.7.2",
     "material-ui": "0.20.0",
+    "moment": "^2.22.1",
     "ramda": "^0.25.0",
     "randomcolor": "^0.5.3",
     "react": "^16.2.0",

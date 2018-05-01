@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import randomcolor from "randomcolor";
+import moment from "moment";
 import injectSheet from "react-jss";
 import { Avatar } from "material-ui";
 import get from "../../utils/get";
@@ -10,7 +11,7 @@ import FavoritedBorderIcon from "material-ui/svg-icons/action/favorite-border";
 import { Tabs, Tab } from "material-ui";
 import { LaunchIcon } from "cyverse-ui/es/icons";
 import ImageActions from "../../containers/ImageActions";
-import ImageInfo from "./ImageInfo";
+import VersionInfo from "./VersionInfo";
 import Tag from "./../Tag";
 import tags from "../../TAG_DATA.json";
 
@@ -27,21 +28,23 @@ import {
   ShowMoreEllipsis
 } from "../../cyverse-ui/";
 
-const ImageIdentity = ({ image }) => (
+const ImageIdentity = ({ image, version, i }) => {
+  const versionNumber = i + 1;
+  return(
   <Identity
     image={
       <Avatar
-        children={"V1"}
+        children={"V" + versionNumber}
         backgroundColor={randomcolor({
           seed: image.name
         })}
         color="rgba(255,255,255,.7)"
       />
     }
-    primaryText={"Version 1"}
-    secondaryText="Updated May 8, 2017"
+    primaryText={"Version " + versionNumber}
+    secondaryText={"Created " + moment(version.created).format('MMMM D, YY')}
   />
-);
+)};
 
 const summaryStyles = {
   providerWrapper: {
@@ -52,10 +55,10 @@ const summaryStyles = {
   }
 };
 
-const ImageSummary = injectSheet(summaryStyles)(({ image, classes }) => {
+const ImageSummary = injectSheet(summaryStyles)(({ version, image, classes }) => {
   return (
     <Element whitespace="pv1">
-      <SummaryText whitespace="mb1">{image.summary}</SummaryText>
+      <SummaryText whitespace="mb1">{version.summary}</SummaryText>
       <Element
         className={classes.providerWrapper}
         style={{ display: "flex" }}
@@ -78,20 +81,6 @@ const ImageSummary = injectSheet(summaryStyles)(({ image, classes }) => {
   );
 });
 
-const ImageDetailTabs = ({ image, ...rest }) => (
-  <Element {...rest}>
-    <Tabs
-      style={{
-        width: "100%",
-        maxWidth: "400px"
-      }}
-    >
-      <Tab label="Info" />
-      <Tab label="Versions" />
-    </Tabs>
-  </Element>
-);
-
 class ImageCard extends Component {
   state = { isHovered: false };
   onMouseEnter = () => {
@@ -101,7 +90,7 @@ class ImageCard extends Component {
     this.setState({ isHovered: false });
   };
   render() {
-    const { onExpand, isExpanded, image, selectMode, ...rest } = this.props;
+    const { onExpand, isExpanded, image, version, selectMode, i, ...rest } = this.props;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
@@ -110,19 +99,16 @@ class ImageCard extends Component {
           onMouseLeave={this.onMouseLeave}
         >
           <ListCardIdentity>
-            <ImageIdentity image={image} />
+            <ImageIdentity image={image} version={version} i={i}/>
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
-            <ImageSummary image={image} />
+            <ImageSummary version={version} />
           </ListCardSummary>
-          {!selectMode ? (
-            <ImageActions
-              hideQuickActions={isExpanded ? false : !this.state.isHovered}
-              isHoveredimage={image}
-            />
-          ) : null}
+         
         </ListCardHeader>
-        <ListCardDetail hide={!isExpanded}>Comming soon :)</ListCardDetail>
+        <ListCardDetail hide={!isExpanded}>
+          <VersionInfo version={version} image={image} />
+        </ListCardDetail>
       </ListCard>
     );
   }
