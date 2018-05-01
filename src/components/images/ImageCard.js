@@ -53,7 +53,7 @@ export const ImageIdentity = ({ image, isSelected }) => {
         )
       }
       primaryText={image.name}
-      secondaryText={"Updated " + moment(updated).format('MMMM D, YY')}
+      secondaryText={<React.Fragment>{`${moment(updated).format('MMMM D, YY')} by `}<a style={{color: "rgb(0, 108, 169)"}}>{image.author}</a></React.Fragment> }
     />
   );
 };

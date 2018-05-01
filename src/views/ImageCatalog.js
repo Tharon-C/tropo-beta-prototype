@@ -15,7 +15,7 @@ class ImageCatalog extends Component {
       case "All":
         return () => true;
       case "Featured":
-        return item => item.tags.filter(tag => tag.id === 2).length > 0;
+        return item => item.tags ? item.tags.filter(tag => tag.id === 2).length > 0 : false;
       case "Favorites":
         return item => item.favorited;
       case "Your Images":

@@ -30,56 +30,57 @@ import {
 
 const ImageIdentity = ({ image, version, i }) => {
   const versionNumber = i + 1;
-  return(
-  <Identity
-    image={
-      <Avatar
-        children={"V" + versionNumber}
-        backgroundColor={randomcolor({
-          seed: image.name
-        })}
-        color="rgba(255,255,255,.7)"
-      />
-    }
-    primaryText={"Version " + versionNumber}
-    secondaryText={"Created " + moment(version.created).format('MMMM D, YY')}
-  />
-)};
+  return (
+    <Identity
+      image={
+        <Avatar
+          children={"V" + versionNumber}
+          backgroundColor={randomcolor({
+            seed: image.name
+          })}
+          color="rgba(255,255,255,.7)"
+        />
+      }
+      primaryText={"Version " + versionNumber}
+      secondaryText={"Created " + moment(version.created).format("MMMM D, YY")}
+    />
+  );
+};
 
 const summaryStyles = {
   providerWrapper: {
     display: "flex"
   },
-  provider: {
+  providerLabel: {
     width: "100px"
+  },
+  provider: {
+    width: "75px"
   }
 };
 
-const ImageSummary = injectSheet(summaryStyles)(({ version, image, classes }) => {
-  return (
-    <Element whitespace="pv1">
-      <SummaryText whitespace="mb1">{version.summary}</SummaryText>
-      <Element
-        className={classes.providerWrapper}
-        style={{ display: "flex" }}
-        typography="caption"
-      >
-        <Element className={classes.provider} typography="label">
-          Providers:
-        </Element>
-        <Element className={classes.provider} typography="body2">
-          CYMAR,
-        </Element>
-        <Element className={classes.provider} typography="body2">
-          CYWRK,
-        </Element>
-        <Element className={classes.provider} typography="body2">
-          IPWRK
+const ImageSummary = injectSheet(summaryStyles)(
+  ({ version, image, classes }) => {
+    return (
+      <Element whitespace="pv1">
+        <SummaryText whitespace="mb1">{version.summary}</SummaryText>
+        <Element
+          className={classes.providerWrapper}
+          style={{ display: "flex" }}
+        >
+          <Element className={classes.providerLabel} typography="label">
+            Providers:
+          </Element>
+          {version.providers.map(provider => (
+            <Element className={classes.provider} typography="body1">
+              {provider.code}
+            </Element>
+          ))}
         </Element>
       </Element>
-    </Element>
-  );
-});
+    );
+  }
+);
 
 class ImageCard extends Component {
   state = { isHovered: false };
@@ -90,7 +91,15 @@ class ImageCard extends Component {
     this.setState({ isHovered: false });
   };
   render() {
-    const { onExpand, isExpanded, image, version, selectMode, i, ...rest } = this.props;
+    const {
+      onExpand,
+      isExpanded,
+      image,
+      version,
+      selectMode,
+      i,
+      ...rest
+    } = this.props;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
@@ -99,12 +108,11 @@ class ImageCard extends Component {
           onMouseLeave={this.onMouseLeave}
         >
           <ListCardIdentity>
-            <ImageIdentity image={image} version={version} i={i}/>
+            <ImageIdentity image={image} version={version} i={i} />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
             <ImageSummary version={version} />
           </ListCardSummary>
-         
         </ListCardHeader>
         <ListCardDetail hide={!isExpanded}>
           <VersionInfo version={version} image={image} />

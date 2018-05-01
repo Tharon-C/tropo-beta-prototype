@@ -19,16 +19,17 @@ class P extends React.Component {
      */
     static displayName = "P";
     render() {
-        const { classes, className } = this.props;
+        const { classes, className, rest, whitespace="mb3" } = this.props;
         const wrapperClasses = classnames(
             { [className]: className },
             "CY-P",
-            classes.wrapper
+            classes.wrapper,
         );
         return (
             <Element
+                {...rest}
                 root="p"
-                whitespace="mb3"
+                whitespace={whitespace}
                 className={wrapperClasses}
             >
                 {this.props.children}
