@@ -34,7 +34,7 @@ const AttachFromInstanceDialog = ({
       hideForm();
       resetAttachFromInstance();
     }}
-    title="Add Image Project"
+    title="Attach Volume"
     actions={[
       <FlatButton
         label="Cancel"

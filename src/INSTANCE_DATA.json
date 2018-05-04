@@ -1,11 +1,11 @@
 [
   {
-    "id": "24c4844c",
+    "id": "7319cec7-b538-351d-9dbf-a0b1a9a56a2bc",
     "size": "1",
     "name": "Alphazap",
     "created": "Septemeber 16th",
     "activity": "Active",
-    "provider": "1",
+    "provider": {"id": "b3ba84e1-8979-4974-bfee-ace660ab9dd11", "name": "Cyverse Cloud - Marana", "code": "CYCM"},
     "project": "1",
     "volumes": ["2d8ffh39"],
     "description":

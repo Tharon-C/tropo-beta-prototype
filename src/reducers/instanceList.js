@@ -20,10 +20,7 @@ export default function list(state = initState, action) {
       return R.merge(state, {
         data: state.data.map(instance =>
           R.merge(instance, {
-            volumes: R.reject(
-              R.equals(action.volumeId),
-              instance["volumes"]
-            )
+            volumes: R.reject(R.equals(action.volumeId), instance["volumes"])
           })
         )
       });
@@ -58,6 +55,17 @@ export default function list(state = initState, action) {
     case "DELETE_INSTANCE":
       return R.merge(action.list, {
         data: R.reject(R.propEq("id", action.instance), state.data)
+      });
+    case "REMOVE_TAG_FROM_INSTANCE":
+      return R.merge(state, {
+        data: state.data.map(instance => {
+          if (instance.id === action.instanceId) {
+            return R.merge(instance, {
+              tags: R.reject(R.propEq("id", action.tagId), instance["tags"])
+            });
+          }
+          return instance;
+        })
       });
 
     default:

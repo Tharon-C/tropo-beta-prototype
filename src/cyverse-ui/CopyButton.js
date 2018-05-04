@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Element from "./Element";
+import FlatButtonCompact from "./FlatButtonCompact";
 
 
 /*
@@ -116,8 +118,8 @@ export default class extends Component {
 
     render() {
         const { feedbackState } = this.state;
+        const { ...rest } = this.props;
         const style = this.style();
-
         const feedbackStyle = () => {
             switch (feedbackState) {
                 case "WAIT":
@@ -132,9 +134,11 @@ export default class extends Component {
         if (!this.state.canCopy) return <span/>;
 
         return (
-            <div
+            <Element
+                { ...rest}
+                stopPropagation
                 style={ style.button }
-                onClick = { this.onClick }
+               
             >
                 <div
                     style={{
@@ -144,8 +148,8 @@ export default class extends Component {
                 >
                     Copied!
                 </div>
-                Copy
-            </div>
+                <FlatButtonCompact  onClick = { this.onClick } primary label="Copy"/>
+            </Element>
         )
     }
 
@@ -154,9 +158,10 @@ export default class extends Component {
         const button = {
             position: "relative",
             display: "inline-block",
-            fontSize: "11px",
+            fontSize: "12px",
             cursor: "pointer",
             color: "#0971ab",
+            fontWeight: "600",
             marginLeft: "10px",
         };
 

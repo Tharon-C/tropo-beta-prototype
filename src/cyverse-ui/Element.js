@@ -11,7 +11,11 @@ const getColor = (palette, background) =>
     palette[background] || background;
 const styles = theme => ({
     reset: {
-        margin: 0
+        margin: 0,
+        boxSizing: "border-box",
+        "&:focus": {
+            outline: "none",
+        },
     },
     ...R.mergeAll(R.toPairs(theme.palette).map( color => (
         { ["background_" + color[0]]: { background: color[1] } } 

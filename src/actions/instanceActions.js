@@ -8,13 +8,13 @@ export const deleteInstance = instance => ({
 
 export const createInstance = (instance, project) => ({
   type: "CREATE_INSTANCE",
-  instance,
+  instance
 });
 
 export const toggleInstanceForm = (image, project) => ({
   type: "TOGGLE_INSTANCE_FORM",
   image,
-  project,
+  project
 });
 
 export const setStep = step => ({
@@ -25,26 +25,35 @@ export const setStep = step => ({
 export const changeProperty = field => value => ({
   type: "CHANGE_INSTANCE_PROPERY",
   change: {
-    [field]: value,
+    [field]: value
   }
-})
-export const resetInstance = () =>({
+});
+export const resetInstance = () => ({
   type: "RESET_INSTANCE"
-})
+});
 
-export const toggleAttachFromInstance = (instanceId) => ({
+export const toggleAttachFromInstance = instanceId => ({
   type: "TOGGLE_ATTACH_FROM_INSTANCE",
-  instanceId,
-})
+  instanceId
+});
+
 export const submitAttachFromInstance = (volumeId, instanceId) => ({
   type: "SUBMIT_ATTACH_FROM_INSTANCE",
   volumeId,
   instanceId
-})
+});
+
 export const changeVolume = volumeId => ({
   type: "CHANGE_INSTANCE_VOLUME",
   volumeId
-})
-export const resetAttachFromInstance = () =>({
-  type: "RESET_ATTACH_FROM_INSTANCE",
+});
+
+export const resetAttachFromInstance = () => ({
+  type: "RESET_ATTACH_FROM_INSTANCE"
+});
+
+export const removeTagFromInstance = (instanceId, tagId) => ({
+  type: "REMOVE_TAG_FROM_INSTANCE",
+  instanceId,
+  tagId
 })

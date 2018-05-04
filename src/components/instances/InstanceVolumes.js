@@ -8,10 +8,10 @@ import {
 import { VolumeIcon } from "../../cyverse-ui/icons";
 import {VolumeMenu} from "../../containers/VolumeActions";
 
-const InstanceVolumes = ({ instance, volumes }) => (
+const InstanceVolumes = ({ instance:{ volumes }, volumes: volumeList  }) => (
   <React.Fragment>
     
-        {instance.volumes.map(volume => (
+        {volumes.length > 0 ? volumes.map(volume => (
           <Element
             elevation={2}
             whitespace="pl2"
@@ -26,15 +26,15 @@ const InstanceVolumes = ({ instance, volumes }) => (
             }}
           >
             <VolumeIcon size="24px" style={{ marginRight: "16px" }} />{" "}
-            <SummaryText>{get.byId(volume)(volumes).name}</SummaryText>
+            <SummaryText>{get.byId(volume)(volumeList).name}</SummaryText>
             <VolumeMenu volume={volume}/>
           </Element>
-        ))}
+        )): "Attach Volumes"}
 
   </React.Fragment>
 );
 const mapStateToProps = state => ({
-  volumes: state.volumeList.data
+  volumes: state.volumeList.data,
 });
 
 export default connect(mapStateToProps, null)(InstanceVolumes);
