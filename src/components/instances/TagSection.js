@@ -16,7 +16,20 @@ import { Element } from "../../cyverse-ui";
 import AddTagForm from "../AddTagForm";
 
 import Tag from "../Tag";
-const styles = {};
+const styles = {
+  tagList: {
+    display: "flex",
+    alignItems: "center",
+    flexWrap: "wrap",
+    width: "100%",
+    marginLeft: "-4px"
+  },
+  addButtonWrapper: {
+    display: "flex",
+    alignItems: "center",
+    height: "28px"
+  }
+};
 
 class TagSection extends Component {
   state = {
@@ -61,14 +74,7 @@ class TagSection extends Component {
             onClose={() => this.setState({ manageTags: false })}
           />
         ) : (
-          <Element
-            style={{
-              display: "flex",
-              alignItems: "center",
-              width: "100%",
-              marginLeft: "-4px"
-            }}
-          >
+          <Element className={classes.tagList}>
             {tags.length > 0 ? (
               tags.map(({ id: tagId }) => {
                 return (
@@ -81,12 +87,14 @@ class TagSection extends Component {
             ) : (
               <div style={{ marginLeft: "8px" }}>Add Tags</div>
             )}
-            <IconButton tooltip="Add Tag">
-              <PlusIcon
-                onClick={this.onManageTags}
-                color={theme.palette.primary1Color}
-              />
-            </IconButton>
+            <div className={classes.addButtonWrapper}>
+              <IconButton tooltip="Add Tag">
+                <PlusIcon
+                  onClick={this.onManageTags}
+                  color={theme.palette.primary1Color}
+                />
+              </IconButton>
+            </div>
           </Element>
         )}
       </React.Fragment>
