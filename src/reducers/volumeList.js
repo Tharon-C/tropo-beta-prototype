@@ -13,14 +13,14 @@ export default function list(state = initState, action) {
       return R.merge(state, {
         data: editListItem("id", action.volumeId, {
           instance: action.instanceId,
-          status: "Attached",
+          status: "attached",
         })(state.data)
       });
     case "SUBMIT_DETACH_FROM_INSTANCE":
       return R.merge(state, {
         data: editListItem("id", action.volumeId, {
           instance: "",
-          status: "Detached"
+          status: "detached"
         })(state.data)
       });
     case "CONFIRM_MOVE_TO_PROJECT":

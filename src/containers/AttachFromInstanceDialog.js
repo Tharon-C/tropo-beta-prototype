@@ -89,7 +89,7 @@ const mapStateToProps = ({
   showForm,
   instanceId: data.instanceId,
   volumeId: data.volumeId,
-  volumes: volumes.filter(volume => volume.status === "Detached")
+  volumes: volumes.filter(volume => volume.status === "detached")
 });
 export default connect(mapStateToProps, mapDispatchToProps)(
   AttachFromInstanceDialog

@@ -4,7 +4,7 @@
     "size": 1,
     "name": "The Vault",
     "created": "Septemeber 16th",
-    "status": "Attached",
+    "status": "attached",
     "provider": 1,
     "project": 1,
     "instance":  "24c4844c",

@@ -43,7 +43,8 @@ const summaryStyles = theme => ({
   },
   activity: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    textTransform: "capitalize"
   },
   statusLight: {
     height: "12px",
@@ -67,10 +68,10 @@ const VolumeSummary = withTheme(
   injectSheet(summaryStyles)(({ volume, classes }) => {
     let statusColor;
     switch (volume.status) {
-      case "Attached":
+      case "attached":
         statusColor = classes.statusActive;
         break;
-      case "Error":
+      case "error":
         statusColor = classes.statusError;
         break;
       default:
