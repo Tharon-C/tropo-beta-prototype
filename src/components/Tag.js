@@ -15,7 +15,7 @@ const styles = theme => ({
   innerWrapper: {
     display: "flex",
     alignItems: "center",
-    height: "22px",
+    height: "22px"
   },
   label: {
     marginRight: "8px",
@@ -32,7 +32,7 @@ const styles = theme => ({
     marginRight: "4px",
     cursor: "pointer",
     "&:hover": {
-        background: "rgba(0,0,0,.4)",  
+      background: "rgba(0,0,0,.4)"
     }
   },
   removeIcon: {
@@ -47,9 +47,7 @@ const Tag = ({ classes, label, onRemove, ...rest }) => (
       <div className={classes.label}>{label}</div>
       {onRemove ? (
         <div className={classes.removeButton} onClick={onRemove}>
-          <RemoveIcon className={classes.removeIcon}
-            color="#DEDEDE"
-          />
+          <RemoveIcon className={classes.removeIcon} color="#DEDEDE" />
         </div>
       ) : null}
     </div>

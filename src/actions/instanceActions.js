@@ -57,3 +57,9 @@ export const removeTagFromInstance = (instanceId, tagId) => ({
   instanceId,
   tagId
 })
+
+export const setNewTagsOnInstance = (instanceId, newTagList) => ({
+  type: "SET_NEW_TAGS_ON_INSTANCE",
+  instanceId,
+  newTagList,
+})

@@ -159,7 +159,7 @@ const InstanceInfo = ({ removeTag, attachVolume, instance, classes, theme }) => 
       </Element>
       <P whitespace="mb4">{description}</P>
       <Element whitespace="mb4">
-      <TagSection instance={instance}/>
+      <TagSection  currentTags={tags} instance={instance}/>
       </Element>
       <Element typography="label" whitespace="mb1">
         Volumes

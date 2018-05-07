@@ -67,7 +67,17 @@ export default function list(state = initState, action) {
           return instance;
         })
       });
-
+      case "SET_NEW_TAGS_ON_INSTANCE":
+      return R.merge(state, {
+        data: state.data.map(instance => {
+          if (instance.id === action.instanceId) {
+            return R.merge(instance, {
+              tags: [...action.newTagList]
+            });
+          }
+          return instance;
+        })
+      });
     default:
       return state;
   }

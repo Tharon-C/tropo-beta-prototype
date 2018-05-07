@@ -9,6 +9,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "cyverse-ui": "2.0.0",
+    "downshift": "^1.31.14",
     "gh-pages": "^1.1.0",
     "history": "^4.7.2",
     "material-ui": "0.20.0",
