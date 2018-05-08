@@ -131,7 +131,7 @@ const mapStateToProps = ({
   stepIndex,
   project,
   newInstance,
-  selectedImage: get.byId(newInstance.image)(imageList.data)
+  selectedImage: newInstance.image
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(

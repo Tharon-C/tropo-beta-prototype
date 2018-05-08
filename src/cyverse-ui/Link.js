@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import injectSheet from "react-jss";
 import Element from "./Element";
 
@@ -8,8 +9,8 @@ const styles = theme => ({
     }
 })
 
-const Link = ({classes, ...rest}) => (
-    <Element {...rest} root="a" className={classes.wrapper}/>
+const CyLink = ({classes, ...rest}) => (
+    <Link {...rest} className={classes.wrapper}/>
 )
 
-export default injectSheet(styles)(Link)
+export default injectSheet(styles)(CyLink)

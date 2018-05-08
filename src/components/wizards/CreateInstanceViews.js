@@ -18,9 +18,18 @@ import ImageList from "../images/ImageList";
 
 class CreateInstanceViews extends Component {
   selectImage = image => {
-    const { changeImage, changeName } = this.props;
-    changeImage(image.id);
+    const {
+      changeImage,
+      changeName,
+      changeTags,
+      changeSummary,
+      changeDescription
+    } = this.props;
+    changeImage(image);
     changeName(image.name);
+    changeTags(image.tags);
+    changeDescription(image.description);
+    changeSummary(image.summary);
   };
   render() {
     const {
@@ -38,7 +47,7 @@ class CreateInstanceViews extends Component {
       changeImage,
       image,
       changeAllocationSource,
-      isMobile,
+      isMobile
     } = this.props;
     return (
       <React.Fragment>
@@ -53,8 +62,19 @@ class CreateInstanceViews extends Component {
             }}
             elevation={2}
           >
-            <Element whitespace="mb3" style={{ display: "flex", flexWrap: "wrap", marginRight: "-10px", marginLeft: "-10px" }}>
-              <Element whitespace={ ["mb3"]} style={{ flex:"1 0 300px", padding: "10px" }}>
+            <Element
+              whitespace="mb3"
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                marginRight: "-10px",
+                marginLeft: "-10px"
+              }}
+            >
+              <Element
+                whitespace={["mb3"]}
+                style={{ flex: "1 0 300px", padding: "10px" }}
+              >
                 <Element typography="body2">Basic Information</Element>
                 <TextField
                   value={name}
@@ -68,16 +88,13 @@ class CreateInstanceViews extends Component {
                   value={project ? project.id : "Select Project"}
                   onChange={(e, index, value) => changeProject(value)}
                 >
-                  <MenuItem
-                    primaryText="No Project"
-                    value=""
-                  />
+                  <MenuItem primaryText="No Project" value="" />
                   {projects.map(project => (
                     <MenuItem primaryText={project.name} value={project.id} />
                   ))}
                 </SelectField>
               </Element>
-              <Element style={{ flex:"1 0 300px", padding: "10px" }}>
+              <Element style={{ flex: "1 0 300px", padding: "10px" }}>
                 <Element typography="body2">Instance Resources</Element>
                 <SelectField
                   style={{ width: "100%" }}
@@ -166,7 +183,7 @@ class CreateInstanceViews extends Component {
           <ImageList
             onImageClick={this.selectImage}
             selectMode={true}
-            selected={image}
+            selected={image.id}
           />
         ) : null}
       </React.Fragment>
@@ -182,24 +199,30 @@ const mapDispatchToProps = dispatch =>
       changeProject: changeProperty("project"),
       changeSize: changeProperty("size"),
       changeAllocationSource: changeProperty("allocationSource"),
-      changeImage: changeProperty("image")
+      changeImage: changeProperty("image"),
+      changeTags: changeProperty("tags"),
+      changeDescription: changeProperty("description"),
+      changeSummary: changeProperty("summary"),
     },
     dispatch
   );
 const mapStateToProps = state => {
-  const {projectList,
-  createInstance: { stepIndex, data }} = state
+  const {
+    projectList,
+    createInstance: { stepIndex, data }
+  } = state;
   return {
-  stepIndex: stepIndex,
-  name: data.name,
-  project: get.byId(data.project)(projectList.data),
-  projects: projectList.data,
-  image: data.image,
-  provider: data.provider,
-  allocationSource: data.allocationSource,
-  size: data.size,
-  isMobile: isMobile(state),
-}};
+    stepIndex: stepIndex,
+    name: data.name,
+    project: get.byId(data.project)(projectList.data),
+    projects: projectList.data,
+    image: data.image,
+    provider: data.provider,
+    allocationSource: data.allocationSource,
+    size: data.size,
+    isMobile: isMobile(state)
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   CreateInstanceViews

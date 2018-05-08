@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { compose } from "ramda";
 import injectSheet, { withTheme } from "react-jss";
-import { toggleAttachFromInstance, removeTagFromInstance } from "../../actions/instanceActions";
+import {
+  toggleAttachFromInstance,
+  removeTagFromInstance
+} from "../../actions/instanceActions";
 import get from "../../utils/get";
 import {
   Element,
@@ -41,13 +44,19 @@ const styles = theme => ({
     }
   }
 });
-const InstanceInfo = ({ removeTag, attachVolume, instance, classes, theme }) => {
-  const {id, tags, activity, provider, description} = instance;
+const InstanceInfo = ({
+  removeTag,
+  attachVolume,
+  instance,
+  classes,
+  theme
+}) => {
+  const { id, tags, activity, provider, description, image} = instance;
   let statusColor;
   switch (activity) {
     case "Active":
       statusColor = "success";
-      break
+      break;
     case "Error":
       statusColor = "danger";
       break;
@@ -79,8 +88,8 @@ const InstanceInfo = ({ removeTag, attachVolume, instance, classes, theme }) => 
           >
             Based on
           </Element>
-          <Link href="./image-catalog" typography="body1">
-            Ubuntu 14.04 with Docker 17x
+          <Link to={`./image-catalog/${image.id}`} typography="body1">
+            {image.name}
           </Link>
         </div>
         <div className={classes.listItem}>
@@ -159,7 +168,7 @@ const InstanceInfo = ({ removeTag, attachVolume, instance, classes, theme }) => 
       </Element>
       <P whitespace="mb4">{description}</P>
       <Element whitespace="mb4">
-      <TagSection  currentTags={tags} instance={instance}/>
+        <TagSection currentTags={tags} instance={instance} />
       </Element>
       <Element typography="label" whitespace="mb1">
         Volumes
@@ -181,9 +190,17 @@ const InstanceInfo = ({ removeTag, attachVolume, instance, classes, theme }) => 
   );
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  attachVolume: toggleAttachFromInstance,
-  removeTag: removeTagFromInstance,
-}, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      attachVolume: toggleAttachFromInstance,
+      removeTag: removeTagFromInstance
+    },
+    dispatch
+  );
 
-export default compose(connect(null, mapDispatchToProps), withTheme, injectSheet(styles))(InstanceInfo);
+export default compose(
+  connect(null, mapDispatchToProps),
+  withTheme,
+  injectSheet(styles)
+)(InstanceInfo);
