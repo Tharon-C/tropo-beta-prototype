@@ -22,6 +22,7 @@ import MoveToProjectDialog from "./containers/MoveToProjectDialog";
 import AttachToInstanceDialog from "./containers/AttachToInstanceDialog";
 import DetachFromInstanceDialog from "./containers/DetachFromInstanceDialog";
 import AttachFromInstanceDiolog from "./containers/AttachFromInstanceDialog";
+import NotificationSnackbar from "./containers/NotificationSnackbar";
 injectTapEventPlugin();
 
 const appTheme = getMuiTheme(cyverseTheme);
@@ -41,6 +42,7 @@ ReactDOM.render(
             <AttachToInstanceDialog />
             <AttachFromInstanceDiolog />
             <DetachFromInstanceDialog />
+            <NotificationSnackbar />
           </div>
         </ThemeProvider>
       </MuiThemeProvider>

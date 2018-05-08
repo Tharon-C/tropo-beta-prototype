@@ -7,6 +7,7 @@ import volumeList from "./volumeList";
 import linkList from "./linkList";
 import tagList from "./tagList";
 import imageList from "./imageList";
+import notificationList from "./notificationList";
 import createInstance from "./createInstance";
 import createVolume from "./createVolume";
 import createLink from "./createLink";
@@ -27,6 +28,7 @@ export default combineReducers({
   volumeList,
   linkList,
   tagList,
+  notificationList,
   createInstance,
   createVolume,
   createLink,

@@ -1,12 +1,17 @@
 import React, { Component } from "react";
+import moment from "moment";
+import {connect} from "react-redux";
+import { get } from "../../utils";
 import randomcolor from "randomcolor";
-import injectSheet, { withTheme } from "react-jss";
 import { Avatar, Checkbox } from "material-ui";
-import get from "../../utils/get";
 import MenuItem from "material-ui/MenuItem";
 import WarningIcon from "material-ui/svg-icons/alert/warning";
 import { Tabs, Tab } from "material-ui";
-import { LaunchIcon, AttachInstanceIcon, DetachInstanceIcon } from "../../cyverse-ui/icons";
+import {
+  LaunchIcon,
+  AttachInstanceIcon,
+  DetachInstanceIcon
+} from "../../cyverse-ui/icons";
 //import InstanceActions from "../../containers/InstanceActions";
 import NotificationInfo from "./NotificationInfo";
 import Tag from "../Tag";
@@ -25,7 +30,8 @@ import {
   ShowMoreEllipsis
 } from "../../cyverse-ui/";
 
-const ImageIdentity = ({ notificationType, isError }) => {
+const NotificationIdentity = ({ notification }) => {
+  const isError = notification.status === "error" 
   const showWarning = isError ? (
     <WarningIcon
       style={{ position: "absolute", top: -14, left: -10, width: 15 }}
@@ -36,107 +42,53 @@ const ImageIdentity = ({ notificationType, isError }) => {
   let Icon;
   let primaryText;
 
-  switch (notificationType) {
-    case "launchInstance":
+  switch (notification.type) {
+    case "LAUNCH":
       primaryText = isError
         ? "Instance failed to launch!"
         : "Instance launched succesfully";
-      Icon = <LaunchIcon/>
-      break
-      case "attachVolume":
+      Icon = <LaunchIcon />;
+      break;
+    case "ATTACH_VOLUME":
       primaryText = isError
         ? "Volume failed to attach!"
         : "Volume attached succesfully";
-      Icon = <AttachInstanceIcon/>
-      break
-      case "detachVolume":
+      Icon = <AttachInstanceIcon />;
+      break;
+    case "DETACH_VOLUME":
       primaryText = isError
         ? "Volume failed to dettach!"
         : "Volume detached succesfully";
-      Icon = <DetachInstanceIcon/>
+      Icon = <DetachInstanceIcon />;
   }
 
   return (
     <div style={{ position: "relative" }}>
       {showWarning}
       <Identity
-        image={
-          <Avatar color="black" backgroundColor="none" icon={Icon} />
-        }
+        image={<Avatar color="black" backgroundColor="none" icon={Icon} />}
         primaryText={primaryText}
-        secondaryText="May 8, 2017 2:20pm"
+        secondaryText={moment(notification.created).format('MMMM DD YYYY, h:mm')}
       />
     </div>
   );
 };
 
-const summaryStyles = theme => ({
-  wraper: {
-    display: "flex",
-    padding: "8px 0px"
-  },
-  header: {
-    minHeight: "48px"
-  },
-  checkbox: {
-    marginLeft: "6px",
-    marginRight: "6px"
-  },
-  cell: {
-    width: "120px",
-    marginRight: "16px"
-  },
-  activity: {
-    display: "flex",
-    alignItems: "center"
-  },
-  statusLight: {
-    background: theme.palette.success,
-    height: "12px",
-    width: "12px",
-    borderRadius: "900px",
-    display: "inline-block",
-    marginRight: "8px"
+const mapStateToProps = state => ({
+  instances: state.instanceList.data
+})
+const NotificationSummary = connect(mapStateToProps, null)(({ notification, instances }) => {
+  switch (notification.type) {
+    case "LAUNCH":
+      return (
+        <SummaryText>{`The Instance "${
+          get.byId(notification.assets[0])(instances).name
+        }" Launched Succesfully`}</SummaryText>
+      );
   }
 });
 
-const ImageSummary = withTheme(
-  injectSheet(summaryStyles)(({ summaryMessage, classes }) => (
-    <SummaryText>{summaryMessage}</SummaryText>
-  ))
-);
-
-export const InstanceListHeader = withTheme(
-  injectSheet(summaryStyles)(({ image, classes }) => (
-    <ListCard whitespace="mb1">
-      <ListCardHeader className={classes.header}>
-        <ListCardIdentity>
-          <Element className={classes.checkbox}>
-            <Checkbox />
-          </Element>
-          <Element typography="label">Name</Element>
-        </ListCardIdentity>
-        <ListCardSummary>
-          <Element className={classes.wraper}>
-            <Element className={`${classes.cell} ${classes.activity}`}>
-              <Element typography="label">Status</Element>
-            </Element>
-            <Element className={classes.cell}>
-              {" "}
-              <Element typography="label">Size</Element>
-            </Element>
-            <Element className={classes.cell}>
-              {" "}
-              <Element typography="label">Provider</Element>
-            </Element>
-          </Element>
-        </ListCardSummary>
-      </ListCardHeader>
-    </ListCard>
-  ))
-);
-
-class ImageCard extends Component {
+class NotificationCard extends Component {
   state = { isHovered: false };
   onMouseEnter = () => {
     this.setState({ isHovered: true });
@@ -145,14 +97,7 @@ class ImageCard extends Component {
     this.setState({ isHovered: false });
   };
   render() {
-    const {
-      onExpand,
-      isExpanded,
-      summaryMessage,
-      notificationType,
-      isError,
-      ...rest
-    } = this.props;
+    const { onExpand, isExpanded, notification, ...rest } = this.props;
     return (
       <ListCard isExpanded={isExpanded} {...rest}>
         <ListCardHeader
@@ -161,13 +106,12 @@ class ImageCard extends Component {
           onMouseLeave={this.onMouseLeave}
         >
           <ListCardIdentity>
-            <ImageIdentity
-              isError={isError}
-              notificationType={notificationType}
+            <NotificationIdentity
+              notification={notification}
             />
           </ListCardIdentity>
           <ListCardSummary hide={isExpanded}>
-            <ImageSummary summaryMessage={summaryMessage} />
+            <NotificationSummary notification={notification} />
           </ListCardSummary>
         </ListCardHeader>
         <ListCardDetail hide={!isExpanded} />
@@ -176,4 +120,4 @@ class ImageCard extends Component {
   }
 }
 
-export default ImageCard;
+export default NotificationCard;
