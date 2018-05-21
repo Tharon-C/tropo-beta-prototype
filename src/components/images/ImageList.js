@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { isMobile } from "../../selectors/browser";
 import { FlatButton } from "material-ui";
-import { MediaCardGroup, Element } from "../../cyverse-ui/";
+import { MediaCardGroup, Element, InfoBlock, P } from "../../cyverse-ui/";
 import ImageCard from "./ImageCard";
 import ImageCardCompact from "./ImageCardCompact";
 
@@ -19,6 +19,7 @@ class ImageList extends Component {
   render() {
     const {
       filter = () => true,
+      view,
       images,
       loadMoreEnteries,
       range,
@@ -31,8 +32,23 @@ class ImageList extends Component {
       isMobile
     } = this.props;
     const currentList = images.filter(filter).slice(0, 20 * this.state.page);
+    const listMessage =
+      view === "Favorites"
+        ? `You have not favorited any Images. You can favorite images by clicking on the heart button on the right side of any Image`
+        : `You do not own any Images. You can request an Image be created from an Instance by selecting "Image Request" on the instance you would like to Image`;
+
+    console.log(listMessage);
     return (
       <section style={{ maxWidth: "1000px", margin: "auto" }}>
+        {currentList.length <= 0 ? (
+          <InfoBlock
+            text={
+              <Element style={{ maxWidth: "600px", lineHeight: "1.5" }} typography="subheading">
+                {listMessage}
+              </Element>
+            }
+          />
+        ) : null}
         <MediaCardGroup>
           {currentList.map((image, i) => {
             return isCompact || isMobile ? (

@@ -23,11 +23,11 @@ class ImageCatalog extends Component {
     }
   };
   changeView = (item) => {
-    console.log(item)
     this.setState( state =>  ({view: item.props.value}))
   }
   render() {
     const { isMobile } = this.props;
+    const { view } = this.state;
     return (
       <React.Fragment>
         <div
@@ -55,7 +55,7 @@ class ImageCatalog extends Component {
           </Tabs>
         </div>
         <Element whitespace={isMobile ? "ps2" : ["pv4", "ps13"]}>
-          <ImageList isSticky={true} filter={this.currentListFilter()} />
+          <ImageList isSticky={true} view={view} filter={this.currentListFilter()} />
         </Element>
         <CommentLink href="https://projects.invisionapp.com/share/BXGE8OWQZ62#/screens/285752976/comments" />
       </React.Fragment>

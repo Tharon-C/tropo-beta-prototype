@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { isMobile } from "../selectors/browser";
 import { get } from "../utils";
 import { zIndex } from "../styles/styles";
-
 import {
   Element,
   Hr,
@@ -29,7 +28,6 @@ class ImageDetail extends Component {
   };
   render() {
     const { image, back, isMobile } = this.props;
-    console.log(image);
     return (
       <React.Fragment>
         <div
